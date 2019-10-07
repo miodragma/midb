@@ -24,3 +24,72 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import url('https://fonts.googleapis.com/css?family=Anton|Kalam|Roboto');
+
+ion-title {
+  font-family: 'Anton', sans-serif;
+}
+
+ion-toolbar {
+  ion-button,
+  ion-back-button,
+  ion-menu-button,
+  .sc-ion-back-button-ios-h {
+    --color: var(--ion-color-primary-contrast);
+  }
+}
+
+ion-spinner {
+  width: 55px;
+  height: 55px;
+}
+
+.alert-wrapper.sc-ion-alert-md {
+  background: #333;
+  border-radius: 15px;
+}
+
+.alert-title.sc-ion-alert-md {
+  color: white;
+  text-align: center;
+}
+
+.alert-message.sc-ion-alert-md {
+  color: var(--ion-color-primary-contrast) !important;
+}
+
+.alert-radio-label.sc-ion-alert-md {
+  color: var(--ion-color-primary-contrast) !important;
+}
+
+.popover-content.sc-ion-popover-md {
+  width: 160px;
+  left: 190px !important;
+}
+
+.cancelButton {
+  color: #737373 !important;
+}
+
+.deleteButton {
+  color: #f04141 !important;
+}
+
+.alert-sub-title.sc-ion-alert-md {
+  text-align: center;
+  color: white;
+}
+
+.menuItemTextColor {
+  color: #ffffff;
+}
+
+.loading-wrapper.sc-ion-loading-md {
+  background: transparent !important;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.picker-wrapper.sc-ion-picker-md {
+  background-color: #ffffff !important;
+}
