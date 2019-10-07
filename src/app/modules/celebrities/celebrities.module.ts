@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { TabsRoutingModule } from './tabs-routing.module';
-import { TabsPage } from './pages/tabs/tabs.page';
+import { CelebritiesRoutingModule } from './celebrities-routing.module';
+import { CelebritiesPage } from './pages/celebrities/celebrities.page';
 
-const pages = [ TabsPage ];
+const pages = [ CelebritiesPage ];
 
 const views = [];
 
@@ -13,7 +13,7 @@ const services = [];
 const modules = [
   CommonModule,
   IonicModule,
-  TabsRoutingModule
+  CelebritiesRoutingModule
 ];
 
 @NgModule({
@@ -21,5 +21,5 @@ const modules = [
   declarations: [ ...pages, ...views ],
   providers: [ ...services ]
 })
-export class TabsModule {
+export class CelebritiesModule {
 }

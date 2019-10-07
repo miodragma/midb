@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'tabs', pathMatch: 'full' },
-  { path: 'tabs', loadChildren: () => import('./modules/tabs/tabs.module').then(m => m.TabsPageModule) },
+  { path: 'tabs', loadChildren: () => import('./modules/tabs/tabs.module').then(m => m.TabsModule) },
   // { path: 'details', loadChildren: './pages/details/details.module#DetailsPageModule' },
   // { path: 'watchlist', loadChildren: './pages/watchlist/watchlist.module#WatchlistPageModule' },
   // { path: 'tv-details', loadChildren: './pages/tv-details/tv-details.module#TvDetailsPageModule' },
