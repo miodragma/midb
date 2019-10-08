@@ -1,5 +1,7 @@
 {
   "name": "midb",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

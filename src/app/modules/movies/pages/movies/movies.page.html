@@ -8,7 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid class="ion-no-padding">
     <slides [slides]="slides$ | async"></slides>
+    <search (changeValue)="onSearch($event)"></search>
+    <data-list
+      [genres]="(movieGenres$ | async)?.genres"
+      [movies]="(movies$ | async)?.results"
+      (clicked)="onClickMovie($event)"></data-list>
   </ion-grid>
 </ion-content>
