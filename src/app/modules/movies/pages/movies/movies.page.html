@@ -1,1 +1,19 @@
-<h1 style="color: #989aa2">Movies work</h1>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Movies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <slides [slides]="slides$ | async"></slides>
+    <search (changeValue)="onSearch($event)"></search>
+    <data-list
+      [genres]="(movieGenres$ | async)?.genres"
+      [movies]="(movies$ | async)?.results"
+      (clicked)="onClickMovie($event)"></data-list>
+  </ion-grid>
+</ion-content>

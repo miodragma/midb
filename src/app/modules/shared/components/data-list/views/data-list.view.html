@@ -1,0 +1,24 @@
+<ion-list>
+  <ion-item *ngFor="let movie of movies" detail
+            (click)="clicked.emit(movie.id)">
+    <ion-thumbnail slot="start">
+      <img
+        [src]="movie.poster_path === null ?
+                  './assets/images/na.jpg' :
+                  'https://image.tmdb.org/t/p/w200'+ movie.poster_path"
+        [alt]="movie.poster_path">
+    </ion-thumbnail>
+    <ion-label class="ion-text-wrap">
+      <p class="movieListText">{{ movie.title }}</p>
+      <p class="movieReleaseDate">{{ movie.release_date | date }}</p>
+      <p class="movieReleaseDate">{{ movie.genre_ids | findGenres: genres }}</p>
+    </ion-label>
+  </ion-item>
+  <!--  <ion-button *ngIf="!isEndPages" color="primary" fill="clear" (click)="onMoreSearch()">More-->
+  <!--  </ion-button>-->
+  <!--  <ion-fab *ngIf="movies.length > 15" vertical="bottom" horizontal="end" slot="fixed">-->
+  <!--    <ion-fab-button (click)="onClickToScroll()">-->
+  <!--      <ion-icon name="arrow-round-up"></ion-icon>-->
+  <!--    </ion-fab-button>-->
+  <!--  </ion-fab>-->
+</ion-list>
