@@ -1,1 +1,14 @@
-<h1 style="color: #989aa2">Movies work</h1>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Movies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <slides [slides]="slides$ | async"></slides>
+  </ion-grid>
+</ion-content>
