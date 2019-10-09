@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { SearchView } from './view/search.view';
-import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { TypeView } from './view/type.view';
 
 const pages = [];
 
-const views = [ SearchView ];
+const views = [ TypeView ];
 
-const services = [ SpeechRecognition ];
+const services = [];
 
 const modules = [
   CommonModule,
@@ -21,5 +20,5 @@ const modules = [
   exports: [ ...views ],
   providers: [ ...services ]
 })
-export class SearchModule {
+export class TypeModule {
 }

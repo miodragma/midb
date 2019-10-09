@@ -6,6 +6,16 @@
   font-size: 12px;
 }
 
+.genresList {
+  --border-style: none;
+  --color: var(--ion-color-primary-contrast);
+  --min-height: 30px;
+}
+
+.dropdownGenreText {
+  color: var(--ion-color-step-600, #666);
+}
+
 ion-list {
   padding-top: 0;
 }
@@ -21,4 +31,9 @@ ion-item {
   --color: var(--ion-color-primary-contrast);
   --ripple-color: var(--ion-color-primary-contrast);
   --min-height: 108px;
+}
+
+ion-fab-button {
+  height: 46px;
+  width: 46px;
 }

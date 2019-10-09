@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { of } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'search',
@@ -16,10 +16,7 @@ export class SearchView {
 
   set value(value: string) {
     of(value)
-      .pipe(
-        filter(val => !!val.trim()),
-        tap(val => this.changeValue.emit(val))
-      ).subscribe();
+      .pipe(tap(val => this.changeValue.emit(val))).subscribe();
   }
 
   constructor(

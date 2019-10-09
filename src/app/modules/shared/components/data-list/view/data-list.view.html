@@ -1,0 +1,53 @@
+<ion-row>
+  <ion-col>
+    <ion-item class="genresList">
+      <ion-label class="dropdownGenreText">Genre</ion-label>
+      <ion-select class="dropdownGenreText"
+                  [interfaceOptions]="customAlertOptions"
+                  (ionChange)="changeGenre($event)"
+                  [selectedText]="selectedGenre">
+        <ion-select-option
+          [selected]="selectedGenre === 'All genres'"
+          [value]="{id: 12345, name: 'All genres'}">All genres
+        </ion-select-option>
+        <ion-select-option
+          *ngFor="let genre of genres" [value]="genre"
+          [selected]="genre.name === selectedGenre"
+        >{{ genre.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+  <ion-col
+    *ngIf="_movies && _movies?.results.length > 0"
+    class="ion-text-center"
+    size="12"
+    sizeSm="8"
+    offsetSm="2">
+    <ion-list>
+      <ion-item *ngFor="let movie of _movies?.results" detail
+                (click)="clicked.emit(movie.id)">
+        <ion-thumbnail slot="start">
+          <img
+            [src]="movie.poster_path === null ?
+                  './assets/images/na.jpg' :
+                  'https://image.tmdb.org/t/p/w200'+ movie.poster_path"
+            [alt]="movie.poster_path">
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <p class="movieListText">{{ movie.title }}</p>
+          <p class="movieReleaseDate">{{ movie.release_date | date }}</p>
+          <p class="movieReleaseDate">{{ movie.genre_ids | findGenres: genres }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-button *ngIf="!_movies?.page < _movies?.total_pages" color="primary" fill="clear"
+                  (click)="more.emit(_movies?.page)">More
+      </ion-button>
+      <ion-fab *ngIf="_movies?.results.length > 15" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="scroll.emit()">
+          <ion-icon name="arrow-round-up"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-list>
+  </ion-col>
+</ion-row>

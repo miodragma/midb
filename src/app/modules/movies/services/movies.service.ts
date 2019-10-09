@@ -34,4 +34,8 @@ export class MoviesService {
     return this._http.get<{ genres: Genre[] }>(`${this._url}/genre/movie/list?${this._apiKey}&language=en-US`);
   }
 
+  findAllMoviesByType(type: string = 'popular', page: number = 1): Observable<MovieResponse> {
+    return this._http.get<MovieResponse>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}`);
+  }
+
 }
