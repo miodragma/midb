@@ -94,6 +94,10 @@
       "ban-keywords",
       "check-format",
       "allow-leading-underscore"
+    ],
+    "no-unused-expression": [
+      true,
+      "allow-fast-null-checks"
     ]
   }
 }

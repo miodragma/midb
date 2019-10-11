@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { DataListView } from './views/data-list.view';
+import { DataListView } from './view/data-list.view';
 import { PipesModule } from '../../pipes/pipes.module';
 
 const pages = [];

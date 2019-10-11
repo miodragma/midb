@@ -7,6 +7,7 @@ import { SlidesView } from './views/slides/slides.view';
 import { MoviesService } from './services/movies.service';
 import { SearchModule } from '../shared/components/search/search.module';
 import { DataListModule } from '../shared/components/data-list/data-list.module';
+import { TypeModule } from '../shared/components/type/type.module';
 
 const pages = [ MoviesPage ];
 
@@ -19,7 +20,8 @@ const modules = [
   IonicModule,
   MoviesRoutingModule,
   SearchModule,
-  DataListModule
+  DataListModule,
+  TypeModule
 ];
 
 @NgModule({
