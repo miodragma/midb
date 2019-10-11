@@ -5,6 +5,7 @@ import { filter, tap } from 'rxjs/operators';
 import { MoviesService } from '../../services/movies.service';
 import { MovieResponse } from '../../../shared/interfaces/movie-response.interface';
 import { Genre } from '../../../shared/interfaces/genre.interface';
+import { LoaderService } from '../../../shared/services/loader.service';
 
 @Component({
   templateUrl: 'movies.page.html',
@@ -15,6 +16,7 @@ export class MoviesPage implements OnInit {
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
   private _value = '';
+  private _type = 'popular';
 
   set value(value: string) {
     of(value)
@@ -32,15 +34,17 @@ export class MoviesPage implements OnInit {
   slides$: Observable<{ url: string }[]>;
   movies$: Observable<MovieResponse>;
   movieGenres$: Observable<{ genres: Genre[] }>;
-  genresList$: Observable<{ id: number, name: string }[]>;
 
-  constructor(private _service: MoviesService) {
+  constructor(
+    private _service: MoviesService,
+    private _loaderService: LoaderService) {
   }
 
   ngOnInit() {
     this.slides$ = this._service.findAllSlides();
     this.movieGenres$ = this._service.findAllMovieGenres();
-    this.movies$ = this._service.findAllMoviesByType();
+    this._service.findAllMoviesByType().subscribe();
+    this.movies$ = this._service.findMoviesList;
   }
 
   onSearch(value: string) {
@@ -48,12 +52,14 @@ export class MoviesPage implements OnInit {
   }
 
   findMovies() {
-    this.movies$ = this._service.findAllMovies(this.value, 1);
+    this._type = '';
+    this._service.findAllMoviesByValue(this.value, 1).subscribe();
   }
 
   selectSegment(el) {
-    this.movies$ = this._service.findAllMoviesByType(el.target.value);
-    console.log(el.target.value);
+    this._loaderService.loaderStart();
+    this._type = el.target.value;
+    this._service.findAllMoviesByType(el.target.value).subscribe();
   }
 
   onClickMovie(id: number) {
@@ -66,7 +72,8 @@ export class MoviesPage implements OnInit {
 
   more(page: number) {
     const newPage = page + 1;
-    // this.movies$ = this._service.findAllMovies(this._value, newPage)
+    this._value && this._service.findMoreMoviesByValue(this._value, newPage).subscribe();
+    !this._value && this._service.findMoreMoviesByType(this._type, newPage).subscribe();
   }
 
 }
