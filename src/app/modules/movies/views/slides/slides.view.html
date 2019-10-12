@@ -1,8 +1,10 @@
 <ion-row>
   <ion-col class="ion-no-padding">
     <ion-slides [options]="slideOpts">
-      <ion-slide *ngFor="let slide of slides"
-                 [ngStyle]="{'background-image': 'url(' + slide.url + ')'}">
+      <ion-slide *ngFor="let slide of slides?.results">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w400'+ slide.backdrop_path" [alt]="slide.backdrop_path">
+        <p> {{ slide.title }} </p>
       </ion-slide>
     </ion-slides>
   </ion-col>

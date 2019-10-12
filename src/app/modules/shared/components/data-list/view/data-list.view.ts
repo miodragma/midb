@@ -24,7 +24,7 @@ export class DataListView {
         filter(movie => movie.page > 0 || !!movie.results.length),
         tap(data => {
           this._movies = data;
-          this._loaderService.loaderStop();
+          // this._loaderService.loaderStop();
         })
       ).subscribe();
   }

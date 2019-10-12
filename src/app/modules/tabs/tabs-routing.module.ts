@@ -5,6 +5,10 @@ import { TabsPage } from './pages/tabs/tabs.page';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'tab/movies'
+  },
+  {
+    path: 'tab',
     component: TabsPage,
     children: [
       {
