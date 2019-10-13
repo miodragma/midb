@@ -34,7 +34,7 @@ export class GenresService {
   findAllMovieGenres() {
     const years = [];
     const currYear = new Date().getFullYear();
-    for (let i = new Date().getFullYear(); i >= 1890; i--) {
+    for (let i = currYear; i >= 1890; i--) {
       years.push({ id: i, value: i, isChecked: false });
     }
     this._filterYearsList.next(years);
@@ -65,6 +65,13 @@ export class GenresService {
     const index = currYears.findIndex(years => year.id === years.id);
     currYears[index].isChecked = true;
     this._filterYearsList.next(currYears);
+  }
+
+  resetGenreAndYearFilter() {
+    const currFilterYearsList = this._filterYearsList.getValue();
+    const currFilterGenresList = this._filterMoviesGenresList.getValue();
+    this._filterYearsList.next(currFilterYearsList.map(year => ({ ...year, isChecked: false })));
+    this._filterMoviesGenresList.next(currFilterGenresList.map(genre => ({ ...genre, isChecked: false })));
   }
 
 }

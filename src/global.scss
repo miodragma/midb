@@ -30,6 +30,10 @@ ion-title {
   font-family: 'Anton', sans-serif;
 }
 
+ion-label {
+  font-family: 'Anton', sans-serif;
+}
+
 ion-toolbar {
   ion-button,
   ion-back-button,
@@ -73,6 +77,10 @@ ion-spinner {
 
 .deleteButton {
   color: #f04141 !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
 }
 
 .alert-sub-title.sc-ion-alert-md {

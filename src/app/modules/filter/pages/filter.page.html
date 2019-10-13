@@ -12,48 +12,135 @@
 <ion-content>
   <ion-grid class="ion-no-padding">
     <ion-row>
-      <ion-col class="ion-no-padding">
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              Filter By Genre
-            </mat-expansion-panel-header>
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="ion-no-padding">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Filter By Genre and Year</ion-card-title>
+          </ion-card-header>
 
-            <ion-list>
-              <ion-item *ngFor="let genre of genres$ | async">
-                <ion-label>{{genre.name}}</ion-label>
-                <ion-checkbox (ionChange)="checkGenre(genre)" [value]="genre.isChecked" slot="end"
-                              [(ngModel)]="genre.isChecked"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </mat-expansion-panel>
+          <ion-card-content>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  Filter By Genre
+                </mat-expansion-panel-header>
 
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              Filter By Year
-            </mat-expansion-panel-header>
+                <ion-list>
+                  <ion-item *ngFor="let genre of genres$ | async">
+                    <ion-label>{{genre.name}}</ion-label>
+                    <ion-checkbox (ionChange)="checkGenre(genre)" [value]="genre.isChecked" slot="end"
+                                  [(ngModel)]="genre.isChecked"></ion-checkbox>
+                  </ion-item>
+                </ion-list>
+              </mat-expansion-panel>
 
-            <ion-list>
-              <ion-radio-group>
-                <ion-item *ngFor="let year of years$ | async">
-                  <ion-label>{{ year.value }}</ion-label>
-                  <ion-radio (ionSelect)="checkYear(year)" slot="end"></ion-radio>
-                </ion-item>
-              </ion-radio-group>
-            </ion-list>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  Filter By Year
+                </mat-expansion-panel-header>
 
-          </mat-expansion-panel>
-        </mat-accordion>
-        <actor-list
-          (search)="onSearch($event)"
-          [actors]="actors$ | async"
-          [singleActor]="actor$ | async"
-          (more)="more($event)"
-          (checkActor)="checkActor($event)"
-          (scroll)="clickScroll()"
-          [isFilter]="true">
-        </actor-list>
+                <ion-list>
+                  <ion-radio-group>
+                    <ion-item *ngFor="let year of years$ | async">
+                      <ion-label>{{ year.value }}</ion-label>
+                      <ion-radio (ionSelect)="checkYear(year)" slot="end"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="ion-no-padding">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Filter By Actor</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content class="ion-no-padding">
+            <search (changeValue)="onSearch($event)"></search>
+            <mat-accordion *ngIf="_value !== ''">
+              <mat-expansion-panel [expanded]="_value !== ''">
+                <mat-expansion-panel-header class="actor-list-header">
+                  <mat-panel-description>
+                    Actors
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <actor-list
+                  (search)="onSearch($event)"
+                  [actors]="actors$ | async"
+                  [singleActor]="actor$ | async"
+                  (more)="more($event)"
+                  (checkActor)="checkActor($event)"
+                  (scroll)="clickScroll()"
+                  [isFilter]="true">
+                </actor-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="ion-no-padding">
+        <ion-card>
+          <ion-card-header class="filter-results-header">
+            <ion-card-title>Filter Search Results</ion-card-title>
+            <ion-button color="light" fill="clear" (click)="resetFilter()">Reset</ion-button>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-col
+              *ngIf="(actor$ | async).id !== 0"
+              size="12"
+              sizeSm="8"
+              offsetSm="2"
+              class="ion-padding-start">
+              <p class="filter-info-title">Actor</p>
+              <span class="filter-info-description">{{ (actor$ | async).name }}</span>
+            </ion-col>
+            <ion-col
+              *ngIf="filterQuery.with_genres.length > 0"
+              size="12"
+              sizeSm="8"
+              offsetSm="2"
+              class="ion-padding-start">
+              <p class="filter-info-title">Genres</p>
+              <ng-container *ngFor="let genre of genres$ | async">
+                <span class="filter-info-description" *ngIf="genre.isChecked">{{ genre.name }} | </span>
+              </ng-container>
+            </ion-col>
+            <ion-col
+              *ngIf="filterQuery.primary_release_year"
+              size="12"
+              sizeSm="8"
+              offsetSm="2"
+              class="ion-padding-start">
+              <p class="filter-info-title">Year</p>
+              <span class="filter-info-description">{{ filterQuery.primary_release_year }}</span>
+            </ion-col>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
 </ion-content>

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { SearchModule } from '../search/search.module';
 import { ActorListView } from './view/actor-list.view';
 
 const pages = [];
@@ -12,8 +11,7 @@ const services = [];
 
 const modules = [
   CommonModule,
-  IonicModule,
-  SearchModule
+  IonicModule
 ];
 
 @NgModule({

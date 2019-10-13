@@ -46,4 +46,8 @@ export class FilterService {
     this._actorsList.next({ page: 0, results: [], total_pages: 0, total_results: 0 });
   }
 
+  resetSingleActor() {
+    this._singleActor.next({ id: 0, name: '', profile_path: '' });
+  }
+
 }

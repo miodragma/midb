@@ -17,7 +17,7 @@ import { IonContent } from '@ionic/angular';
 export class FilterPage implements OnInit {
 
   tab: string;
-  private _value: string;
+  private _value = '';
 
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
@@ -26,7 +26,7 @@ export class FilterPage implements OnInit {
   actors$: Observable<MovieResponse<Actor>>;
   actor$: Observable<Actor>;
 
-  filterQuery = { with_genres: [], with_cast: '', year: undefined };
+  filterQuery = { with_genres: [], with_cast: '', primary_release_year: undefined };
 
   constructor(
     private _router: Router,
@@ -55,7 +55,7 @@ export class FilterPage implements OnInit {
 
   checkYear(year: FilterYear) {
     this._genresService.updateFilterYears(year);
-    this.filterQuery.year = year.value;
+    this.filterQuery.primary_release_year = year.value;
   }
 
   onSearch(value: string) {
@@ -76,6 +76,12 @@ export class FilterPage implements OnInit {
 
   clickScroll() {
     this.content.scrollToTop(1000);
+  }
+
+  resetFilter() {
+    this.filterQuery = { with_genres: [], with_cast: '', primary_release_year: undefined };
+    this._filterService.resetSingleActor();
+    this._genresService.resetGenreAndYearFilter();
   }
 
   navigate() {

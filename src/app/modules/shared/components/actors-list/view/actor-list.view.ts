@@ -9,7 +9,6 @@ import { MovieResponse } from '../../../interfaces/movie-response.interface';
 })
 export class ActorListView {
 
-  @Output() search = new EventEmitter();
   @Output() checkActor = new EventEmitter<Actor>();
   @Output() more = new EventEmitter<number>();
   @Output() scroll = new EventEmitter();

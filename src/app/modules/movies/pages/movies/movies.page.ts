@@ -57,7 +57,7 @@ export class MoviesPage implements OnInit {
         let newParam = '';
         param.has('with_genres') && (newParam += '&with_genres=' + param.get('with_genres'));
         param.has('with_cast') && (newParam += '&with_cast=' + param.get('with_cast'));
-        param.has('year') && (newParam += '&year=' + +param.get('year'));
+        param.has('primary_release_year') && (newParam += '&primary_release_year=' + +param.get('primary_release_year'));
         return newParam;
       })
     ).subscribe(param => {
