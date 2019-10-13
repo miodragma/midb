@@ -9,6 +9,7 @@ import { LoaderService } from '../../../shared/services/loader.service';
 import { ActivatedRoute } from '@angular/router';
 import { GenresService } from '../../../shared/services/genres.service';
 import { SlidesService } from '../../../shared/services/slides.service';
+import { Movie } from '../../../shared/interfaces/movie.interface';
 
 @Component({
   templateUrl: 'movies.page.html',
@@ -35,8 +36,8 @@ export class MoviesPage implements OnInit {
     return this._value;
   }
 
-  slides$: Observable<MovieResponse>;
-  movies$: Observable<MovieResponse>;
+  slides$: Observable<MovieResponse<Movie>>;
+  movies$: Observable<MovieResponse<Movie>>;
   movieGenres$: Observable<{ genres: Genre[] }>;
 
   constructor(

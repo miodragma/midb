@@ -4,6 +4,7 @@ import { filter, tap } from 'rxjs/operators';
 import { LoaderService } from '../../../services/loader.service';
 import { Genre } from '../../../interfaces/genre.interface';
 import { MovieResponse } from '../../../interfaces/movie-response.interface';
+import { Movie } from '../../../interfaces/movie.interface';
 
 @Component({
   selector: 'data-list',
@@ -18,7 +19,7 @@ export class DataListView {
 
   @Input() genres: Genre[];
 
-  @Input() set movies(movies: MovieResponse) {
+  @Input() set movies(movies: MovieResponse<Movie>) {
     of(movies)
       .pipe(
         filter(movie => movie.page > 0 || !!movie.results.length),
@@ -33,7 +34,7 @@ export class DataListView {
     return this._movies;
   }
 
-  private _movies: MovieResponse;
+  private _movies: MovieResponse<Movie>;
 
   constructor(private _loaderService: LoaderService) {
   }

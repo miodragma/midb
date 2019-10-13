@@ -62,7 +62,7 @@ export class GenresService {
 
   updateFilterYears(year: FilterYear) {
     const currYears = this._filterYearsList.getValue();
-    const index = currYears.findIndex(years => year.id === year.id);
+    const index = currYears.findIndex(years => year.id === years.id);
     currYears[index].isChecked = true;
     this._filterYearsList.next(currYears);
   }

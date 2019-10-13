@@ -4,14 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { FilterRoutingModule } from './filter-routing.module';
 import { FilterMaterialModule } from './filter-material-module';
-import { SearchModule } from '../shared/components/search/search.module';
 import { FilterPage } from './pages/filter.page';
+import { FilterService } from './services/filter.service';
+import { ActorListModule } from '../shared/components/actors-list/actor-list.module';
 
 const pages = [ FilterPage ];
 
 const views = [];
 
-const services = [];
+const services = [ FilterService ];
 
 const modules = [
   CommonModule,
@@ -19,7 +20,7 @@ const modules = [
   FormsModule,
   FilterRoutingModule,
   FilterMaterialModule,
-  SearchModule
+  ActorListModule
 ];
 
 @NgModule({

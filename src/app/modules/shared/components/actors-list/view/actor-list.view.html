@@ -1,0 +1,27 @@
+<search (changeValue)="search.emit($event)"></search>
+<ion-col class="ion-text-center">
+  <ion-list [class.actor-list]="isFilter" *ngIf="actors.page > 0">
+    <ion-radio-group>
+
+      <ion-item *ngFor="let actor of actors.results">
+        <ion-thumbnail slot="start">
+          <img
+            [alt]="actor.profile_path"
+            [src]="actor.profile_path === null ?
+                  './assets/images/na.jpg' :
+                  'https://image.tmdb.org/t/p/w200'+ actor.profile_path">
+        </ion-thumbnail>
+        <ion-label>{{ actor.name }}</ion-label>
+        <ion-radio
+          (ionSelect)="checkActor.emit(actor)"
+          [checked]="actor.id === singleActor.id"
+          slot="end">
+        </ion-radio>
+      </ion-item>
+      <ion-button *ngIf="actors.page < actors.total_pages" color="primary" fill="clear"
+                  (click)="more.emit(actors.page)">More
+      </ion-button>
+
+    </ion-radio-group>
+  </ion-list>
+</ion-col>

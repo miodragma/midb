@@ -1,8 +1,6 @@
-import { Movie } from './movie.interface';
-
-export interface MovieResponse {
+export interface MovieResponse<T> {
   page: number;
-  results: Movie[];
+  results: T[];
   total_pages: number;
   total_results: number;
 }

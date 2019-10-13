@@ -1,0 +1,11 @@
+ion-item {
+  --border-color: var(--ion-color-primary-contrast);
+  --border-radius: 20px;
+  --color: var(--ion-color-primary-contrast);
+  --ripple-color: var(--ion-color-primary-contrast);
+}
+
+.actor-list {
+  max-height: 250px;
+  overflow: auto;
+}
