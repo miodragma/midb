@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { FilterYear } from '../interfaces/filter-year.interface';
 import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
 import { Actor } from '../../shared/interfaces/actor.interface';
 import { FilterService } from '../services/filter.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   templateUrl: 'filter.page.html',
@@ -18,12 +19,14 @@ export class FilterPage implements OnInit {
   tab: string;
   private _value: string;
 
+  @ViewChild(IonContent, { static: false }) content: IonContent;
+
   genres$: Observable<FilterGenre[]>;
   years$: Observable<FilterYear[]>;
   actors$: Observable<MovieResponse<Actor>>;
   actor$: Observable<Actor>;
 
-  filterQuery = { with_genres: '', with_cast: '', year: undefined };
+  filterQuery = { with_genres: [], with_cast: '', year: undefined };
 
   constructor(
     private _router: Router,
@@ -46,9 +49,8 @@ export class FilterPage implements OnInit {
 
   checkGenre(genre: FilterGenre) {
     this._genresService.updateFilterGenres(genre);
-    !this.filterQuery.with_genres && (this.filterQuery.with_genres = `${genre.id}`);
-    const currentValue = this.filterQuery.with_genres + ',';
-    this.filterQuery.with_genres = currentValue + `${genre.id}`;
+    genre.isChecked && this.filterQuery.with_genres.push(genre.id);
+    !genre.isChecked && (this.filterQuery.with_genres = this.filterQuery.with_genres.filter(genres => genres !== genre.id));
   }
 
   checkYear(year: FilterYear) {
@@ -57,8 +59,9 @@ export class FilterPage implements OnInit {
   }
 
   onSearch(value: string) {
-    value && this._filterService.findAllActors(value, 1);
     this._value = value;
+    value && this._filterService.findAllActors(value, 1);
+    value === '' && this._filterService.removeActorsFromList();
   }
 
   checkActor(actor: Actor) {
@@ -71,10 +74,12 @@ export class FilterPage implements OnInit {
     this._filterService.findMoreActorsByValue(this._value, newPage);
   }
 
+  clickScroll() {
+    this.content.scrollToTop(1000);
+  }
+
   navigate() {
-    console.log(this.filterQuery);
-    // this._router.navigate([`/tabs/tab/${this.tab}`], { queryParams: {with_genres: '13,31', with_cast: '231,32132', year: 2016} });
-    // this._router.navigate([ `/tabs/tab/${this.tab}` ]);
-    this._router.navigate([ `/tabs/tab/${this.tab}` ], { queryParams: this.filterQuery });
+    const updateFilterQuery = { ...this.filterQuery, with_genres: this.filterQuery.with_genres.join(',') };
+    this._router.navigate([ `/tabs/tab/${this.tab}` ], { queryParams: updateFilterQuery });
   }
 }

@@ -42,4 +42,8 @@ export class FilterService {
       }))).subscribe();
   }
 
+  removeActorsFromList() {
+    this._actorsList.next({ page: 0, results: [], total_pages: 0, total_results: 0 });
+  }
+
 }

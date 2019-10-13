@@ -12,6 +12,7 @@ export class ActorListView {
   @Output() search = new EventEmitter();
   @Output() checkActor = new EventEmitter<Actor>();
   @Output() more = new EventEmitter<number>();
+  @Output() scroll = new EventEmitter();
 
   @Input() actors: MovieResponse<Actor>;
   @Input() singleActor: Actor;

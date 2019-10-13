@@ -50,6 +50,7 @@
           [singleActor]="actor$ | async"
           (more)="more($event)"
           (checkActor)="checkActor($event)"
+          (scroll)="clickScroll()"
           [isFilter]="true">
         </actor-list>
       </ion-col>
