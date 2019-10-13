@@ -93,3 +93,7 @@ ion-spinner {
 .picker-wrapper.sc-ion-picker-md {
   background-color: #ffffff !important;
 }
+
+.mat-expansion-indicator::after {
+  color: #fff !important;
+}

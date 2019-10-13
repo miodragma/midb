@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
-import { Genre } from '../../shared/interfaces/genre.interface';
+import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
+import { Movie } from '../../shared/interfaces/movie.interface';
 
 @Injectable()
 export class MoviesService {
@@ -11,7 +11,7 @@ export class MoviesService {
   private _apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   private _url = 'https://api.themoviedb.org/3';
 
-  private _moviesList = new BehaviorSubject<MovieResponse>({ page: 0, results: [], total_pages: 0, total_results: 0 });
+  private _moviesList = new BehaviorSubject<MovieResponse<Movie>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
 
   constructor(private _http: HttpClient) {
   }
@@ -20,41 +20,38 @@ export class MoviesService {
     return this._moviesList.asObservable();
   }
 
-  findAllSlides(): Observable<{ url: string }[]> {
-    return of<{ url: string }[]>([
-      { url: './assets/slides/1.jpg' },
-      { url: './assets/slides/2.jpg' },
-      { url: './assets/slides/3.jpg' },
-      { url: './assets/slides/4.jpg' },
-      { url: './assets/slides/5.jpg' },
-      { url: './assets/slides/6.jpg' },
-      { url: './assets/slides/7.jpg' },
-      { url: './assets/slides/8.jpg' }
-    ]);
+  findAllMoviesByValue(value: string, page: number, param: string) {
+    const type = !!param ? 'discover' : 'search';
+    const filter = !!param ? param : '';
+    this._http.get<MovieResponse<Movie>>(`
+    ${this._url}/${type}/movie?${this._apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false${filter}`)
+      .pipe(tap(data => this._moviesList.next(data))).subscribe();
   }
 
-  findAllMovieGenres(): Observable<{ genres: Genre[] }> {
-    return this._http.get<{ genres: Genre[] }>(`${this._url}/genre/movie/list?${this._apiKey}&language=en-US`);
+  findMoreMoviesByValue(value: string, page: number, param: string) {
+    const type = !!param ? 'discover' : 'search';
+    const filter = !!param ? param : '';
+    this._http.get<MovieResponse<Movie>>(`
+    ${this._url}/${type}/movie?${this._apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false${filter}`)
+      .pipe(tap(data => this._moviesList.next({
+        ...data,
+        results: [ ...this._moviesList.getValue().results, ...data.results ]
+      }))).subscribe();
   }
 
-  findAllMoviesByValue(value: string, page: number): Observable<MovieResponse> {
-    return this._http.get<MovieResponse>(`${this._url}/search/movie?${this._apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`)
-      .pipe(tap(data => this._moviesList.next(data)));
+  findAllMoviesByType(type: string = 'popular', page: number = 1, param: string) {
+    const filter = !!param ? param : '';
+    return this._http.get<MovieResponse<Movie>>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}${filter}`)
+      .pipe(tap(data => this._moviesList.next(data))).subscribe();
   }
 
-  findMoreMoviesByValue(value: string, page: number): Observable<MovieResponse> {
-    return this._http.get<MovieResponse>(`${this._url}/search/movie?${this._apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`)
-      .pipe(tap(data => this._moviesList.next({ ...data, results: [ ...this._moviesList.getValue().results, ...data.results ] })));
-  }
-
-  findAllMoviesByType(type: string = 'popular', page: number = 1): Observable<MovieResponse> {
-    return this._http.get<MovieResponse>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}`)
-      .pipe(tap(data => this._moviesList.next(data)));
-  }
-
-  findMoreMoviesByType(type: string, page: number): Observable<MovieResponse> {
-    return this._http.get<MovieResponse>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}`)
-      .pipe(tap(data => this._moviesList.next({ ...data, results: [ ...this._moviesList.getValue().results, ...data.results ] })));
+  findMoreMoviesByType(type: string, page: number, param: string) {
+    const filter = !!param ? param : '';
+    this._http.get<MovieResponse<Movie>>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}${filter}`)
+      .pipe(tap(data => this._moviesList.next({
+        ...data,
+        results: [ ...this._moviesList.getValue().results, ...data.results ]
+      }))).subscribe();
   }
 
 }

@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="navigate()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Filter</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Filter By Genre
+            </mat-expansion-panel-header>
+
+            <ion-list>
+              <ion-item *ngFor="let genre of genres$ | async">
+                <ion-label>{{genre.name}}</ion-label>
+                <ion-checkbox (ionChange)="checkGenre(genre)" [value]="genre.isChecked" slot="end"
+                              [(ngModel)]="genre.isChecked"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Filter By Year
+            </mat-expansion-panel-header>
+
+            <ion-list>
+              <ion-radio-group>
+                <ion-item *ngFor="let year of years$ | async">
+                  <ion-label>{{ year.value }}</ion-label>
+                  <ion-radio (ionSelect)="checkYear(year)" slot="end"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <actor-list
+          (search)="onSearch($event)"
+          [actors]="actors$ | async"
+          [singleActor]="actor$ | async"
+          (more)="more($event)"
+          (checkActor)="checkActor($event)"
+          (scroll)="clickScroll()"
+          [isFilter]="true">
+        </actor-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
