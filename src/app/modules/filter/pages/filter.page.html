@@ -80,13 +80,11 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <actor-list
-                  (search)="onSearch($event)"
                   [actors]="actors$ | async"
                   [singleActor]="actor$ | async"
                   (more)="more($event)"
                   (checkActor)="checkActor($event)"
-                  (scroll)="clickScroll()"
-                  [isFilter]="true">
+                  (scroll)="clickScroll()">
                 </actor-list>
               </mat-expansion-panel>
             </mat-accordion>

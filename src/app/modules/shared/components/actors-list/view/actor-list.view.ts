@@ -15,6 +15,5 @@ export class ActorListView {
 
   @Input() actors: MovieResponse<Actor>;
   @Input() singleActor: Actor;
-  @Input() isFilter: boolean;
 
 }
