@@ -24,15 +24,31 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-@import url('https://fonts.googleapis.com/css?family=Anton|Kalam|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Anton|Oswald|Kalam|Roboto');
 
-ion-title {
+ion-title, ion-label, ion-segment-button {
   font-family: 'Anton', sans-serif;
 }
 
+p {
+  color: var(--ion-color-primary-contrast);
+}
+
+ion-searchbar,
+p,
+ion-item,
+mat-expansion-panel-header,
+ion-card-header,
+button,
+ion-button,
+ion-card-content,
 ion-label {
-  font-family: 'Anton', sans-serif;
+  font-family: 'Oswald', sans-serif !important;
 }
+
+//ion-label {
+//  font-family: 'Anton', sans-serif;
+//}
 
 ion-toolbar {
   ion-button,

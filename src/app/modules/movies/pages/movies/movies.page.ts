@@ -22,6 +22,7 @@ export class MoviesPage implements OnInit {
   private _value = '';
   private _type = 'popular';
   private _param = '';
+  private _isFilter = false;
 
   set value(value: string) {
     of(value)
@@ -49,19 +50,20 @@ export class MoviesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.slides$ = this._slidesService.slidesList;
-    this.movieGenres$ = this._genresService.genresList;
-    this.movies$ = this._service.findMoviesList;
     this._route.queryParamMap.pipe(
       map(param => {
         let newParam = '';
         param.has('with_genres') && (newParam += '&with_genres=' + param.get('with_genres'));
         param.has('with_cast') && (newParam += '&with_cast=' + param.get('with_cast'));
         param.has('primary_release_year') && (newParam += '&primary_release_year=' + +param.get('primary_release_year'));
+        this._isFilter = !!param.get('with_genres') || !!param.get('with_cast') || !!+param.get('primary_release_year');
         return newParam;
       })
     ).subscribe(param => {
       this._param = param;
+      this.slides$ = this._slidesService.slidesList;
+      this.movieGenres$ = this._genresService.genresList;
+      this.movies$ = this._service.findMoviesList;
       this._service.findAllMoviesByType(undefined, undefined, this._param);
     });
   }

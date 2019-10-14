@@ -41,13 +41,15 @@ export class MoviesService {
 
   findAllMoviesByType(type: string = 'popular', page: number = 1, param: string) {
     const filter = !!param ? param : '';
-    return this._http.get<MovieResponse<Movie>>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}${filter}`)
+    const isDiscover = param === '' ? `/movie/${type}` : `/discover/movie`;
+    return this._http.get<MovieResponse<Movie>>(`${this._url}${isDiscover}?${this._apiKey}&region=US&language=en-US&page=${page}${filter}`)
       .pipe(tap(data => this._moviesList.next(data))).subscribe();
   }
 
   findMoreMoviesByType(type: string, page: number, param: string) {
     const filter = !!param ? param : '';
-    this._http.get<MovieResponse<Movie>>(`${this._url}/movie/${type}?${this._apiKey}&region=US&language=en-US&page=${page}${filter}`)
+    const isDiscover = param === '' ? `/movie/${type}` : `/discover/movie`;
+    this._http.get<MovieResponse<Movie>>(`${this._url}${isDiscover}?${this._apiKey}&region=US&language=en-US&page=${page}${filter}`)
       .pipe(tap(data => this._moviesList.next({
         ...data,
         results: [ ...this._moviesList.getValue().results, ...data.results ]
