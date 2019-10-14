@@ -1,9 +1,16 @@
-<ion-col class="ion-text-center">
+<ion-col
+  size="12"
+  sizeSm="8"
+  offsetSm="2"
+  class="ion-text-center">
   <ion-list *ngIf="actors.page > 0">
     <ion-radio-group>
 
       <ion-list>
-        <ion-item *ngFor="let actor of actors.results">
+        <ion-item
+          *ngFor="let actor of actors.results"
+          [detail]="!singleActor"
+          (click)="checkActor.emit(actor)" button>
           <ion-thumbnail slot="start">
             <img
               [alt]="actor.profile_path"
@@ -12,11 +19,11 @@
                   'https://image.tmdb.org/t/p/w200'+ actor.profile_path">
           </ion-thumbnail>
           <ion-label>{{ actor.name }}</ion-label>
-          <ion-radio
-            (ionSelect)="checkActor.emit(actor)"
-            [checked]="actor.id === singleActor.id"
-            slot="end">
+          <ion-radio *ngIf="singleActor"
+                     [checked]="actor.id === singleActor.id"
+                     slot="end">
           </ion-radio>
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
         </ion-item>
         <ion-button *ngIf="actors.page < actors.total_pages" color="primary" fill="clear"
                     (click)="more.emit(actors.page)">More

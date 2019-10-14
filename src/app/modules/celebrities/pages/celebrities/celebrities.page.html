@@ -1,1 +1,20 @@
-<h1 style="color: #989aa2">Celebrities work</h1>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Celebrities</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <search (changeValue)="onSearch($event)"></search>
+    <actor-list
+      [actors]="actors$ | async"
+      (more)="more($event)"
+      (checkActor)="checkActor($event)"
+      (scroll)="clickScroll()">
+    </actor-list>
+  </ion-grid>
+</ion-content>
