@@ -8,7 +8,6 @@ import { Genre } from '../../../shared/interfaces/genre.interface';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { ActivatedRoute } from '@angular/router';
 import { GenresService } from '../../../shared/services/genres.service';
-import { SlidesService } from '../../../shared/services/slides.service';
 import { Movie } from '../../../shared/interfaces/movie.interface';
 
 @Component({
@@ -37,14 +36,12 @@ export class MoviesPage implements OnInit {
     return this._value;
   }
 
-  slides$: Observable<MovieResponse<Movie>>;
   movies$: Observable<MovieResponse<Movie>>;
   movieGenres$: Observable<{ genres: Genre[] }>;
 
   constructor(
     private _service: MoviesService,
     private _genresService: GenresService,
-    private _slidesService: SlidesService,
     private _route: ActivatedRoute,
     private _loaderService: LoaderService) {
   }
@@ -57,11 +54,10 @@ export class MoviesPage implements OnInit {
         param.has('with_cast') && (newParam += '&with_cast=' + param.get('with_cast'));
         param.has('primary_release_year') && (newParam += '&primary_release_year=' + +param.get('primary_release_year'));
         this._isFilter = !!param.get('with_genres') || !!param.get('with_cast') || !!+param.get('primary_release_year');
-        return newParam;
+        return this._isFilter ? newParam : '';
       })
     ).subscribe(param => {
       this._param = param;
-      this.slides$ = this._slidesService.slidesList;
       this.movieGenres$ = this._genresService.genresList;
       this.movies$ = this._service.findMoviesList;
       this._service.findAllMoviesByType(undefined, undefined, this._param);
@@ -97,5 +93,4 @@ export class MoviesPage implements OnInit {
     this._value && this._service.findMoreMoviesByValue(this._value, newPage, this._param);
     !this._value && this._service.findMoreMoviesByType(this._type, newPage, this._param);
   }
-
 }

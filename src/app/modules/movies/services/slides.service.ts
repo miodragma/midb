@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin } from 'rxjs';
-import { MovieResponse } from '../interfaces/movie-response.interface';
+import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
 import { map, tap } from 'rxjs/operators';
-import { Movie } from '../interfaces/movie.interface';
+import { Movie } from '../../shared/interfaces/movie.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SlidesService {

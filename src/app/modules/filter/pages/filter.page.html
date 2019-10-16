@@ -71,7 +71,7 @@
           </ion-card-header>
 
           <ion-card-content class="ion-no-padding">
-            <search (changeValue)="onSearch($event)"></search>
+            <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
             <mat-accordion *ngIf="_value !== ''">
               <mat-expansion-panel [expanded]="_value !== ''">
                 <mat-expansion-panel-header class="actor-list-header">

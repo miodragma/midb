@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoaderService } from './modules/shared/services/loader.service';
 import { GenresService } from './modules/shared/services/genres.service';
-import { SlidesService } from './modules/shared/services/slides.service';
+import { SlidesService } from './modules/movies/services/slides.service';
 
 @Component({
   selector: 'app-root',

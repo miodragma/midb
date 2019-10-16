@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-grid class="ion-no-padding">
-    <search (changeValue)="onSearch($event)"></search>
+    <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
     <actor-list
       [actors]="actors$ | async"
       (more)="more($event)"

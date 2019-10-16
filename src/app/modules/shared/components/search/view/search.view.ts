@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { tap } from 'rxjs/operators';
 export class SearchView {
 
   @Output() changeValue = new EventEmitter<string>();
+  @Input() placeholder: string;
 
   private _value = '';
 

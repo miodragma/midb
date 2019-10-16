@@ -1,13 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MovieResponse } from '../../../shared/interfaces/movie-response.interface';
 import { Movie } from '../../../shared/interfaces/movie.interface';
+import { Observable } from 'rxjs';
+import { SlidesService } from '../../services/slides.service';
 
 @Component({
   selector: 'slides',
   templateUrl: 'slides.view.html',
   styleUrls: [ 'slides.view.scss' ]
 })
-export class SlidesView {
+export class SlidesView implements OnInit {
 
   slideOpts = {
     allowTouchMove: false,
@@ -18,6 +20,13 @@ export class SlidesView {
     speed: 1000
   };
 
-  @Input() slides: MovieResponse<Movie>;
+  slides$: Observable<MovieResponse<Movie>>;
+
+  constructor(private _service: SlidesService) {
+  }
+
+  ngOnInit() {
+    this.slides$ = this._service.slidesList;
+  }
 
 }
