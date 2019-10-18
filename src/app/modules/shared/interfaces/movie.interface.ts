@@ -1,4 +1,6 @@
-export interface Movie {
+import { TvShow } from '../../tv-shows/interfaces/tv-show.interface';
+
+export interface Movie extends TvShow {
   vote_count: number;
   id: number;
   video: boolean;

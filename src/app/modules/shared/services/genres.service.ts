@@ -15,6 +15,7 @@ export class GenresService {
   private _filterMoviesGenresList = new BehaviorSubject<FilterGenre[]>([]);
   private _genresList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
   private _filterYearsList = new BehaviorSubject<FilterYear[]>([]);
+  private _genresTvList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
 
   constructor(private _http: HttpClient) {
   }
@@ -25,6 +26,10 @@ export class GenresService {
 
   get genresList() {
     return this._genresList.asObservable();
+  }
+
+  get genresTvList() {
+    return this._genresTvList.asObservable();
   }
 
   get filterYearsList() {
@@ -49,6 +54,15 @@ export class GenresService {
             }
           ));
           this._filterMoviesGenresList.next(filterGenres);
+        })
+      ).subscribe();
+  }
+
+  findAllTVGenres() {
+    this._http.get<{ genres: Genre[] }>(`${this._url}/genre/tv/list?${this._apiKey}&language=en-US`)
+      .pipe(
+        tap(genres => {
+          this._genresTvList.next(genres);
         })
       ).subscribe();
   }

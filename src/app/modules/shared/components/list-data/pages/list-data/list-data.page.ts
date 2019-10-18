@@ -7,9 +7,8 @@ import { Genre } from '../../../../interfaces/genre.interface';
 import { ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../../../../services/loader.service';
 import { MovieData } from '../../interfaces/movie-data.interface';
-import { GenreData } from '../../interfaces/genre-data.interface';
 
-export class ListDataPage<T, S extends MovieData<T>, GS extends GenreData> implements OnInit {
+export class ListDataPage<T, S extends MovieData<T>> implements OnInit {
 
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
@@ -36,7 +35,6 @@ export class ListDataPage<T, S extends MovieData<T>, GS extends GenreData> imple
 
   constructor(
     protected service: S,
-    protected genreService: GS,
     protected route: ActivatedRoute,
     protected loaderService: LoaderService) {
   }
@@ -53,7 +51,6 @@ export class ListDataPage<T, S extends MovieData<T>, GS extends GenreData> imple
       })
     ).subscribe(param => {
       this._param = param;
-      this.movieGenres$ = this.genreService.genresList;
       this.movies$ = this.service.findMoviesList;
       this.service.findAllMoviesByType(undefined, undefined, this._param);
     });

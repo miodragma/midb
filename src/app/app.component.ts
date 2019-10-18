@@ -34,7 +34,7 @@ export class AppComponent {
       this._slidesMovieService.findAllMovieTrendings();
       this._slidesTvShowsService.findAllTvShowTrendings();
       this._genresService.findAllMovieGenres();
-
+      this._genresService.findAllTVGenres();
     });
   }
 }
