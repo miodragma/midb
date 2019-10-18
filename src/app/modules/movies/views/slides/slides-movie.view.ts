@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MovieResponse } from '../../../shared/interfaces/movie-response.interface';
 import { Movie } from '../../../shared/interfaces/movie.interface';
 import { Observable } from 'rxjs';
-import { SlidesService } from '../../services/slides.service';
+import { SlidesMovieService } from '../../services/slides-movie.service';
 
 @Component({
-  selector: 'slides',
-  templateUrl: 'slides.view.html',
-  styleUrls: [ 'slides.view.scss' ]
+  selector: 'movies-slides',
+  templateUrl: 'slides-movie.view.html',
+  styleUrls: [ 'slides-movie.view.scss' ]
 })
-export class SlidesView implements OnInit {
+export class SlidesMovieView implements OnInit {
 
   slideOpts = {
     allowTouchMove: false,
@@ -22,7 +22,7 @@ export class SlidesView implements OnInit {
 
   slides$: Observable<MovieResponse<Movie>>;
 
-  constructor(private _service: SlidesService) {
+  constructor(private _service: SlidesMovieService) {
   }
 
   ngOnInit() {

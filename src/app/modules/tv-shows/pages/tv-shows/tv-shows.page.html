@@ -1,1 +1,27 @@
-<h1 style="color: #989aa2">Tv-shows works</h1>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>TV Shows</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button routerDirection="root" routerLink="/filter" [queryParams]="{tab: 'tv-shows'}">
+        <ion-icon name="options" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <!--    <tv-shows-slides></tv-shows-slides>-->
+    <!--    <search *ngIf="!_isFilter" [placeholder]="'Movie'" (changeValue)="onSearch($event)"></search>-->
+    <!--    <type *ngIf="!value && !_isFilter" (selectSegment)="selectSegment($event)"></type>-->
+    <!--    <data-list-->
+    <!--      [genres]="(movieGenres$ | async)?.genres"-->
+    <!--      [movies]="movies$ | async"-->
+    <!--      (more)="more($event)"-->
+    <!--      (clicked)="onClickMovie($event)"-->
+    <!--      (scroll)="clickScroll()"></data-list>-->
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,18 @@
+ion-slide {
+  //height: 150px;
+  background-size: cover;
+  background-position: center;
+}
+
+p {
+  background: #000;
+  color: #fff;
+  position: fixed;
+  bottom: 10px;
+  margin: 0;
+  font-family: "Anton", sans-serif;
+  padding: 0 5px;
+  border-radius: 25px;
+  left: 10px;
+  box-shadow: 0 3px 1px -2px rgba(255, 255, 255, .2), 0 2px 2px 0 rgba(255, 255, 255, .2), 0 1px 5px 0 rgba(255, 255, 255, .2);
+}

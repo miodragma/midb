@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { SearchView } from './view/search.view';
+import { SearchView } from './views/search.view';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 
 const pages = [];

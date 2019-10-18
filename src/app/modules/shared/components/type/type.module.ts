@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { TypeView } from './view/type.view';
+import { TypeView } from './views/type.view';
 
 const pages = [];
 
