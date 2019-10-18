@@ -17,7 +17,7 @@ export class SlidesTvShowView implements OnInit {
     slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
-    speed: 1000
+    // speed: 1000
   };
 
   slides$: Observable<MovieResponse<TvShow>>;

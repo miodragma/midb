@@ -1,0 +1,9 @@
+<search *ngIf="!_isFilter" [placeholder]="'Movie'" (changeValue)="onSearch($event)"></search>
+<type *ngIf="!value && !_isFilter" (selectSegment)="selectSegment($event)"></type>
+<data-list
+  [genres]="(movieGenres$ | async)?.genres"
+  [movies]="movies$ | async"
+  (more)="more($event)"
+  (clicked)="onClickMovie($event)"
+  (scroll)="clickScroll()">
+</data-list>
