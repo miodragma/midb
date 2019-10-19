@@ -1,14 +1,13 @@
-import { OnInit, ViewChild } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { MovieResponse } from '../../../../interfaces/movie-response.interface';
-import { Genre } from '../../../../interfaces/genre.interface';
 import { ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../../../../services/loader.service';
 import { MovieData } from '../../interfaces/movie-data.interface';
 
-export class ListDataPage<T, S extends MovieData<T>> implements OnInit {
+export class ListDataPage<T, S extends MovieData<T>> {
 
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
@@ -30,8 +29,9 @@ export class ListDataPage<T, S extends MovieData<T>> implements OnInit {
     return this._value;
   }
 
+  slides$: Observable<MovieResponse<T>>;
+
   movies$: Observable<MovieResponse<T>>;
-  movieGenres$: Observable<{ genres: Genre[] }>;
 
   constructor(
     protected service: S,
@@ -39,7 +39,7 @@ export class ListDataPage<T, S extends MovieData<T>> implements OnInit {
     protected loaderService: LoaderService) {
   }
 
-  ngOnInit() {
+  initialization() {
     this.route.queryParamMap.pipe(
       map(param => {
         let newParam = '';
@@ -48,9 +48,10 @@ export class ListDataPage<T, S extends MovieData<T>> implements OnInit {
         param.has('primary_release_year') && (newParam += '&primary_release_year=' + +param.get('primary_release_year'));
         this._isFilter = !!param.get('with_genres') || !!param.get('with_cast') || !!+param.get('primary_release_year');
         return this._isFilter ? newParam : '';
-      })
+      }),
     ).subscribe(param => {
       this._param = param;
+      this.slides$ = this.service.findAllSlides;
       this.movies$ = this.service.findMoviesList;
       this.service.findAllMoviesByType(undefined, undefined, this._param);
     });
@@ -67,7 +68,6 @@ export class ListDataPage<T, S extends MovieData<T>> implements OnInit {
   }
 
   selectSegment(el) {
-    // this.loaderService.loaderStart();
     this._type = el.target.value;
     this.service.findAllMoviesByType(el.target.value, undefined, this._param);
   }

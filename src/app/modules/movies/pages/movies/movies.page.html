@@ -14,7 +14,7 @@
 
 <ion-content>
   <ion-grid class="ion-no-padding">
-    <movies-slides></movies-slides>
+    <movies-slides [slides]="slides$ | async"></movies-slides>
     <search *ngIf="!_isFilter" [placeholder]="'Movie'" (changeValue)="onSearch($event)"></search>
     <type *ngIf="!value && !_isFilter" (selectSegment)="selectSegment($event)" segment="upcoming"></type>
     <data-list

@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { TvShowsRoutingModule } from './tv-shows-routing.module';
 import { TvShowsPage } from './pages/tv-shows/tv-shows.page';
-import { SlidesTvShowView } from './views/slides/slides-tv-show.view';
 import { SearchModule } from '../shared/components/search/search.module';
 import { TypeModule } from '../shared/components/type/type.module';
 import { DataListModule } from '../shared/components/data-list/data-list.module';
 import { TvShowService } from './services/tv-show.service';
+import { SlidesModule } from '../shared/components/slides/slides.module';
 
 const pages = [ TvShowsPage ];
 
-const views = [ SlidesTvShowView ];
+const views = [];
 
 const services = [ TvShowService ];
 
@@ -21,7 +21,8 @@ const modules = [
   TvShowsRoutingModule,
   SearchModule,
   TypeModule,
-  DataListModule
+  DataListModule,
+  SlidesModule
 ];
 
 @NgModule({

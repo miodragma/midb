@@ -25,7 +25,9 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   }
 
   ngOnInit() {
+    this.initialization();
+    this.service.findAllMovieTrendings();
     this.movieGenres$ = this._genresService.genresList;
-    super.ngOnInit();
   }
+
 }
