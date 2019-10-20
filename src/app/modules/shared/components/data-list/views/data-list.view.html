@@ -16,7 +16,7 @@
             [alt]="movie.poster_path">
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
-          <p class="movieListText">{{ movie.title }}</p>
+          <p class="movieListText">{{ movie.title || movie.name }}</p>
           <p class="movieReleaseDate">{{ movie.release_date | date }}</p>
           <p class="movieReleaseDate">{{ movie.genre_ids | findGenres: genres }}</p>
         </ion-label>

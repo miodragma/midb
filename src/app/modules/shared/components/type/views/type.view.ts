@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'type',
@@ -6,6 +6,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: [ 'type.view.scss' ]
 })
 export class TypeView {
+
+  @Input() segment: string;
 
   @Output() selectSegment = new EventEmitter<CustomEvent>();
 
