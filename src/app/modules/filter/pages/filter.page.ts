@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { GenresService } from '../../shared/services/genres.service';
 import { FilterGenre } from '../interfaces/filter-genre.interface';
@@ -26,7 +26,7 @@ export class FilterPage implements OnInit {
   actors$: Observable<MovieResponse<Actor>>;
   actor$: Observable<Actor>;
 
-  filterQuery = { with_genres: [], with_cast: '', primary_release_year: undefined };
+  filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined };
 
   constructor(
     private _router: Router,
@@ -36,26 +36,32 @@ export class FilterPage implements OnInit {
   }
 
   ngOnInit() {
-    this.actors$ = this._filterService.findActorsList;
-    this.actor$ = this._filterService.singleActor;
-    this.years$ = this._genresService.filterYearsList;
-    this.genres$ = this._genresService.filterMoviesGenresList;
     this._route.queryParamMap
       .pipe(
         filter(qParams => !!qParams.has('tab')),
-        map(qParam => qParam.get('tab'))
+        map(qParam => qParam.get('tab')),
+        tap(param => {
+          this.years$ = this._genresService.filterYearsList;
+          if (param === 'tv-shows') {
+            this.genres$ = this._genresService.filterTVShowsGenresList;
+          } else {
+            this.genres$ = this._genresService.filterMoviesGenresList;
+            this.actors$ = this._filterService.findActorsList;
+            this.actor$ = this._filterService.singleActor;
+          }
+        })
       ).subscribe(queryParam => this.tab = queryParam);
   }
 
   checkGenre(genre: FilterGenre) {
-    this._genresService.updateFilterGenres(genre);
+    this._genresService.updateFilterGenres(this.tab, genre);
     genre.isChecked && this.filterQuery.with_genres.push(genre.id);
     !genre.isChecked && (this.filterQuery.with_genres = this.filterQuery.with_genres.filter(genres => genres !== genre.id));
   }
 
   checkYear(year: FilterYear) {
     this._genresService.updateFilterYears(year);
-    this.filterQuery.primary_release_year = year.value;
+    this.tab === 'tv-shows' ? this.filterQuery.first_air_date_year = year.value : this.filterQuery.primary_release_year = year.value;
   }
 
   onSearch(value: string) {
@@ -79,7 +85,7 @@ export class FilterPage implements OnInit {
   }
 
   resetFilter() {
-    this.filterQuery = { with_genres: [], with_cast: '', primary_release_year: undefined };
+    this.filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined };
     this._filterService.resetSingleActor();
     this._genresService.resetGenreAndYearFilter();
   }

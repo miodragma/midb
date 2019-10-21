@@ -59,7 +59,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="tab !== 'tv-shows'">
       <ion-col
         size="12"
         sizeSm="8"
@@ -107,7 +107,7 @@
 
           <ion-card-content>
             <ion-col
-              *ngIf="(actor$ | async).id !== 0"
+              *ngIf="tab !== 'tv-shows' && (actor$ | async).id !== 0"
               size="12"
               sizeSm="8"
               offsetSm="2"

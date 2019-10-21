@@ -15,7 +15,6 @@
 <ion-content>
   <ion-grid class="ion-no-padding">
     <slides [slides]="slides$ | async"></slides>
-    ]
     <search *ngIf="!_isFilter" [placeholder]="'TV Show'" (changeValue)="onSearch($event)"></search>
     <type *ngIf="!value && !_isFilter" (selectSegment)="selectSegment($event)" segment="on_the_air"></type>
     <data-list
