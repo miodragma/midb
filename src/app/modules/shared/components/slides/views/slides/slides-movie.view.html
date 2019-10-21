@@ -3,11 +3,8 @@
     <ion-slides [options]="slideOpts">
       <ion-slide *ngFor="let slide of slides?.results">
         <img
-          [src]="'https://image.tmdb.org/t/p/w400'+ slide.backdrop_path || slide.profile_path"
-          [alt]="slide.backdrop_path || slide.profile_path">
-        <img
-          [src]="'https://image.tmdb.org/t/p/w400'+ slide.backdrop_path || slide.profile_path"
-          [alt]="slide.backdrop_path || slide.profile_path">
+          [src]="'https://image.tmdb.org/t/p/w400'+ slide.backdrop_path"
+          [alt]="slide.backdrop_path">
         <p> {{ slide.title || slide.name }} </p>
       </ion-slide>
     </ion-slides>
