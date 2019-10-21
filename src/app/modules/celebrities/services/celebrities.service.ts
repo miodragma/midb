@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
 import { Actor } from '../../shared/interfaces/actor.interface';
-import { tap } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 
 @Injectable()
 export class CelebritiesService {
@@ -12,12 +12,17 @@ export class CelebritiesService {
   private _url = 'https://api.themoviedb.org/3';
 
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
+  private _slidesList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_results: 0, total_pages: 0 });
 
   constructor(private _http: HttpClient) {
   }
 
   get findActorsList() {
     return this._actorsList.asObservable();
+  }
+
+  get findAllSlides() {
+    return this._slidesList.asObservable();
   }
 
   findAllActors(actor: string, page: number) {
@@ -35,6 +40,23 @@ export class CelebritiesService {
 
   removeActorsFromList() {
     this._actorsList.next({ page: 0, results: [], total_pages: 0, total_results: 0 });
+  }
+
+  findAllActorTrendings() {
+    const url = `${this._url}/trending/person/day?${this._apiKey}`;
+    forkJoin([
+      this._http.get<MovieResponse<Actor>>(`${url}&page=1`),
+      this._http.get<MovieResponse<Actor>>(`${url}&page=2)`)
+    ])
+      .pipe(
+        map(trending => (
+          {
+            ...trending[0],
+            results: [ ...trending[0].results, ...trending[1].results ]
+          }
+        )),
+        tap(trending => this._slidesList.next(trending))
+      ).subscribe();
   }
 
 }

@@ -9,6 +9,24 @@
 
 <ion-content>
   <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-slides [options]="slideOpts">
+          <ion-slide *ngFor="let slide of (slides$ | async)?.results">
+            <div class="profile-path">
+              <img
+                [src]="'https://image.tmdb.org/t/p/w400'+ slide.profile_path" [alt]="slide.profile_path">
+              <p class="profile-path-name"> {{ slide.name }} </p>
+            </div>
+            <div class="backdrop-path">
+              <!--              <p class="backdrop-path-name"> {{ slide.known_for[0].title }} </p>-->
+              <img *ngFor="let image of slide.known_for" [src]="'https://image.tmdb.org/t/p/w400' + image.poster_path"
+                   [alt]="image.poster_path">
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
     <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
     <actor-list
       [actors]="actors$ | async"
