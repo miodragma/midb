@@ -30,4 +30,8 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> implements 
     this.tvGenres$ = this._genresService.genresTvList;
   }
 
+  onClickTvShow(id: number) {
+    console.log('tv show', id);
+  }
+
 }

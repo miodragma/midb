@@ -21,7 +21,7 @@
       [genres]="(tvGenres$ | async)?.genres"
       [movies]="movies$ | async"
       (more)="more($event)"
-      (clicked)="onClickMovie($event)"
+      (clicked)="onClickTvShow($event)"
       (scroll)="clickScroll()">
     </data-list>
   </ion-grid>

@@ -73,9 +73,9 @@ export class ListDataPage<T, S extends MovieData<T>> {
     this.service.findAllMoviesByType(el.target.value, undefined, this._param);
   }
 
-  onClickMovie(id: number) {
-    console.log(id);
-  }
+  // onClickMovie(id: number) {
+  //   console.log(id);
+  // }
 
   clickScroll() {
     this.content.scrollToTop(1000);

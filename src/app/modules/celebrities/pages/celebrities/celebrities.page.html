@@ -11,7 +11,11 @@
   <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
-        <ion-slides [options]="slideOpts">
+        <ion-slides
+          [options]="slideOpts"
+          #mySlider
+          (ionSlidePrevStart)="slidesDidLoad(mySlider)"
+          (ionSlideNextStart)="slidesDidLoad(mySlider)">
           <ion-slide *ngFor="let slide of (slides$ | async)?.results">
             <div class="profile-path">
               <img
