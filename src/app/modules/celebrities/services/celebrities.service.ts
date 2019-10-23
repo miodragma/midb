@@ -49,12 +49,15 @@ export class CelebritiesService {
       this._http.get<MovieResponse<Actor>>(`${url}&page=2)`)
     ])
       .pipe(
-        map(trending => (
-          {
-            ...trending[0],
-            results: [ ...trending[0].results, ...trending[1].results ]
-          }
-        )),
+        map(trending => {
+          const [ firstTrending, secondTrending ] = trending;
+          firstTrending.results = firstTrending.results.filter(actor => actor.profile_path !== null);
+          secondTrending.results = secondTrending.results.filter(actor => actor.profile_path !== null);
+          return {
+            ...firstTrending,
+            results: [ ...firstTrending.results, ...secondTrending.results ]
+          };
+        }),
         tap(trending => this._slidesList.next(trending))
       ).subscribe();
   }
