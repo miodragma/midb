@@ -13,7 +13,17 @@ export class CelebritiesPage implements OnInit {
 
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
+  slideOpts = {
+    allowTouchMove: false,
+    autoplay: true,
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    speed: 1000
+  };
+
   actors$: Observable<MovieResponse<Actor>>;
+  slides$: Observable<MovieResponse<Actor>>;
 
   private _value = '';
 
@@ -22,6 +32,8 @@ export class CelebritiesPage implements OnInit {
 
   ngOnInit() {
     this.actors$ = this._service.findActorsList;
+    this._service.findAllActorTrendings();
+    this.slides$ = this._service.findAllSlides;
   }
 
   onSearch(value) {

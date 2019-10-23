@@ -12,7 +12,7 @@ export class FilterService {
   private _url = 'https://api.themoviedb.org/3';
 
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
-  private _singleActor = new BehaviorSubject<Actor>({ id: 0, name: '', profile_path: '' });
+  private _singleActor = new BehaviorSubject<Actor>({ id: 0, name: '', profile_path: '', known_for: [] });
 
   constructor(private _http: HttpClient) {
   }
@@ -47,7 +47,7 @@ export class FilterService {
   }
 
   resetSingleActor() {
-    this._singleActor.next({ id: 0, name: '', profile_path: '' });
+    this._singleActor.next({ id: 0, name: '', profile_path: '', known_for: [] });
   }
 
 }

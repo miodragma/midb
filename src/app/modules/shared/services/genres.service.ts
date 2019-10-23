@@ -13,6 +13,7 @@ export class GenresService {
   private _url = 'https://api.themoviedb.org/3';
 
   private _filterMoviesGenresList = new BehaviorSubject<FilterGenre[]>([]);
+  private _filterTVShowsGenresList = new BehaviorSubject<FilterGenre[]>([]);
   private _genresList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
   private _filterYearsList = new BehaviorSubject<FilterYear[]>([]);
   private _genresTvList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
@@ -22,6 +23,10 @@ export class GenresService {
 
   get filterMoviesGenresList() {
     return this._filterMoviesGenresList.asObservable();
+  }
+
+  get filterTVShowsGenresList() {
+    return this._filterTVShowsGenresList.asObservable();
   }
 
   get genresList() {
@@ -59,19 +64,39 @@ export class GenresService {
   }
 
   findAllTVGenres() {
+    const years = [];
+    const currYear = new Date().getFullYear();
+    for (let i = currYear; i >= 1890; i--) {
+      years.push({ id: i, value: i, isChecked: false });
+    }
+    this._filterYearsList.next(years);
     this._http.get<{ genres: Genre[] }>(`${this._url}/genre/tv/list?${this._apiKey}&language=en-US`)
       .pipe(
         tap(genres => {
           this._genresTvList.next(genres);
+          const filterGenres = genres.genres.map(genre => (
+            {
+              ...genre,
+              isChecked: false
+            }
+          ));
+          this._filterTVShowsGenresList.next(filterGenres);
         })
       ).subscribe();
   }
 
-  updateFilterGenres(genre: FilterGenre) {
-    const currGenres = this._filterMoviesGenresList.getValue();
-    const index = currGenres.findIndex(genres => genres.id === genre.id);
-    currGenres[index] = genre;
-    this._filterMoviesGenresList.next(currGenres);
+  updateFilterGenres(tab: string, genre: FilterGenre) {
+    if (tab === 'tv-shows') {
+      const currGenres = this._filterTVShowsGenresList.getValue();
+      const index = currGenres.findIndex(genres => genres.id === genre.id);
+      currGenres[index] = genre;
+      this._filterTVShowsGenresList.next(currGenres);
+    } else {
+      const currGenres = this._filterMoviesGenresList.getValue();
+      const index = currGenres.findIndex(genres => genres.id === genre.id);
+      currGenres[index] = genre;
+      this._filterMoviesGenresList.next(currGenres);
+    }
   }
 
   updateFilterYears(year: FilterYear) {
@@ -84,8 +109,10 @@ export class GenresService {
   resetGenreAndYearFilter() {
     const currFilterYearsList = this._filterYearsList.getValue();
     const currFilterGenresList = this._filterMoviesGenresList.getValue();
+    const currFilterTvGenresList = this._filterTVShowsGenresList.getValue();
     this._filterYearsList.next(currFilterYearsList.map(year => ({ ...year, isChecked: false })));
     this._filterMoviesGenresList.next(currFilterGenresList.map(genre => ({ ...genre, isChecked: false })));
+    this._filterTVShowsGenresList.next(currFilterTvGenresList.map(genre => ({ ...genre, isChecked: false })));
   }
 
 }

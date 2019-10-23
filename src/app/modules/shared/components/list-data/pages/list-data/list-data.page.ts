@@ -46,7 +46,8 @@ export class ListDataPage<T, S extends MovieData<T>> {
         param.has('with_genres') && (newParam += '&with_genres=' + param.get('with_genres'));
         param.has('with_cast') && (newParam += '&with_cast=' + param.get('with_cast'));
         param.has('primary_release_year') && (newParam += '&primary_release_year=' + +param.get('primary_release_year'));
-        this._isFilter = !!param.get('with_genres') || !!param.get('with_cast') || !!+param.get('primary_release_year');
+        param.has('first_air_date_year') && (newParam += '&first_air_date_year=' + +param.get('first_air_date_year'));
+        this._isFilter = !!param.get('with_genres') || !!param.get('with_cast') || !!+param.get('primary_release_year') || !!+param.get('first_air_date_year');
         return this._isFilter ? newParam : '';
       }),
     ).subscribe(param => {

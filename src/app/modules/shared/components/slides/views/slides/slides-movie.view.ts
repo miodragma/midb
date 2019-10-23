@@ -3,7 +3,7 @@ import { MovieResponse } from '../../../../interfaces/movie-response.interface';
 import { MovieList } from '../../../list-data/interfaces/movie-list.interface';
 
 @Component({
-  selector: 'movies-slides',
+  selector: 'slides',
   templateUrl: 'slides-movie.view.html',
   styleUrls: [ 'slides-movie.view.scss' ]
 })
