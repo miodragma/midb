@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FindGenres } from './findGenres.pipe';
+import { FindGenres } from './find-genres.pipe';
+import { FirstTrailer } from './first-trailer.pipe';
 
 const pages = [];
 
@@ -10,7 +11,8 @@ const views = [];
 const services = [];
 
 const pipes = [
-  FindGenres
+  FindGenres,
+  FirstTrailer
 ];
 
 const modules = [

@@ -1,0 +1,13 @@
+<ion-item class="ion-no-padding"
+          *ngIf="(videos?.results | firstTrailer)"
+          (click)="playVideo(videos)">
+  <div class="trailer-videos">
+    <img
+      class="trailer-image"
+      [src]="(videos?.results | firstTrailer) !== '' ?
+                  'https://i.ytimg.com/vi/' + (videos?.results | firstTrailer) + '/hqdefault.jpg' :
+                  './assets/images/na.jpg'"
+      [alt]="(videos?.results | firstTrailer)">
+    <ion-icon class="play-icon" name="play-circle"></ion-icon>
+  </div>
+</ion-item>

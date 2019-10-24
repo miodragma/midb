@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Genre } from '../interfaces/genre.interface';
+import { Genre } from '../interfaces/genres/genre.interface';
 import { FilterGenre } from '../../filter/interfaces/filter-genre.interface';
 import { FilterYear } from '../../filter/interfaces/filter-year.interface';
 

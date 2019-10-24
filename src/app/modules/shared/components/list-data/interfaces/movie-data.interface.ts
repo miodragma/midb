@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { MovieResponse } from '../../../interfaces/movie-response.interface';
+import { MovieResponse } from '../../../interfaces/movies/movie-response.interface';
 
 export interface MovieData<T> {
 

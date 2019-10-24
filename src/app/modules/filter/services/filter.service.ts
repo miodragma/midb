@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
-import { Actor } from '../../shared/interfaces/actor.interface';
+import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
+import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { tap } from 'rxjs/operators';
 
 @Injectable()

@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab/movies"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onPopover($event)">
+        <ion-icon name="more" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> <!--ngIf="isLoading | async"-->
+  <ion-grid class="load-grid ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin" color="secondary">
+<!--          <ion-item-->
+<!--            *ngIf="(details?.videos | firstTrailer)"-->
+<!--            no-padding-->
+<!--            (click)="playVideo(details?.videos, '')">-->
+<!--            <div class="trailerVideo">-->
+<!--              <img-->
+<!--                class="trailerImage"-->
+<!--                [src]="(details?.videos | firstTrailer) !== '' ?-->
+<!--                  'https://i.ytimg.com/vi/' + (details?.videos | firstTrailer) + '/hqdefault.jpg' :-->
+<!--                  './assets/images/na.jpg'"-->
+<!--                [alt]="(details?.videos | firstTrailer)">-->
+<!--              <ion-icon class="playIcon" name="play-circle"></ion-icon>-->
+<!--            </div>-->
+<!--          </ion-item>-->
+
+          <video-trailer [videos]="details?.videos"></video-trailer>
+
+
+          <!--          <ion-item text-center *ngIf="!(details?.videos | firstTrailer)">-->
+<!--            <ion-label class="whiteText">There are no trailer right now!</ion-label>-->
+<!--          </ion-item>-->
+<!--          <ion-card-header color="secondary" class="titleHeader">-->
+<!--            <ion-card-title class="originalTitle">-->
+<!--              {{ details?.title }}-->
+<!--            </ion-card-title>-->
+<!--            <ion-card-subtitle style="color: #737373">-->
+<!--              {{ details.release_date | date: 'y' }}&nbsp;&nbsp;-->
+<!--              {{ details.omdbDetails.Rated }}&nbsp;&nbsp;-->
+<!--              {{ details.runtime | runtime }}&nbsp;&nbsp;-->
+<!--              {{ details.genres | allGenres }}-->
+<!--            </ion-card-subtitle>-->
+<!--          </ion-card-header>-->
+<!--          <ion-card-content class="cardDetails">-->
+<!--            <ion-item>-->
+<!--              <ion-thumbnail slot="start">-->
+<!--                <img-->
+<!--                  [src]="details.poster_path === null ?-->
+<!--                    './assets/images/na.jpg' :-->
+<!--                    'https://image.tmdb.org/t/p/w200'+ details.poster_path"-->
+<!--                  [alt]="details.poster_path">-->
+<!--              </ion-thumbnail>-->
+<!--              <p class="detailsOverview">{{ details.overview | overview }}</p>-->
+<!--            </ion-item>-->
+<!--          </ion-card-content>-->
+<!--          <ion-item class="voteShareWrapper"-->
+<!--                    *ngIf="!(details.omdbDetails.imdbRating === 'N/A' && details.omdbDetails.Metascore === 'N/A')">-->
+<!--            <div style="width: 100%; padding: 0 35px;">-->
+<!--              <div class="imdbRatingWrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">-->
+<!--                <ion-icon class="iconStar" name="star"></ion-icon>-->
+<!--                <div class="voteWrapper">-->
+<!--                  <h5 class="whiteText vote">{{ details.omdbDetails.imdbRating }}</h5>-->
+<!--                  <span class="whiteText voteSlashTen">/ 10</span>-->
+<!--                </div>-->
+<!--                <p class="voteCount">{{ details.omdbDetails.imdbVotes | formatNumber }}</p>-->
+<!--              </div>-->
+<!--              <div class="imdbMetascoreWrapper" *ngIf="details.omdbDetails.Metascore !== 'N/A'">-->
+<!--                <div>-->
+<!--                  <ion-icon name="square" class="iconSquare"></ion-icon>-->
+<!--                  <span class="metascoreSpan">{{ details.omdbDetails.Metascore }}</span>-->
+<!--                </div>-->
+<!--                <div class="voteWrapper">-->
+<!--                  <p class="whiteText vote">Metascore</p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </ion-item>-->
+        </ion-card>
+      </ion-col>
+    </ion-row>
+<!--    <app-cast [casts]="details.credits.cast | orderCastCrew" [crews]="details.credits.crew" [type]="'Billed'"></app-cast>-->
+<!--    <app-videos [videos]="details.videos" (playVideoOutput)="playVideo('', $event)"></app-videos>-->
+<!--    <app-images [images]="details.images"></app-images>-->
+<!--    <ion-row *ngIf="details.omdbDetails.Awards !== 'N/A'">-->
+<!--      <ion-col-->
+<!--        size="12"-->
+<!--        sizeSm="8"-->
+<!--        offsetSm="2"-->
+<!--        no-padding-->
+<!--        class="billedCastCol">-->
+<!--        <h5 class="topBilledCastTitle">Awards</h5>-->
+<!--        <div class="infoWrapper">-->
+<!--          <p class="whiteText infoLabel">{{ details.omdbDetails.Awards.split('.')[0] }}</p>-->
+<!--          <p class="greyText infoTitle">{{ details.omdbDetails.Awards.split('.')[1] }}</p>-->
+<!--        </div>-->
+<!--      </ion-col>-->
+<!--    </ion-row>-->
+<!--    <app-similar [similar]="details.recommendations.results" [type]="'movie'"></app-similar>-->
+<!--    <ion-row>-->
+<!--      <ion-col-->
+<!--        size="12"-->
+<!--        sizeSm="8"-->
+<!--        offsetSm="2"-->
+<!--        no-padding-->
+<!--        class="billedCastCol">-->
+<!--        <h5 class="topBilledCastTitle">Storyline</h5>-->
+<!--        <div class="infoWrapper">-->
+<!--          <p class="whiteText infoLabel">Plot Summary</p>-->
+<!--          <p class="greyText infoTitle">{{ details.overview }}</p>-->
+<!--          <p class="whiteText infoLabel">Tagline</p>-->
+<!--          <p class="greyText infoTitle">{{ details.tagline}}</p>-->
+<!--        </div>-->
+<!--      </ion-col>-->
+<!--    </ion-row>-->
+<!--    <ion-row>-->
+<!--      <ion-col-->
+<!--        size="12"-->
+<!--        sizeSm="8"-->
+<!--        offsetSm="2"-->
+<!--        no-padding-->
+<!--        class="billedCastCol">-->
+<!--        <h5 class="topBilledCastTitle">Details</h5>-->
+<!--        <div class="infoWrapper">-->
+<!--          <p class="whiteText infoLabel">Release Date</p>-->
+<!--          <p class="greyText infoTitle">{{ details.release_date | date }}</p>-->
+<!--          <p class="whiteText infoLabel">Country of Origin</p>-->
+<!--          <p class="greyText infoTitle">{{ details.production_countries | countries }}</p>-->
+<!--          <p class="whiteText infoLabel">Language Spoken</p>-->
+<!--          <p class="greyText infoTitle">{{ details.omdbDetails.Language }}</p>-->
+<!--          <p class="whiteText infoLabel">Budget</p>-->
+<!--          <p class="greyText infoTitle">${{ details.budget | formatNumber }}</p>-->
+<!--          <p class="whiteText infoLabel">Revenue</p>-->
+<!--          <p class="greyText infoTitle">${{ details.revenue | formatNumber }}</p>-->
+<!--          <p class="whiteText infoLabel">Production</p>-->
+<!--          <p class="greyText infoTitle">{{ details.omdbDetails.Production }}</p>-->
+<!--        </div>-->
+<!--      </ion-col>-->
+<!--    </ion-row>-->
+  </ion-grid>
+</ion-content>

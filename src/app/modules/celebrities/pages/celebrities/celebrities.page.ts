@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MovieResponse } from '../../../shared/interfaces/movie-response.interface';
-import { Actor } from '../../../shared/interfaces/actor.interface';
-import { IonContent } from '@ionic/angular';
+import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.interface';
+import { Actor } from '../../../shared/interfaces/actors/actor.interface';
+import { IonContent, IonSlides } from '@ionic/angular';
 import { CelebritiesService } from '../../services/celebrities.service';
 
 @Component({
@@ -14,9 +14,9 @@ export class CelebritiesPage implements OnInit {
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
   slideOpts = {
-    allowTouchMove: false,
+    // allowTouchMove: false,
     autoplay: true,
-    slidesPerView: 1,
+    // slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
     speed: 1000
@@ -34,6 +34,10 @@ export class CelebritiesPage implements OnInit {
     this.actors$ = this._service.findActorsList;
     this._service.findAllActorTrendings();
     this.slides$ = this._service.findAllSlides;
+  }
+
+  slidesDidLoad(slides: IonSlides) {
+    slides.startAutoplay();
   }
 
   onSearch(value) {

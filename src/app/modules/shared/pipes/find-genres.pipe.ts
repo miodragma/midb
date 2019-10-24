@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Genre } from '../interfaces/genre.interface';
+import { Genre } from '../interfaces/genres/genre.interface';
 
 @Pipe({ name: 'findGenres' })
 export class FindGenres implements PipeTransform {

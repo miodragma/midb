@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { of } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { LoaderService } from '../../../services/loader.service';
-import { Genre } from '../../../interfaces/genre.interface';
-import { MovieResponse } from '../../../interfaces/movie-response.interface';
+import { Genre } from '../../../interfaces/genres/genre.interface';
+import { MovieResponse } from '../../../interfaces/movies/movie-response.interface';
 import { MovieList } from '../../list-data/interfaces/movie-list.interface';
 
 @Component({

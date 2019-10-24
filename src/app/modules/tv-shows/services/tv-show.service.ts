@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin } from 'rxjs';
-import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
+import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { TvShow } from '../interfaces/tv-show.interface';

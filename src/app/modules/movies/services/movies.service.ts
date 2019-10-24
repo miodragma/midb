@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
-import { Movie } from '../../shared/interfaces/movie.interface';
+import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
+import { Movie } from '../../shared/interfaces/movies/movie.interface';
 
 @Injectable()
 export class MoviesService {
