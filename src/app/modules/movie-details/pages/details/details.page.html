@@ -11,11 +11,11 @@
   </ion-toolbar>
 </ion-header>
 
-<!--<ion-content *ngIf="isLoading | async">-->
-<!--  <ion-grid no-padding class="loadImage" >-->
-<!--    <ion-row>-->
-<!--      <ion-col no-padding>-->
-<!--        <ion-card no-margin color="secondary">-->
+<ion-content> <!--ngIf="isLoading | async"-->
+  <ion-grid class="load-grid ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin" color="secondary">
 <!--          <ion-item-->
 <!--            *ngIf="(details?.videos | firstTrailer)"-->
 <!--            no-padding-->
@@ -30,7 +30,11 @@
 <!--              <ion-icon class="playIcon" name="play-circle"></ion-icon>-->
 <!--            </div>-->
 <!--          </ion-item>-->
-<!--          <ion-item text-center *ngIf="!(details?.videos | firstTrailer)">-->
+
+          <video-trailer [videos]="details?.videos"></video-trailer>
+
+
+          <!--          <ion-item text-center *ngIf="!(details?.videos | firstTrailer)">-->
 <!--            <ion-label class="whiteText">There are no trailer right now!</ion-label>-->
 <!--          </ion-item>-->
 <!--          <ion-card-header color="secondary" class="titleHeader">-->
@@ -78,9 +82,9 @@
 <!--              </div>-->
 <!--            </div>-->
 <!--          </ion-item>-->
-<!--        </ion-card>-->
-<!--      </ion-col>-->
-<!--    </ion-row>-->
+        </ion-card>
+      </ion-col>
+    </ion-row>
 <!--    <app-cast [casts]="details.credits.cast | orderCastCrew" [crews]="details.credits.crew" [type]="'Billed'"></app-cast>-->
 <!--    <app-videos [videos]="details.videos" (playVideoOutput)="playVideo('', $event)"></app-videos>-->
 <!--    <app-images [images]="details.images"></app-images>-->
@@ -139,5 +143,5 @@
 <!--        </div>-->
 <!--      </ion-col>-->
 <!--    </ion-row>-->
-<!--  </ion-grid>-->
-<!--</ion-content>-->
+  </ion-grid>
+</ion-content>

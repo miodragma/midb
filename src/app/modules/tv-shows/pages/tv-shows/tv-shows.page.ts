@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { TvShowService } from '../../services/tv-show.service';
 import { Observable } from 'rxjs';
-import { Genre } from '../../../shared/interfaces/genre.interface';
+import { Genre } from '../../../shared/interfaces/genres/genre.interface';
 import { TvShow } from '../../interfaces/tv-show.interface';
 
 @Component({

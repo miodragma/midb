@@ -1,0 +1,12 @@
+.load-grid {
+  animation: on-load-grid 0.3s ease-in;
+}
+
+@keyframes on-load-grid {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

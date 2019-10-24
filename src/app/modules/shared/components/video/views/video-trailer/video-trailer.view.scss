@@ -1,0 +1,24 @@
+ion-item {
+  --inner-padding-end: 0 !important;
+  --ion-background-color: var(--ion-color-secondary);
+}
+
+.trailer-video {
+  height: 210px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.trailer-image {
+  z-index: 1;
+  margin-top: -34px;
+  width: 100%;
+}
+
+.play-icon {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 32px);
+  font-size: 70px;
+  color: #ffffff;
+}

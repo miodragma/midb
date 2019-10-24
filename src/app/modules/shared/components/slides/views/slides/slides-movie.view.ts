@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MovieResponse } from '../../../../interfaces/movie-response.interface';
+import { MovieResponse } from '../../../../interfaces/movies/movie-response.interface';
 import { MovieList } from '../../../list-data/interfaces/movie-list.interface';
 import { IonSlides } from '@ionic/angular';
 

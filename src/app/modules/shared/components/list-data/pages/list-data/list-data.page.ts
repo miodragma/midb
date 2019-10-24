@@ -2,7 +2,7 @@ import { ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { MovieResponse } from '../../../../interfaces/movie-response.interface';
+import { MovieResponse } from '../../../../interfaces/movies/movie-response.interface';
 import { ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../../../../services/loader.service';
 import { MovieData } from '../../interfaces/movie-data.interface';
@@ -72,10 +72,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
     this._type = el.target.value;
     this.service.findAllMoviesByType(el.target.value, undefined, this._param);
   }
-
-  // onClickMovie(id: number) {
-  //   console.log(id);
-  // }
 
   clickScroll() {
     this.content.scrollToTop(1000);

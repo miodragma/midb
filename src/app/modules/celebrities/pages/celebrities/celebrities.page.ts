@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MovieResponse } from '../../../shared/interfaces/movie-response.interface';
-import { Actor } from '../../../shared/interfaces/actor.interface';
+import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.interface';
+import { Actor } from '../../../shared/interfaces/actors/actor.interface';
 import { IonContent, IonSlides } from '@ionic/angular';
 import { CelebritiesService } from '../../services/celebrities.service';
 

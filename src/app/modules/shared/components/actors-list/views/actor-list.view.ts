@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Actor } from '../../../interfaces/actor.interface';
-import { MovieResponse } from '../../../interfaces/movie-response.interface';
+import { Actor } from '../../../interfaces/actors/actor.interface';
+import { MovieResponse } from '../../../interfaces/movies/movie-response.interface';
 
 @Component({
   selector: 'actor-list',

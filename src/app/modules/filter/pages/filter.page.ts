@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { GenresService } from '../../shared/services/genres.service';
 import { FilterGenre } from '../interfaces/filter-genre.interface';
 import { FilterYear } from '../interfaces/filter-year.interface';
-import { MovieResponse } from '../../shared/interfaces/movie-response.interface';
-import { Actor } from '../../shared/interfaces/actor.interface';
+import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
+import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { FilterService } from '../services/filter.service';
 import { IonContent } from '@ionic/angular';
 

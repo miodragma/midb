@@ -1,0 +1,43 @@
+import { BelongToCollection } from '../../belong-to-collection.interface';
+import { Genre } from '../../genres/genre.interface';
+import { ProductionCompanies } from '../../productions/production-companies.interface';
+import { ProductionCountries } from '../../productions/production-countries.interface';
+import { SpokenLanguage } from '../../spoken-language.interface';
+import { Video } from '../../videos/video.interface';
+import { Image } from '../../images/image.interface';
+import { Similar } from '../../similar/similar.interface';
+import { Credits } from '../../credits/credits.interface';
+import { OmdbDetails } from '../../omdb/omdb-details.interface';
+
+export interface MovieDetails {
+  adult: boolean;
+  backdrop_path: string;
+  belongs_to_collection: BelongToCollection;
+  budget: number;
+  genres: Genre[];
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: ProductionCompanies[];
+  production_countries: ProductionCountries[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  spoken_languages: SpokenLanguage[];
+  status: string;
+  tagline: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  videos: Video;
+  images: Image;
+  recommendations: Similar;
+  credits: Credits;
+  omdbDetails: OmdbDetails;
+}
