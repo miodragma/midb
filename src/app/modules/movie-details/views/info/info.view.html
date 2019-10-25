@@ -1,0 +1,45 @@
+<ion-card-header color="secondary" class="title-header">
+  <ion-card-title>
+    {{ details?.title }}
+  </ion-card-title>
+  <ion-card-subtitle>
+    {{ details.release_date | date: 'y' }}&nbsp;&nbsp;
+    {{ details.omdbDetails.Rated }}&nbsp;&nbsp;
+    {{ details.runtime | runtime }}&nbsp;&nbsp;
+    {{ details.genres | allGenres }}
+  </ion-card-subtitle>
+</ion-card-header>
+<ion-card-content class="card-content">
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <img
+        [src]="details.poster_path === null ?
+                    './assets/images/na.jpg' :
+                    'https://image.tmdb.org/t/p/w200'+ details.poster_path"
+        [alt]="details.poster_path">
+    </ion-thumbnail>
+    <p>{{ details.overview | overview }}</p>
+  </ion-item>
+</ion-card-content>
+<ion-item class="vote-share-wrapper"
+          *ngIf="!(details.omdbDetails.imdbRating === 'N/A' && details.omdbDetails.Metascore === 'N/A')">
+  <div style="width: 100%; padding: 0 35px;">
+    <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
+      <ion-icon class="icon-star" name="star"></ion-icon>
+      <div class="voteWrapper">
+        <h5 class="whiteText vote">{{ details.omdbDetails.imdbRating }}</h5>
+        <span class="whiteText voteSlashTen">/ 10</span>
+      </div>
+      <p class="vote-count">{{ details.omdbDetails.imdbVotes | formatNumber }}</p>
+    </div>
+    <div class="imdb-metascore-wrapper" *ngIf="details.omdbDetails.Metascore !== 'N/A'">
+      <div>
+        <ion-icon name="square" class="icon-square"></ion-icon>
+        <span class="metascore">{{ details.omdbDetails.Metascore }}</span>
+      </div>
+      <div>
+        <p class="metascore-title">Metascore</p>
+      </div>
+    </div>
+  </div>
+</ion-item>

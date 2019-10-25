@@ -1,0 +1,19 @@
+<h5>Videos</h5>
+<div class="scrolling-wrapper">
+  <ion-card
+    class="card"
+    *ngFor="let video of videos?.results">
+    <div class="crop-black-image" (click)="playVideo.emit(video.key)">
+      <img
+        class="video-image"
+        [src]="'https://i.ytimg.com/vi/' + video.key + '/mqdefault.jpg'"
+        [alt]="video.name">
+      <ion-icon class="play-video-icon" name="play-circle"></ion-icon>
+    </div>
+    <ion-card-header color="secondary" class="video-header">
+      <ion-card-title>
+        {{ video.name }}
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</div>

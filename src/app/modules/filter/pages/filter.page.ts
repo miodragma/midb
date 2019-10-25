@@ -91,7 +91,10 @@ export class FilterPage implements OnInit {
   }
 
   navigate() {
-    const updateFilterQuery = { ...this.filterQuery, with_genres: this.filterQuery.with_genres.join(',') };
+    const updateFilterQuery = {
+      ...this.filterQuery,
+      with_genres: this.filterQuery.with_genres.length ? this.filterQuery.with_genres.join(',') : undefined
+    };
     this._router.navigate([ `/tabs/tab/${this.tab}` ], { queryParams: updateFilterQuery });
   }
 }

@@ -1,13 +1,16 @@
 <ion-item class="ion-no-padding"
-          *ngIf="(videos?.results | firstTrailer)"
-          (click)="playVideo(videos)">
-  <div class="trailer-videos">
+          *ngIf="(videos?.results | firstTrailer) as videoResults"
+          (click)="playVideo.emit(videoResults)">
+  <div class="trailer-video">
     <img
       class="trailer-image"
-      [src]="(videos?.results | firstTrailer) !== '' ?
-                  'https://i.ytimg.com/vi/' + (videos?.results | firstTrailer) + '/hqdefault.jpg' :
+      [src]="videoResults !== '' ?
+                  'https://i.ytimg.com/vi/' + videoResults + '/mqdefault.jpg' :
                   './assets/images/na.jpg'"
-      [alt]="(videos?.results | firstTrailer)">
+      [alt]="videoResults">
     <ion-icon class="play-icon" name="play-circle"></ion-icon>
   </div>
+</ion-item>
+<ion-item class="ion-text-center" *ngIf="!(videos?.results | firstTrailer)">
+  <ion-label color="tertiary">There are no trailer right now!</ion-label>
 </ion-item>

@@ -12,6 +12,8 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
   ) {
   }
 
+  isLoading: Promise<boolean>;
+
   details: T;
 
   initialization() {
@@ -26,6 +28,7 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
                 .subscribe(data => {
                   this.details = data;
                   loadingEl.dismiss();
+                  this.isLoading = Promise.resolve(true);
                 });
             });
         })

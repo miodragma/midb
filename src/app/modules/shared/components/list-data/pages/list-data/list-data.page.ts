@@ -54,7 +54,7 @@ export class ListDataPage<T, S extends MovieData<T>> {
       this._param = param;
       this.slides$ = this.service.findAllSlides;
       this.movies$ = this.service.findMoviesList;
-      this.service.findAllMoviesByType(undefined, undefined, this._param);
+      !this.value && this.service.findAllMoviesByType(undefined, undefined, this._param);
     });
   }
 

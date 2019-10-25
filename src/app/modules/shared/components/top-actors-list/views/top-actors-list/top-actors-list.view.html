@@ -1,0 +1,28 @@
+<h5 class="top-actors-title">{{ title }}</h5>
+<div class="scrolling-wrapper">
+  <ion-card
+    class="card"
+    *ngFor="let cast of casts">
+    <img
+      [src]="cast?.profile_path !== null ?
+            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + cast.profile_path :
+            './assets/images/na.jpg'"
+      [alt]="cast.name">
+    <ion-card-header color="secondary" class="top-billed-cast-header">
+      <ion-card-title>
+        {{ cast.name }}
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ cast.character }}
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</div>
+<div class="info-wrapper" *ngIf="(crews | director)">
+  <p class="info-label">Director</p>
+  <p class="info-title">{{ crews | director }}</p>
+</div>
+<div class="info-wrapper" *ngIf="(crews | writers) !== ', and others'">
+  <p class="info-label">Writers</p>
+  <p class="info-title">{{ crews | writers }}</p>
+</div>

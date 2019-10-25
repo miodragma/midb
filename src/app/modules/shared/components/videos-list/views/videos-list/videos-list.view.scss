@@ -1,0 +1,46 @@
+h5 {
+  color: #ffffff;
+  margin-left: 16px;
+}
+
+ion-card-title {
+  font-size: 13px;
+  white-space: initial;
+}
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  margin-left: 6px;
+}
+
+.card {
+  width: 220px;
+  margin: 10px 5px;
+  display: inline-block;
+}
+
+.crop-black-image {
+  overflow: hidden;
+  z-index: 2;
+}
+
+.video-image {
+  z-index: 1;
+  width: 350px;
+}
+
+.play-video-icon {
+  position: absolute;
+  top: calc(50% - 48px);
+  left: calc(50% - 22px);
+  font-size: 50px;
+  color: #ffffff;
+}
+
+.video-header {
+  background-color: var(--ion-color-secondary-tint);
+  padding: 8px;
+  height: 50px;
+}

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { VideoTrailerView } from './views/video-trailer/video-trailer.view';
+import { TopActorsListView } from './views/top-actors-list/top-actors-list.view';
 import { PipesModule } from '../../pipes/pipes.module';
 
 const pages = [];
 
-const views = [ VideoTrailerView ];
+const views = [ TopActorsListView ];
 
 const services = [];
 
@@ -22,5 +22,5 @@ const modules = [
   exports: [ ...views ],
   providers: [ ...services ]
 })
-export class VideoTrailerModule {
+export class TopActorsListModule {
 }
