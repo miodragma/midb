@@ -8,6 +8,11 @@ import { Image } from '../../images/image.interface';
 import { Similar } from '../../similar/similar.interface';
 import { Credits } from '../../credits/credits.interface';
 import { OmdbDetails } from '../../omdb/omdb-details.interface';
+import { CreatedBy } from '../../created-by/created-by.interface';
+import { EpisodeToAir } from '../../episode-to-air/episode-to-air.interface';
+import { Network } from '../../networks/network.interface';
+import { SeasonList } from '../../season-list/season-list.interface';
+import { ExternalIds } from '../../external-ids/external-ids.interface';
 
 export interface MovieDetails {
   adult: boolean;
@@ -40,4 +45,22 @@ export interface MovieDetails {
   recommendations: Similar;
   credits: Credits;
   omdbDetails: OmdbDetails;
+
+  created_by: CreatedBy[];
+  episode_run_time: [];
+  first_air_date: string;
+  in_production: boolean;
+  languages: [];
+  last_air_date: string;
+  last_episode_to_air: EpisodeToAir;
+  name: string;
+  next_episode_to_air: EpisodeToAir;
+  networks: Network[];
+  number_of_episodes: number;
+  number_of_seasons: number;
+  origin_country: [];
+  original_name: string;
+  seasons: SeasonList[];
+  type: string;
+  external_ids: ExternalIds;
 }

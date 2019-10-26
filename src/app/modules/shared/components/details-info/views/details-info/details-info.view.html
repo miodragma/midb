@@ -1,15 +1,24 @@
 <h5>Details</h5>
 <div class="info-wrapper">
   <p class="info-label">Release Date</p>
-  <p class="info-title">{{ detailsInfo.release_date | date }}</p>
+  <p class="info-title">{{ (detailsInfo.release_date | date) || (detailsInfo.first_air_date| date) }}</p>
   <p class="info-label">Country of Origin</p>
-  <p class="info-title">{{ detailsInfo.production_countries | countries }}</p>
+  <p
+    class="info-title">{{ detailsInfo.production_countries ? (detailsInfo.production_countries | countries) : detailsInfo.origin_country }}</p>
   <p class="info-label">Language Spoken</p>
   <p class="info-title">{{ detailsInfo.omdbDetails.Language }}</p>
-  <p class="info-label">Budget</p>
-  <p class="info-title">${{ detailsInfo.budget | formatNumber }}</p>
-  <p class="info-label">Revenue</p>
-  <p class="info-title">${{ detailsInfo.revenue | formatNumber }}</p>
+  <p class="info-label" *ngIf="detailsInfo.budget">Budget</p>
+  <p class="info-title" *ngIf="detailsInfo.budget">${{ detailsInfo.budget | formatNumber }}</p>
+  <p class="info-label" *ngIf="detailsInfo.revenue">Revenue</p>
+  <p class="info-title" *ngIf="detailsInfo.revenue">${{ detailsInfo.revenue | formatNumber }}</p>
   <p class="info-label">Production</p>
-  <p class="info-title">{{ detailsInfo.omdbDetails.Production }}</p>
+  <p class="info-title" *ngIf="detailsInfo.title">{{ detailsInfo.omdbDetails.Production }}</p>
+  <div *ngIf="detailsInfo.production_companies.length > 0 && detailsInfo.name">
+    <p
+      *ngFor="let production of detailsInfo.production_companies"
+      class="info-title">
+      {{ production.origin_country !== '' ? production.name + ' | ' : ''}}
+      {{ production.origin_country !== '' ? production.origin_country : ''}}
+    </p>
+  </div>
 </div>

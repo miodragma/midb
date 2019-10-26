@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab/movies"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab/tv-shows"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button (click)="onPopover($event)">
@@ -30,7 +30,7 @@
         <top-actors-list
           [casts]="details?.credits.cast | orderCastCrew"
           [crews]="details?.credits.crew"
-          [title]="'Top Billed Cast'">
+          [title]="'Top Series Cast'">
         </top-actors-list>
       </ion-col>
     </ion-row>

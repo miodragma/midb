@@ -1,0 +1,43 @@
+ion-content {
+  --ion-background-color: var(--ion-color-secondary-tint);
+}
+
+.load-grid {
+  animation: on-load-grid 0.3s ease-in;
+}
+
+h5 {
+  color: #ffffff;
+  margin-left: 16px;
+}
+
+@keyframes on-load-grid {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.billed-cast-col {
+  margin-top: 16px;
+  padding-bottom: 16px;
+  background-color: var(--ion-color-secondary);
+}
+
+.info-wrapper {
+  padding: 0 16px;
+}
+
+.info-label {
+  color: #ffffff;
+  margin: 16px 0 0 0;
+  font-size: 14px;
+}
+
+.info-title {
+  font-size: 14px;
+  color: #737373;
+  margin: 0;
+}

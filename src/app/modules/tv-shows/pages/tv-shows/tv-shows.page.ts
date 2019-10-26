@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListDataPage } from '../../../shared/components/list-data/pages/list-data/list-data.page';
 import { GenresService } from '../../../shared/services/genres.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { TvShowService } from '../../services/tv-show.service';
 import { Observable } from 'rxjs';
@@ -20,7 +20,8 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> implements 
     service: TvShowService,
     route: ActivatedRoute,
     loaderService: LoaderService,
-    private _genresService: GenresService) {
+    private _genresService: GenresService,
+    private _router: Router) {
     super(service, route, loaderService);
   }
 
@@ -31,7 +32,7 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> implements 
   }
 
   onClickTvShow(id: number) {
-    console.log('tv show', id);
+    this._router.navigate([ `details/tv-shows/${id}` ]);
   }
 
 }
