@@ -11,6 +11,10 @@ import { PipesModule } from '../shared/pipes/pipes.module';
 import { TopActorsListModule } from '../shared/components/top-actors-list/top-actors-list.module';
 import { VideosListModule } from '../shared/components/videos-list/videos-list.module';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
+import { ImagesListModule } from '../shared/components/images-list/images-list.module';
+import { SimilarModule } from '../shared/components/similar-list/similar.module';
+import { StorylineModule } from '../shared/components/storyline/storyline.module';
+import { DetailsInfoModule } from '../shared/components/details-info/details-info.module';
 
 const pages = [ DetailsPage ];
 
@@ -25,7 +29,11 @@ const modules = [
   PipesModule,
   VideoTrailerModule,
   TopActorsListModule,
-  VideosListModule
+  VideosListModule,
+  ImagesListModule,
+  SimilarModule,
+  StorylineModule,
+  DetailsInfoModule
 ];
 
 @NgModule({

@@ -1,0 +1,15 @@
+<h5>Details</h5>
+<div class="info-wrapper">
+  <p class="info-label">Release Date</p>
+  <p class="info-title">{{ detailsInfo.release_date | date }}</p>
+  <p class="info-label">Country of Origin</p>
+  <p class="info-title">{{ detailsInfo.production_countries | countries }}</p>
+  <p class="info-label">Language Spoken</p>
+  <p class="info-title">{{ detailsInfo.omdbDetails.Language }}</p>
+  <p class="info-label">Budget</p>
+  <p class="info-title">${{ detailsInfo.budget | formatNumber }}</p>
+  <p class="info-label">Revenue</p>
+  <p class="info-title">${{ detailsInfo.revenue | formatNumber }}</p>
+  <p class="info-label">Production</p>
+  <p class="info-title">{{ detailsInfo.omdbDetails.Production }}</p>
+</div>

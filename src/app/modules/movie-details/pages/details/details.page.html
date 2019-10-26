@@ -43,6 +43,55 @@
         <videos-list [videos]="details?.videos" (playVideo)="playVideo($event)"></videos-list>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="(details?.images.backdrops).length > 0 || (details?.images.posters).length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <images-list [images]="details?.images"></images-list>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details?.omdbDetails.Awards !== 'N/A'">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <h5>Awards</h5>
+        <div class="info-wrapper">
+          <p class="info-label">{{ details.omdbDetails.Awards.split('.')[0] }}</p>
+          <p class="info-title">{{ details.omdbDetails.Awards.split('.')[1] }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details?.recommendations.results.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <similar-list [title]="'More Like This'" [similar]="details?.recommendations.results"></similar-list>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details?.overview || details?.tagline">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <storyline [storyline]="{overview: details.overview, tagline: details.tagline}"></storyline>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <details-info [detailsInfo]="details"></details-info>
+      </ion-col>
+    </ion-row>
     <!--    <app-cast [casts]="details.credits.cast | orderCastCrew" [crews]="details.credits.crew" [type]="'Billed'"></app-cast>-->
     <!--    <app-videos [videos]="details.videos" (playVideoOutput)="playVideo('', $event)"></app-videos>-->
     <!--    <app-images [images]="details.images"></app-images>-->
