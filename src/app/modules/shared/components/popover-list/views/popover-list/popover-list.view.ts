@@ -22,6 +22,13 @@ export class PopoverListView implements OnInit {
 
   ngOnInit() {
     this.pop = this._navParams.get('popoverController');
+    const currData = this._navParams.data.movie;
+    this.movie.id = currData.id;
+    this.movie.title = currData.original_title;
+    this.movie.poster = currData.poster_path;
+    this.movie.genre = currData.omdbDetails.Genre;
+    this.movie.releaseDate = currData.omdbDetails.Released;
+    this.movie.actors = currData.omdbDetails.Actors;
   }
 
   onAddToWatchList() {
