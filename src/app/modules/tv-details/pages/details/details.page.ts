@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -11,7 +11,7 @@ import { MovieDetails } from '../../../shared/interfaces/movies/details/movie-de
   templateUrl: 'details.page.html',
   styleUrls: [ 'details.page.scss' ]
 })
-export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> implements OnInit {
+export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> implements OnInit, OnDestroy {
 
   constructor(
     service: DetailsService,
@@ -35,5 +35,9 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
 
   playVideo(id: string) {
     this._youtube.openVideo(id);
+  }
+
+  ngOnDestroy() {
+    this._screenOrientation.unlock();
   }
 }
