@@ -83,7 +83,7 @@
         <storyline [storyline]="{overview: details.overview, tagline: details.tagline}"></storyline>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="details">
+    <ion-row *ngIf="isDetails(details)">
       <ion-col
         size="12"
         sizeSm="8"

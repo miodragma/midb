@@ -55,4 +55,16 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
       .subscribe();
   }
 
+  isDetails(details) {
+    return details.release_date
+      || details.first_air_date
+      || details.production_countries
+      || details.origin_country
+      || details.omdbDetails.Language
+      || details.budget
+      || details.revenue
+      || details.omdbDetails.Production
+      || details.production_companies.length > 0;
+  }
+
 }
