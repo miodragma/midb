@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { DetailsPage } from './pages/details/details.page';
-import { MovieDetailsRoutingModule } from './movie-details-routing.module';
+import { TvDetailsRoutingModule } from './tv-details-routing.module';
 import { VideoTrailerModule } from '../shared/components/video/video-trailer.module';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { DetailsService } from './services/details.service';
@@ -24,7 +24,7 @@ const services = [ ScreenOrientation, DetailsService, YoutubeVideoPlayer ];
 const modules = [
   CommonModule,
   IonicModule,
-  MovieDetailsRoutingModule,
+  TvDetailsRoutingModule,
   VideoTrailerModule,
   InfoModule,
   TopActorsListModule,
@@ -40,5 +40,5 @@ const modules = [
   declarations: [ ...pages, ...views ],
   providers: [ ...services ]
 })
-export class MoviesModule {
+export class TvDetailsModule {
 }

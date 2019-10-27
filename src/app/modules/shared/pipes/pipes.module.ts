@@ -10,6 +10,7 @@ import { FormatNumber } from './format-number.pipe';
 import { Director } from './director.pipe';
 import { Writers } from './writers.pipe';
 import { OrderCastCrew } from './order-cast-crew.pipe';
+import { Countries } from './countries.pipe';
 
 const pages = [];
 
@@ -26,7 +27,8 @@ const pipes = [
   FormatNumber,
   Director,
   Writers,
-  OrderCastCrew
+  OrderCastCrew,
+  Countries
 ];
 
 const modules = [

@@ -1,15 +1,37 @@
 <ion-card-header color="secondary" class="title-header">
   <ion-card-title>
-    {{ details?.title }}
+    {{ details?.title || details?.name }}
   </ion-card-title>
   <ion-card-subtitle>
-    {{ details.release_date | date: 'y' }}&nbsp;&nbsp;
+    {{ (details.release_date | date: 'y') || (details.first_air_date | date: 'y') }}&nbsp;&nbsp;
     {{ details.omdbDetails.Rated }}&nbsp;&nbsp;
-    {{ details.runtime | runtime }}&nbsp;&nbsp;
+    {{ details?.runtime ? (details.runtime | runtime) : (details.episode_run_time[0] | runtime) }}&nbsp;&nbsp;
     {{ details.genres | allGenres }}
   </ion-card-subtitle>
 </ion-card-header>
 <ion-card-content class="card-content">
+  <ion-item
+    *ngIf="details?.name"
+    color="secondary"
+    class="title-header"
+    style="padding-bottom: 16px">
+    <ion-label>
+      <h2 *ngIf="details.in_production && details.next_episode_to_air !== null">
+        Next Episode: Episode
+        #{{ details.next_episode_to_air.season_number }}.{{ details.next_episode_to_air.episode_number }}
+      </h2>
+      <p
+        *ngIf="details.in_production && details.next_episode_to_air !== null"
+        style="color: #737373">{{ details.next_episode_to_air.air_date | date }}
+      </p>
+    </ion-label>
+    <ion-button
+      style="margin-left: 0"
+      fill="outline"
+      slot="{{ details.in_production && details.next_episode_to_air !== null ? 'end' : 'start'}}">
+      All Episodes
+    </ion-button>
+  </ion-item>
   <ion-item>
     <ion-thumbnail slot="start">
       <img
@@ -18,7 +40,7 @@
                     'https://image.tmdb.org/t/p/w200'+ details.poster_path"
         [alt]="details.poster_path">
     </ion-thumbnail>
-    <p>{{ details.overview | overview }}</p>
+    <p class="details-overview">{{ details.overview | overview }}</p>
   </ion-item>
 </ion-card-content>
 <ion-item class="vote-share-wrapper"

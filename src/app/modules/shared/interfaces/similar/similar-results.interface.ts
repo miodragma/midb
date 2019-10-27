@@ -13,4 +13,9 @@ export interface SimilarResults {
   video: false;
   vote_average: number;
   vote_count: number;
+
+  first_air_date: string;
+  name: string;
+  origin_country: [];
+  original_name: string;
 }

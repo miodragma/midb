@@ -93,7 +93,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row
+      *ngIf="(tab !== 'tv-shows' && (actor$ | async).id !== 0) || (filterQuery.with_genres.length > 0) || (filterQuery.primary_release_year)">
       <ion-col
         size="12"
         sizeSm="8"
