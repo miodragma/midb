@@ -2,6 +2,7 @@ import { DetailsData } from '../../interfaces/details-data.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { filter, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 export class DetailsDataPage<T, S extends DetailsData<T>> {
 
@@ -18,8 +19,10 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
 
   details: T;
 
+  private _subscription: Subscription;
+
   initialization() {
-    this.route.paramMap
+    this._subscription = this.route.paramMap
       .pipe(
         filter(params => params.has('id')),
         tap(params => {
@@ -65,6 +68,10 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
       || details.revenue
       || details.omdbDetails.Production
       || details.production_companies.length > 0;
+  }
+
+  ionViewWillLeave() {
+    this._subscription.unsubscribe();
   }
 
 }

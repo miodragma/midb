@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonRouterOutlet, NavController, Platform } from '@ionic/angular';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MoviesService } from '../../services/movies.service';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { GenresService } from '../../../shared/services/genres.service';
@@ -13,7 +13,7 @@ import { Genre } from '../../../shared/interfaces/genres/genre.interface';
   templateUrl: 'movies.page.html',
   styleUrls: [ 'movies.page.scss' ]
 })
-export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnInit, OnDestroy {
+export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnInit {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
 
@@ -29,11 +29,9 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     super(service, route, loaderService);
   }
 
-  private _subscription: Subscription;
-
   ngOnInit() {
     this._navCtrl.setTopOutlet(this._routerOutlet);
-    this._subscription = this._platform.backButton.subscribe(() => {
+    this.subscription = this._platform.backButton.subscribe(() => {
       if (this._routerOutlet && this._routerOutlet.canGoBack()) {
         this._routerOutlet.pop();
       } else if (this._router.url !== '/tabs/tab/movies') {
@@ -49,10 +47,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
 
   onClickMovie(id: number) {
     this._router.navigate([ `details/movie/${id}` ]);
-  }
-
-  ngOnDestroy() {
-    this._subscription.unsubscribe();
   }
 
 }

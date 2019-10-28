@@ -25,6 +25,8 @@ export class MoviesService {
     return this._slidesList.asObservable();
   }
 
+  getFirstVal = true;
+
   findAllMovieTrendings() {
     const url = `${this.url}/trending/movie/day?${this.apiKey}`;
     forkJoin([
@@ -62,6 +64,7 @@ export class MoviesService {
   }
 
   findAllMoviesByType(type: string = 'popular', page: number = 1, param: string) {
+    this.getFirstVal = false;
     const filter = !!param ? param : '';
     const isDiscover = param === '' ? `/movie/${type}` : `/discover/movie`;
     return this._http.get<MovieResponse<Movie>>(`${this.url}${isDiscover}?${this.apiKey}&region=US&language=en-US&page=${page}${filter}`)

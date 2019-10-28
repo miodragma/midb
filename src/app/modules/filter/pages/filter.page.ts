@@ -26,7 +26,7 @@ export class FilterPage implements OnInit {
   actors$: Observable<MovieResponse<Actor>>;
   actor$: Observable<Actor>;
 
-  filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined };
+  filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined, type: '' };
 
   constructor(
     private _router: Router,
@@ -41,6 +41,10 @@ export class FilterPage implements OnInit {
         filter(qParams => !!qParams.has('tab')),
         map(qParam => qParam.get('tab')),
         tap(param => {
+          if (this.filterQuery.type !== param) {
+            this.resetFilter();
+          }
+          this.filterQuery.type = param;
           this.years$ = this._genresService.filterYearsList;
           if (param === 'tv-shows') {
             this.genres$ = this._genresService.filterTVShowsGenresList;
@@ -85,7 +89,7 @@ export class FilterPage implements OnInit {
   }
 
   resetFilter() {
-    this.filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined };
+    this.filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined, type: '' };
     this._filterService.resetSingleActor();
     this._genresService.resetGenreAndYearFilter();
   }

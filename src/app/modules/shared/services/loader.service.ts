@@ -26,12 +26,4 @@ export class LoaderService {
     return await this._loadingCtrl.dismiss().then(() => console.log('dismissed'));
   }
 
-  // loaderStart() {
-  //   this._loadingCtrl.create().then(loadingEl => loadingEl.present());
-  // }
-  //
-  // loaderStop() {
-  //   return this._loadingCtrl.dismiss();
-  // }
-
 }

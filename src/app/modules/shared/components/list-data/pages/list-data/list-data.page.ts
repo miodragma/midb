@@ -1,6 +1,6 @@
 import { ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { MovieResponse } from '../../../../interfaces/movies/movie-response.interface';
 import { ActivatedRoute } from '@angular/router';
@@ -39,8 +39,11 @@ export class ListDataPage<T, S extends MovieData<T>> {
     protected loaderService: LoaderService) {
   }
 
+  subscription: Subscription;
+
   initialization() {
-    this.route.queryParamMap.pipe(
+    this.service.getFirstVal && this.service.findAllMoviesByType(undefined, undefined, this._param);
+    this.subscription = this.route.queryParamMap.pipe(
       map(param => {
         let newParam = '';
         param.has('with_genres') && (newParam += '&with_genres=' + param.get('with_genres'));
@@ -54,7 +57,7 @@ export class ListDataPage<T, S extends MovieData<T>> {
       this._param = param;
       this.slides$ = this.service.findAllSlides;
       this.movies$ = this.service.findMoviesList;
-      !this.value && this.service.findAllMoviesByType(undefined, undefined, this._param);
+      this._param && this.service.findAllMoviesByType(undefined, undefined, this._param);
     });
   }
 
@@ -64,7 +67,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
   }
 
   findMovies() {
-    this._type = '';
     this.service.findAllMoviesByValue(this.value, 1, this._param);
   }
 
@@ -81,5 +83,9 @@ export class ListDataPage<T, S extends MovieData<T>> {
     const newPage = page + 1;
     this._value && this.service.findMoreMoviesByValue(this._value, newPage, this._param);
     !this._value && this.service.findMoreMoviesByType(this._type, newPage, this._param);
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 }
