@@ -21,7 +21,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="details?.credits.cast.length > 0 || details?.credits.crew.length > 0">
       <ion-col
         size="12"
         sizeSm="8"
@@ -52,7 +52,7 @@
         <images-list [images]="details?.images"></images-list>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="details?.omdbDetails.Awards !== 'N/A'">
+    <ion-row *ngIf="details?.omdbDetails.Response !== 'False' && details?.omdbDetails.Awards !== 'N/A'">
       <ion-col
         size="12"
         sizeSm="8"

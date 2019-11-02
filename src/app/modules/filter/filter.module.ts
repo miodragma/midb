@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { FilterRoutingModule } from './filter-routing.module';
-import { FilterMaterialModule } from './filter-material-module';
 import { FilterPage } from './pages/filter.page';
 import { FilterService } from './services/filter.service';
 import { ActorListModule } from '../shared/components/actors-list/actor-list.module';
@@ -20,7 +19,6 @@ const modules = [
   IonicModule,
   FormsModule,
   FilterRoutingModule,
-  FilterMaterialModule,
   ActorListModule,
   SearchModule
 ];

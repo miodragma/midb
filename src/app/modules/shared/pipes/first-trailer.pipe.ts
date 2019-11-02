@@ -6,7 +6,7 @@ export class FirstTrailer implements PipeTransform {
   transform(value: VideoResults[]): string {
     if (value !== null) {
       if (value.length) {
-        return value.find(trailer => trailer.type === 'Trailer').key;
+        return value.find(trailer => trailer.type === 'Trailer') ? value.find(trailer => trailer.type === 'Trailer').key : '';
       }
     }
   }

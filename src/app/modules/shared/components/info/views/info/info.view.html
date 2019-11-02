@@ -32,7 +32,7 @@
       All Episodes
     </ion-button>
   </ion-item>
-  <ion-item>
+  <ion-item class="ion-padding-top ion-padding-bottom">
     <ion-thumbnail slot="start">
       <img
         [src]="details.poster_path === null ?
@@ -44,7 +44,7 @@
   </ion-item>
 </ion-card-content>
 <ion-item class="vote-share-wrapper"
-          *ngIf="!(details.omdbDetails.imdbRating === 'N/A' && details.omdbDetails.Metascore === 'N/A')">
+          *ngIf="!(details.omdbDetails.imdbRating === 'N/A' && details.omdbDetails.Metascore === 'N/A') && details.omdbDetails.Response !== 'False'">
   <div style="width: 100%; padding: 0 35px;">
     <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
       <ion-icon class="icon-star" name="star"></ion-icon>

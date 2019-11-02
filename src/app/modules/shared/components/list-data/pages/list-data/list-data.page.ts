@@ -42,7 +42,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
   subscription: Subscription;
 
   initialization() {
-    this.service.getFirstVal && this.service.findAllMoviesByType(undefined, undefined, this._param);
     this.subscription = this.route.queryParamMap.pipe(
       map(param => {
         let newParam = '';
@@ -58,6 +57,7 @@ export class ListDataPage<T, S extends MovieData<T>> {
       this.slides$ = this.service.findAllSlides;
       this.movies$ = this.service.findMoviesList;
       this._param && this.service.findAllMoviesByType(undefined, undefined, this._param);
+      !this.value && !this._param && this.service.findAllMoviesByType('popular', 1, this._param);
     });
   }
 
@@ -87,5 +87,10 @@ export class ListDataPage<T, S extends MovieData<T>> {
 
   ionViewWillLeave() {
     this.subscription.unsubscribe();
+  }
+
+  ionViewDidLeave() {
+    console.log('leave');
+    !this._value && this.content.scrollToTop(0);
   }
 }

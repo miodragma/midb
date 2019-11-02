@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonRouterOutlet, NavController, Platform } from '@ionic/angular';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { Genre } from '../../../shared/interfaces/genres/genre.interface';
   templateUrl: 'movies.page.html',
   styleUrls: [ 'movies.page.scss' ]
 })
-export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnInit {
+export class MoviesPage extends ListDataPage<Movie, MoviesService> {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
 
@@ -27,9 +27,10 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     private _routerOutlet: IonRouterOutlet,
     private _platform: Platform) {
     super(service, route, loaderService);
+    service.findAllMovieTrendings();
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this._navCtrl.setTopOutlet(this._routerOutlet);
     this.subscription = this._platform.backButton.subscribe(() => {
       if (this._routerOutlet && this._routerOutlet.canGoBack()) {
@@ -41,7 +42,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
       }
     });
     this.initialization();
-    this.service.findAllMovieTrendings();
     this.movieGenres$ = this._genresService.genresList;
   }
 

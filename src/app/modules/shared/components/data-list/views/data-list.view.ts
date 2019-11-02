@@ -22,6 +22,7 @@ export class DataListView {
   @Input() set movies(movies: MovieResponse<MovieList>) {
     of(movies)
       .pipe(
+        filter(m => !!m),
         filter(movie => movie.page > 0 || !!movie.results.length),
         tap(data => this._movies = data)
       ).subscribe();

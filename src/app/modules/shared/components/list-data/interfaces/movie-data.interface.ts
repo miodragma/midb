@@ -9,8 +9,6 @@ export interface MovieData<T> {
   findAllSlides: Observable<MovieResponse<T>>;
   findMoviesList: Observable<MovieResponse<T>>;
 
-  getFirstVal: boolean;
-
   findAllMoviesByValue: (value: string, page: number, param: string) => void;
   findMoreMoviesByValue: (value: string, page: number, param: string) => void;
   findAllMoviesByType: (type: string, page: number, param: string) => void;

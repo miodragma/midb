@@ -1,10 +1,10 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="movies">
+    <ion-tab-button (click)="clickTab('movies')" tab="movies">
       <ion-label>Movies</ion-label>
       <ion-icon name="film"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="tv-shows">
+    <ion-tab-button (click)="clickTab('tv-shows')" tab="tv-shows">
       <ion-label>TV Shows</ion-label>
       <ion-icon name="search"></ion-icon>
     </ion-tab-button>

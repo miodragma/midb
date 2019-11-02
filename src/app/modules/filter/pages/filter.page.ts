@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { GenresService } from '../../shared/services/genres.service';
 import { FilterGenre } from '../interfaces/filter-genre.interface';
 import { FilterYear } from '../interfaces/filter-year.interface';
@@ -9,6 +9,7 @@ import { MovieResponse } from '../../shared/interfaces/movies/movie-response.int
 import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { FilterService } from '../services/filter.service';
 import { IonContent } from '@ionic/angular';
+import { TabsService } from '../../tabs/services/tabs.service';
 
 @Component({
   templateUrl: 'filter.page.html',
@@ -19,6 +20,10 @@ export class FilterPage implements OnInit {
   tab: string;
   private _value = '';
 
+  isGenres = false;
+  isYears = false;
+  isActors = true;
+
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
   genres$: Observable<FilterGenre[]>;
@@ -26,29 +31,32 @@ export class FilterPage implements OnInit {
   actors$: Observable<MovieResponse<Actor>>;
   actor$: Observable<Actor>;
 
-  filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined, type: '' };
+  filterQueryMovie = { with_genres: [], with_cast: undefined, primary_release_year: undefined };
+  filterQueryTVShows = { with_genres: [], first_air_date_year: undefined };
+
+  subscription: Subscription;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
     private _genresService: GenresService,
-    private _filterService: FilterService) {
+    private _filterService: FilterService,
+    private _tabsService: TabsService) {
   }
 
   ngOnInit() {
-    this._route.queryParamMap
+    this.subscription = this._tabsService.tabClicked
+      .subscribe(tab => this.resetFilter(tab));
+    this.subscription = this._route.queryParamMap
       .pipe(
         filter(qParams => !!qParams.has('tab')),
         map(qParam => qParam.get('tab')),
         tap(param => {
-          if (this.filterQuery.type !== param) {
-            this.resetFilter();
-          }
-          this.filterQuery.type = param;
-          this.years$ = this._genresService.filterYearsList;
           if (param === 'tv-shows') {
             this.genres$ = this._genresService.filterTVShowsGenresList;
+            this.years$ = this._genresService.filterTVShowsYearsList;
           } else {
+            this.years$ = this._genresService.filterMovieYearsList;
             this.genres$ = this._genresService.filterMoviesGenresList;
             this.actors$ = this._filterService.findActorsList;
             this.actor$ = this._filterService.singleActor;
@@ -57,15 +65,41 @@ export class FilterPage implements OnInit {
       ).subscribe(queryParam => this.tab = queryParam);
   }
 
-  checkGenre(genre: FilterGenre) {
-    this._genresService.updateFilterGenres(this.tab, genre);
-    genre.isChecked && this.filterQuery.with_genres.push(genre.id);
-    !genre.isChecked && (this.filterQuery.with_genres = this.filterQuery.with_genres.filter(genres => genres !== genre.id));
+  openGenres() {
+    this.isGenres = !this.isGenres;
   }
 
+  openYears() {
+    this.isYears = !this.isYears;
+  }
+
+  openActors() {
+    this.isActors = !this.isActors;
+  }
+
+  trackByFn(index, item) {
+    return item.value;
+  }
+
+  checkGenre(genre: FilterGenre) {
+    this._genresService.updateFilterGenres(this.tab, genre);
+    if (this.tab === 'tv-shows') {
+      genre.isChecked && this.filterQueryTVShows.with_genres.push(genre.id);
+      !genre.isChecked && (this.filterQueryTVShows.with_genres = this.filterQueryTVShows.with_genres.filter(genres => genres !== genre.id));
+    } else {
+      genre.isChecked && this.filterQueryMovie.with_genres.push(genre.id);
+      !genre.isChecked && (this.filterQueryMovie.with_genres = this.filterQueryMovie.with_genres.filter(genres => genres !== genre.id));
+    }
+  }
+
+
   checkYear(year: FilterYear) {
-    this._genresService.updateFilterYears(year);
-    this.tab === 'tv-shows' ? this.filterQuery.first_air_date_year = year.value : this.filterQuery.primary_release_year = year.value;
+    this._genresService.updateFilterYears(this.tab, year);
+    if (this.tab === 'tv-shows') {
+      this.filterQueryTVShows.first_air_date_year = year.value;
+    } else {
+      this.filterQueryMovie.primary_release_year = year.value;
+    }
   }
 
   onSearch(value: string) {
@@ -76,7 +110,7 @@ export class FilterPage implements OnInit {
 
   checkActor(actor: Actor) {
     this._filterService.updateFilterActor(actor);
-    this.filterQuery.with_cast = `${actor.id}`;
+    this.filterQueryMovie.with_cast = `${actor.id}`;
   }
 
   more(page: number) {
@@ -88,17 +122,34 @@ export class FilterPage implements OnInit {
     this.content.scrollToTop(1000);
   }
 
-  resetFilter() {
-    this.filterQuery = { with_genres: [], with_cast: undefined, primary_release_year: undefined, first_air_date_year: undefined, type: '' };
-    this._filterService.resetSingleActor();
-    this._genresService.resetGenreAndYearFilter();
+  resetFilter(tab) {
+    const currTab = tab === 'none' ? this.tab : tab;
+    this._genresService.resetGenreAndYearFilter(currTab);
+    if (currTab === 'tv-shows') {
+      this.filterQueryTVShows = { with_genres: [], first_air_date_year: undefined };
+    } else {
+      this.filterQueryMovie = { with_genres: [], with_cast: undefined, primary_release_year: undefined };
+    }
+    // this._filterService.resetSingleActor();
   }
 
   navigate() {
-    const updateFilterQuery = {
-      ...this.filterQuery,
-      with_genres: this.filterQuery.with_genres.length ? this.filterQuery.with_genres.join(',') : undefined
-    };
+    let updateFilterQuery = {};
+    if (this.tab === 'tv-shows') {
+      updateFilterQuery = Object.assign({ ...this.filterQueryTVShows }, {
+        with_genres: this.filterQueryTVShows.with_genres.length ? this.filterQueryTVShows.with_genres.join(',') : undefined
+      });
+    } else {
+      updateFilterQuery = Object.assign({ ...this.filterQueryMovie }, {
+        with_genres: this.filterQueryMovie.with_genres.length ? this.filterQueryMovie.with_genres.join(',') : undefined
+      });
+    }
+    this.isYears = false;
+    this.isGenres = false;
     this._router.navigate([ `/tabs/tab/${this.tab}` ], { queryParams: updateFilterQuery });
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
   }
 }

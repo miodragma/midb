@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ListDataPage } from '../../../shared/components/list-data/pages/list-data/list-data.page';
 import { GenresService } from '../../../shared/services/genres.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { TvShow } from '../../interfaces/tv-show.interface';
   templateUrl: 'tv-shows.page.html',
   styleUrls: [ 'tv-shows.page.scss' ]
 })
-export class TvShowsPage extends ListDataPage<TvShow, TvShowService> implements OnInit {
+export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
 
   tvGenres$: Observable<{ genres: Genre[] }>;
 
@@ -23,11 +23,11 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> implements 
     private _genresService: GenresService,
     private _router: Router) {
     super(service, route, loaderService);
+    service.findAllMovieTrendings();
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.initialization();
-    this.service.findAllMovieTrendings();
     this.tvGenres$ = this._genresService.genresTvList;
   }
 

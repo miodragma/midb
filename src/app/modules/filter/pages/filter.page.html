@@ -23,37 +23,35 @@
           </ion-card-header>
 
           <ion-card-content>
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  Filter By Genre
-                </mat-expansion-panel-header>
+            <ion-button (click)="openGenres()" expand="full" color="secondary">
+              <span>Filter By Genre</span>
+              <ion-icon *ngIf="!isGenres" slot="end" name="arrow-dropdown"></ion-icon>
+              <ion-icon *ngIf="isGenres" slot="end" name="arrow-dropup"></ion-icon>
+            </ion-button>
+            <ion-list *ngIf="isGenres">
+              <ion-item *ngFor="let genre of genres$ | async">
+                <ion-label>{{genre.name}}</ion-label>
+                <ion-checkbox
+                  (ionChange)="checkGenre(genre)"
+                  [value]="genre.isChecked" slot="end"
+                  [(ngModel)]="genre.isChecked">
+                </ion-checkbox>
+              </ion-item>
+            </ion-list>
 
-                <ion-list>
-                  <ion-item *ngFor="let genre of genres$ | async">
-                    <ion-label>{{genre.name}}</ion-label>
-                    <ion-checkbox (ionChange)="checkGenre(genre)" [value]="genre.isChecked" slot="end"
-                                  [(ngModel)]="genre.isChecked"></ion-checkbox>
-                  </ion-item>
-                </ion-list>
-              </mat-expansion-panel>
-
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  Filter By Year
-                </mat-expansion-panel-header>
-
-                <ion-list>
-                  <ion-radio-group>
-                    <ion-item *ngFor="let year of years$ | async">
-                      <ion-label>{{ year.value }}</ion-label>
-                      <ion-radio (ionSelect)="checkYear(year)" slot="end"></ion-radio>
-                    </ion-item>
-                  </ion-radio-group>
-                </ion-list>
-
-              </mat-expansion-panel>
-            </mat-accordion>
+            <ion-button (click)="openYears()" expand="full" color="secondary">
+              <span>Filter By Years</span>
+              <ion-icon *ngIf="!isYears" slot="end" name="arrow-dropdown"></ion-icon>
+              <ion-icon *ngIf="isYears" slot="end" name="arrow-dropup"></ion-icon>
+            </ion-button>
+            <ion-list>
+              <ion-radio-group *ngIf="isYears">
+                <ion-item *ngFor="let year of years$ | async; trackBy: trackByFn">
+                  <ion-label>{{ year.value }}</ion-label>
+                  <ion-radio [checked]="year.isChecked" (ionSelect)="checkYear(year)" slot="end"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -72,29 +70,25 @@
 
           <ion-card-content class="ion-no-padding">
             <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
-            <mat-accordion *ngIf="_value !== ''">
-              <mat-expansion-panel [expanded]="_value !== ''">
-                <mat-expansion-panel-header class="actor-list-header">
-                  <mat-panel-description>
-                    Actors
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <actor-list
-                  [actors]="actors$ | async"
-                  [singleActor]="actor$ | async"
-                  (more)="more($event)"
-                  (checkActor)="checkActor($event)"
-                  (scroll)="clickScroll()">
-                </actor-list>
-              </mat-expansion-panel>
-            </mat-accordion>
+            <ion-button *ngIf="_value !== ''" (click)="openActors()" expand="full" color="secondary">
+              <span>Actors</span>
+              <ion-icon *ngIf="!isActors" slot="end" name="arrow-dropdown"></ion-icon>
+              <ion-icon *ngIf="isActors" slot="end" name="arrow-dropup"></ion-icon>
+            </ion-button>
+            <actor-list
+              *ngIf="_value !== '' && isActors"
+              [actors]="actors$ | async"
+              [singleActor]="actor$ | async"
+              (more)="more($event)"
+              (checkActor)="checkActor($event)"
+              (scroll)="clickScroll()">
+            </actor-list>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
 
-    <ion-row
-      *ngIf="(tab !== 'tv-shows' && (actor$ | async).id !== 0) || (filterQuery.with_genres.length > 0) || (filterQuery.primary_release_year)">
+    <ion-row>
       <ion-col
         size="12"
         sizeSm="8"
@@ -103,7 +97,7 @@
         <ion-card>
           <ion-card-header class="filter-results-header">
             <ion-card-title>Filter Search Results</ion-card-title>
-            <ion-button color="light" fill="clear" (click)="resetFilter()">Reset</ion-button>
+            <ion-button color="light" fill="clear" (click)="resetFilter('none')">Reset</ion-button>
           </ion-card-header>
 
           <ion-card-content>
@@ -117,7 +111,7 @@
               <span class="filter-info-description">{{ (actor$ | async).name }}</span>
             </ion-col>
             <ion-col
-              *ngIf="filterQuery.with_genres.length > 0"
+              *ngIf="tab === 'movies' && filterQueryMovie.with_genres.length > 0"
               size="12"
               sizeSm="8"
               offsetSm="2"
@@ -128,13 +122,33 @@
               </ng-container>
             </ion-col>
             <ion-col
-              *ngIf="filterQuery.primary_release_year"
+              *ngIf="tab === 'tv-shows' && filterQueryTVShows.with_genres.length > 0"
+              size="12"
+              sizeSm="8"
+              offsetSm="2"
+              class="ion-padding-start">
+              <p class="filter-info-title">Genres</p>
+              <ng-container *ngFor="let genre of genres$ | async">
+                <span class="filter-info-description" *ngIf="genre.isChecked">{{ genre.name }} | </span>
+              </ng-container>
+            </ion-col>
+            <ion-col
+              *ngIf="tab === 'movies' && filterQueryMovie.primary_release_year"
               size="12"
               sizeSm="8"
               offsetSm="2"
               class="ion-padding-start">
               <p class="filter-info-title">Year</p>
-              <span class="filter-info-description">{{ filterQuery.primary_release_year }}</span>
+              <span class="filter-info-description">{{ filterQueryMovie.primary_release_year }}</span>
+            </ion-col>
+            <ion-col
+              *ngIf="tab === 'tv-shows' && filterQueryTVShows.first_air_date_year"
+              size="12"
+              sizeSm="8"
+              offsetSm="2"
+              class="ion-padding-start">
+              <p class="filter-info-title">Year</p>
+              <span class="filter-info-description">{{ filterQueryTVShows.first_air_date_year }}</span>
             </ion-col>
           </ion-card-content>
         </ion-card>

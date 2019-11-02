@@ -1,12 +1,21 @@
-mat-expansion-panel {
-  color: var(--ion-color-primary-contrast);
-  box-shadow: 0 3px 1px -2px rgba(255, 255, 255, .2), 0 2px 2px 0 rgba(255, 255, 255, .2), 0 1px 5px 0 rgba(255, 255, 255, .2);
-  background: var(--ion-color-secondary) !important;
+//mat-expansion-panel {
+//  color: var(--ion-color-primary-contrast);
+//  box-shadow: 0 3px 1px -2px rgba(255, 255, 255, .2), 0 2px 2px 0 rgba(255, 255, 255, .2), 0 1px 5px 0 rgba(255, 255, 255, .2);
+//  background: var(--ion-color-secondary) !important;
+//}
+
+//mat-expansion-panel-header {
+//  background: var(--ion-color-secondary) !important;
+//  padding: 0 3px;
+//}
+
+span {
+  width: 100%;
+  text-align: left;
 }
 
-mat-expansion-panel-header {
-  background: var(--ion-color-secondary) !important;
-  padding: 0 3px;
+ion-card-content {
+  padding-top: 16px;
 }
 
 ion-item {
@@ -42,9 +51,9 @@ ion-card-title {
   color: var(--ion-color-primary-contrast);
 }
 
-mat-panel-description {
-  color: var(--ion-color-primary-contrast);
-}
+//mat-panel-description {
+//  color: var(--ion-color-primary-contrast);
+//}
 
 .filter-results-header {
   display: flex;
