@@ -1,3 +1,5 @@
+@import "./colors";
+
 ion-slide {
   height: 202px;
   background-size: cover;
@@ -9,7 +11,7 @@ ion-slide {
 }
 
 .profile-path-name {
-  color: #fff;
+  color: $text-color;
   margin: 0;
   font-family: "Anton", sans-serif !important;
   padding: 0 5px;

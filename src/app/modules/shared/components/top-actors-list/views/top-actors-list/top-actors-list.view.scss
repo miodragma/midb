@@ -1,20 +1,4 @@
-h5 {
-  color: #ffffff;
-  margin-left: 16px;
-}
-
-.scrolling-wrapper {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  margin-left: 6px;
-}
-
-.card {
-  width: 120px;
-  margin: 10px 5px;
-  display: inline-block;
-}
+@import "./colors";
 
 .top-billed-cast-header {
   background-color: var(--ion-color-secondary-tint);
@@ -37,13 +21,13 @@ h5 {
 }
 
 .info-label {
-  color: #ffffff;
+  color: $text-color;
   margin: 16px 0 0 0;
   font-size: 14px;
 }
 
 .info-title {
   font-size: 14px;
-  color: #737373;
+  color: $silver-color;
   margin: 0;
 }

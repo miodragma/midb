@@ -1,24 +1,12 @@
-h5 {
-  color: #ffffff;
-  margin-left: 16px;
-}
+@import "./colors";
 
 ion-card-title {
   font-size: 13px;
   white-space: initial;
 }
 
-.scrolling-wrapper {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  margin-left: 6px;
-}
-
 .card {
   width: 220px;
-  margin: 10px 5px;
-  display: inline-block;
 }
 
 .crop-black-image {
@@ -36,7 +24,7 @@ ion-card-title {
   top: calc(50% - 48px);
   left: calc(50% - 22px);
   font-size: 50px;
-  color: #ffffff;
+  color: $text-color;
 }
 
 .video-header {

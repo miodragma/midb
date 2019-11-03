@@ -38,8 +38,16 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "src/theme/colors.scss"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/theme"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

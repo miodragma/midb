@@ -1,6 +1,20 @@
+@import "./colors";
+
 ion-item {
-  --border-color: var(--ion-color-primary-contrast);
+  //--border-color: var(--ion-color-primary-contrast);
+  //--border-radius: 20px;
+  //--color: var(--ion-color-primary-contrast);
+  //--ripple-color: var(--ion-color-primary-contrast);
+  --border-color: rgba(247, 38, 100, .4);
   --border-radius: 20px;
-  --color: var(--ion-color-primary-contrast);
-  --ripple-color: var(--ion-color-primary-contrast);
+  --color: rgb(247, 38, 100);
+  --ripple-color: rgb(247, 38, 100);
+}
+
+ion-label {
+  --color: var(--ion-color-primary-contrast) !important;
+}
+
+button {
+  color: $text-color;
 }

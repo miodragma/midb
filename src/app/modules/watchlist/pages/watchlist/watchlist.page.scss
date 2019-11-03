@@ -1,9 +1,7 @@
-h5 {
-  color: white;
-}
+@import "./colors";
 
 p {
-  color: #737373;
+  color: $silver-color;
 }
 
 ion-icon {

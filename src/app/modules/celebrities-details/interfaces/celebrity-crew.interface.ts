@@ -5,6 +5,8 @@ export interface CelebrityCrew {
   department: string;
   genre_ids: [];
   id: number;
+  name: string;
+  first_air_date: string;
   job: string;
   media_type: string;
   original_language: string;

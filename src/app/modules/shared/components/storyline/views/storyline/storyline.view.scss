@@ -1,20 +1,17 @@
-h5 {
-  color: #ffffff;
-  margin-left: 16px;
-}
+@import "./colors";
 
 .info-wrapper {
   padding: 0 16px;
 }
 
 .info-label {
-  color: #ffffff;
+  color: $text-color;
   margin: 16px 0 0 0;
   font-size: 14px;
 }
 
 .info-title {
   font-size: 14px;
-  color: #737373;
+  color: $silver-color;
   margin: 0;
 }

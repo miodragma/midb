@@ -5,6 +5,8 @@ export interface CelebrityCast {
   credit_id: string;
   genre_ids: [];
   id: number;
+  name: string;
+  first_air_date: string;
   media_type: string;
   original_language: string;
   original_title: string;

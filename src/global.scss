@@ -26,13 +26,14 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import url('https://fonts.googleapis.com/css?family=Anton|Kalam|Roboto');
 @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+@import "./colors";
 
 ion-title, ion-label, ion-segment-button {
   font-family: 'Anton', sans-serif;
 }
 
 p {
-  color: var(--ion-color-primary-contrast);
+  color: $text-color;
 }
 
 ion-searchbar,
@@ -67,7 +68,12 @@ ion-spinner {
 }
 
 ion-card-subtitle {
-  color: #737373 !important;
+  color: $silver-color !important;
+}
+
+h5 {
+  margin: 0;
+  color: $text-color;
 }
 
 .alert-wrapper.sc-ion-alert-md {
@@ -76,7 +82,7 @@ ion-card-subtitle {
 }
 
 .alert-title.sc-ion-alert-md {
-  color: white;
+  color: var(--ion-color-primary-contrast);
   text-align: center;
 }
 
@@ -94,36 +100,50 @@ ion-card-subtitle {
 }
 
 .cancelButton {
-  color: #737373 !important;
+  color: $silver-color !important;
 }
 
 .deleteButton {
   color: #f04141 !important;
 }
 
-.mat-expansion-panel-body {
-  padding: 0 !important;
-}
-
 .alert-sub-title.sc-ion-alert-md {
   text-align: center;
-  color: white;
+  color: $text-color;
 }
 
 .menuItemTextColor {
-  color: #ffffff;
+  color: $text-color;
 }
 
 .loading-wrapper.sc-ion-loading-md {
   background: transparent !important;
-  color: #ffffff;
+  color: $text-color;
   box-shadow: none;
 }
 
 .picker-wrapper.sc-ion-picker-md {
-  background-color: #ffffff !important;
+  background-color: $text-color !important;
 }
 
 .mat-expansion-indicator::after {
-  color: #fff !important;
+  color: $text-color !important;
+}
+
+.card-shadow {
+  //box-shadow: 0 3px 1px -2px rgba(255, 255, 255, .2), 0 2px 2px 0 rgba(255, 255, 255, .2), 0 1px 5px 0 rgba(255, 255, 255, .2);
+  box-shadow: 0 0 2px 0 rgb(247, 38, 100);
+}
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 16px 0 0 16px;
+}
+
+.card {
+  width: 120px;
+  margin: 0 16px 0 0;
+  display: inline-block;
 }

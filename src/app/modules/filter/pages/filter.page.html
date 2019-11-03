@@ -44,8 +44,8 @@
               <ion-icon *ngIf="!isYears" slot="end" name="arrow-dropdown"></ion-icon>
               <ion-icon *ngIf="isYears" slot="end" name="arrow-dropup"></ion-icon>
             </ion-button>
-            <ion-list>
-              <ion-radio-group *ngIf="isYears">
+            <ion-list *ngIf="isYears">
+              <ion-radio-group>
                 <ion-item *ngFor="let year of years$ | async; trackBy: trackByFn">
                   <ion-label>{{ year.value }}</ion-label>
                   <ion-radio [checked]="year.isChecked" (ionSelect)="checkYear(year)" slot="end"></ion-radio>
@@ -100,7 +100,7 @@
             <ion-button color="light" fill="clear" (click)="resetFilter('none')">Reset</ion-button>
           </ion-card-header>
 
-          <ion-card-content>
+          <ion-card-content *ngIf="isResults(tab, (actor$ | async).id,  filterQueryMovie, filterQueryTVShows)">
             <ion-col
               *ngIf="tab !== 'tv-shows' && (actor$ | async).id !== 0"
               size="12"
