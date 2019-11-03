@@ -1,4 +1,4 @@
-<ion-card-header color="secondary" class="title-header">
+<ion-card-header color="secondary" class="card-shadow">
   <ion-card-title>
     {{ details?.title || details?.name }}
   </ion-card-title>
@@ -13,9 +13,8 @@
   <ion-item
     *ngIf="details?.name"
     color="secondary"
-    class="title-header"
-    style="padding-bottom: 16px">
-    <ion-label>
+    class="ion-no-padding">
+    <ion-label class="ion-padding-bottom">
       <h2 *ngIf="details.in_production && details.next_episode_to_air !== null">
         Next Episode: Episode
         #{{ details.next_episode_to_air.season_number }}.{{ details.next_episode_to_air.episode_number }}
@@ -26,13 +25,12 @@
       </p>
     </ion-label>
     <ion-button
-      style="margin-left: 0"
       fill="outline"
       slot="{{ details.in_production && details.next_episode_to_air !== null ? 'end' : 'start'}}">
       All Episodes
     </ion-button>
   </ion-item>
-  <ion-item class="ion-padding-top ion-padding-bottom">
+  <ion-item class="ion-no-padding">
     <ion-thumbnail slot="start">
       <img
         [src]="details.poster_path === null ?
@@ -43,7 +41,7 @@
     <p class="details-overview">{{ details.overview | overview }}</p>
   </ion-item>
 </ion-card-content>
-<ion-item class="vote-share-wrapper"
+<ion-item class="ion-padding-end ion-padding-start"
           *ngIf="!(details.omdbDetails.imdbRating === 'N/A' && details.omdbDetails.Metascore === 'N/A') && details.omdbDetails.Response !== 'False'">
   <div style="width: 100%; padding: 0 35px;">
     <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">

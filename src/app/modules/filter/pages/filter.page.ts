@@ -130,7 +130,7 @@ export class FilterPage implements OnInit {
     } else {
       this.filterQueryMovie = { with_genres: [], with_cast: undefined, primary_release_year: undefined };
     }
-    // this._filterService.resetSingleActor();
+    this._filterService.resetSingleActor();
   }
 
   navigate() {
@@ -147,6 +147,14 @@ export class FilterPage implements OnInit {
     this.isYears = false;
     this.isGenres = false;
     this._router.navigate([ `/tabs/tab/${this.tab}` ], { queryParams: updateFilterQuery });
+  }
+
+  isResults(tab, id, filterQueryMovie, filterQueryTVShows) {
+    return (tab !== 'tv-shows' && id !== 0)
+      || (tab === 'movies' && filterQueryMovie.with_genres.length > 0)
+      || (tab === 'tv-shows' && filterQueryTVShows.with_genres.length > 0)
+      || (tab === 'movies' && filterQueryMovie.primary_release_year)
+      || (tab === 'tv-shows' && filterQueryTVShows.first_air_date_year);
   }
 
   ionViewWillLeave() {

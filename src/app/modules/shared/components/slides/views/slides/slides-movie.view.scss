@@ -1,3 +1,5 @@
+@import "./colors";
+
 ion-slide {
   //height: 150px;
   background-size: cover;
@@ -6,7 +8,7 @@ ion-slide {
 
 p {
   position: fixed;
-  color: #fff;
+  color: $text-color;
   margin: 0;
   font-family: "Anton", sans-serif !important;
   padding: 0 5px;

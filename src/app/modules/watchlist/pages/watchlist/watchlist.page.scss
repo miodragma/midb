@@ -1,9 +1,7 @@
-h5 {
-  color: white;
-}
+@import "./colors";
 
 p {
-  color: #737373;
+  color: $silver-color;
 }
 
 ion-icon {
@@ -16,5 +14,5 @@ ion-item-option {
 }
 
 ion-item {
-  --border-color: var(--ion-color-primary-contrast);
+  --border-color: rgba(247, 38, 100, .4);
 }

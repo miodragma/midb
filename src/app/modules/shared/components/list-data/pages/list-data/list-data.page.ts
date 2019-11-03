@@ -90,7 +90,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
   }
 
   ionViewDidLeave() {
-    console.log('leave');
     !this._value && this.content.scrollToTop(0);
   }
 }

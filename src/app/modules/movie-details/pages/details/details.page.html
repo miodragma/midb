@@ -15,7 +15,7 @@
   <ion-grid class="load-grid ion-no-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
-        <ion-card class="ion-no-margin" color="secondary">
+        <ion-card class="ion-no-margin ion-padding-bottom" color="secondary">
           <video-trailer [videos]="details?.videos" (playVideo)="playVideo($event)"></video-trailer>
           <info [details]="details"></info>
         </ion-card>
@@ -28,6 +28,7 @@
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <top-actors-list
+          (navigateCast)="navigateCast($event)"
           [casts]="details?.credits.cast | orderCastCrew"
           [crews]="details?.credits.crew"
           [title]="'Top Billed Cast'">
@@ -58,7 +59,9 @@
         sizeSm="8"
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
-        <h5>Awards</h5>
+        <div class="card-shadow ion-padding">
+          <h5>Awards</h5>
+        </div>
         <div class="info-wrapper">
           <p class="info-label">{{ details.omdbDetails.Awards.split('.')[0] }}</p>
           <p class="info-title">{{ details.omdbDetails.Awards.split('.')[1] }}</p>
@@ -71,7 +74,11 @@
         sizeSm="8"
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
-        <similar-list [title]="'More Like This'" [similar]="details?.recommendations.results"></similar-list>
+        <similar-list
+          (navigateMovie)="navigateMovie($event)"
+          [title]="'More Like This'"
+          [similar]="details?.recommendations.results">
+        </similar-list>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="details?.overview || details?.tagline">

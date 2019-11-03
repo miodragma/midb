@@ -1,19 +1,22 @@
-<h5>{{ title }}</h5>
+<div class="card-shadow ion-padding">
+  <h5>{{ title }}</h5>
+</div>
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let movie of similar">
+    *ngFor="let movie of similar"
+    (click)="navigateMovie.emit(movie)">
     <ion-ripple-effect></ion-ripple-effect>
     <img
       [src]="movie?.poster_path !== null ?
-            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path :
-            './assets/images/na.jpg'"
+      'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path :
+      './assets/images/na.jpg'"
       [alt]="movie.title || movie.name">
     <ion-card-header color="secondary" class="top-billed-cast-header">
       <ion-card-title>
         {{ movie.title || movie.name }}
       </ion-card-title>
-      <ion-card-subtitle>
+      <ion-card-subtitle class="release-date">
         {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
       </ion-card-subtitle>
     </ion-card-header>

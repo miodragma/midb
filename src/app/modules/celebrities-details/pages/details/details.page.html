@@ -1,0 +1,153 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab/celebrities"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isLoading | async">
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin" color="secondary">
+          <ion-card-header color="secondary" class="card-shadow">
+            <ion-card-title>
+              {{ details.name}}
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{ details.known_for_department }}&nbsp;&nbsp;
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content class="card-content">
+            <ion-item class="ion-no-padding">
+              <ion-thumbnail slot="start">
+                <img
+                  [src]="details.profile_path === null ?
+                    './assets/images/na.jpg' :
+                    'https://image.tmdb.org/t/p/w200'+ details.profile_path"
+                  [alt]="details.profile_path">
+              </ion-thumbnail>
+              <p class="details-overview">{{ details.biography | overview }}</p>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details?.combined_credits.cast.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Cast</h5>
+        </div>
+        <div class="scrolling-wrapper">
+          <ion-card
+            class="card"
+            *ngFor="let movie of details?.combined_credits.cast"
+            [routerLink]="['/', 'details', getLink(movie), movie.id]">
+            <ion-ripple-effect></ion-ripple-effect>
+            <img
+              [src]="movie?.poster_path !== null ?
+            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path :
+            './assets/images/na.jpg'"
+              [alt]="movie.title">
+            <ion-card-header color="secondary" class="top-billed-cast-header">
+              <ion-card-title class="ion-card-title">
+                {{ movie.title || movie.name }}
+              </ion-card-title>
+              <ion-card-subtitle class="release-date">
+                {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details?.combined_credits.crew.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Crew</h5>
+        </div>
+        <div class="scrolling-wrapper">
+          <ion-card
+            class="card"
+            *ngFor="let movie of details?.combined_credits.crew"
+            [routerLink]="['/', 'details', getLink(movie), movie.id]">
+            <ion-ripple-effect></ion-ripple-effect>
+            <img
+              [src]="movie?.poster_path !== null ?
+            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path :
+            './assets/images/na.jpg'"
+              [alt]="movie.title">
+            <ion-card-header color="secondary" class="top-billed-cast-header">
+              <ion-card-title class="ion-card-title">
+                {{ movie.title || movie.name }}
+              </ion-card-title>
+              <ion-card-subtitle class="release-date">
+                {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="details?.images.profiles.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Images</h5>
+        </div>
+        <div class="scrolling-wrapper">
+          <ion-card
+            class="card"
+            *ngFor="let image of details?.images.profiles">
+            <ion-img
+              [src]="'https://image.tmdb.org/t/p/w200' + image.file_path"
+              [alt]="image.file_path"></ion-img>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isDetails(details)">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Personal Details</h5>
+        </div>
+        <div class="info-wrapper">
+          <p
+            *ngIf="details.birthday"
+            class="info-label">Born
+          </p>
+          <p class="info-title">{{ details.birthday | date }}</p>
+          <p class="info-title">{{ details.place_of_birth }}</p>
+          <p
+            *ngIf="details.deathday"
+            class="info-label">Deathday
+          </p>
+          <p class="info-title">{{ details.deathday }}</p>
+          <p
+            *ngIf="details.biography"
+            class="info-label">Biography
+          </p>
+          <p class="info-title">{{ details.biography }}</p>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

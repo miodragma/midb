@@ -1,3 +1,5 @@
+@import "./colors";
+
 ion-item {
   --ion-background-color: var(--ion-color-secondary);
 }
@@ -8,21 +10,23 @@ ion-card-subtitle {
 
 ion-thumbnail {
   height: 100%;
-  width: 30%
+  width: 30%;
+  margin: 0 16px 0 0;
 }
 
-.title-header {
-  padding-top: 0;
-  border-bottom: 1px solid white;
-  border-width: 0.01em;
+ion-label {
+  margin: 0;
+}
+
+ion-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-left: 0;
 }
 
 .card-content {
-  padding: 10px 0 0 0;
-}
-
-.vote-share-wrapper {
-  padding: 0 11px 10px 4px;
+  padding: 16px;
 }
 
 .imdb-rating-wrapper {
@@ -31,13 +35,13 @@ ion-thumbnail {
 }
 
 .imdb-rating-wrapper > div > h5 {
-  color: #ffffff;
+  color: $text-color;
   display: inline-block;
   margin: 0;
 }
 
 .imdb-rating-wrapper > div > span {
-  color: #ffffff;
+  color: $text-color;
   font-size: 13px;
 }
 
@@ -47,7 +51,7 @@ ion-thumbnail {
 }
 
 .vote-count {
-  color: #737373;
+  color: $silver-color;
   font-size: 11px;
   margin: 3px;
   text-align: center;
@@ -65,7 +69,7 @@ ion-thumbnail {
 
 .metascore {
   position: absolute;
-  color: #ffffff;
+  color: $text-color;
   top: 5px;
   right: 73px;
 }
@@ -76,6 +80,6 @@ ion-thumbnail {
 
 .details-overview {
   max-height: 160px;
-  color: #ffffff;
+  color: $text-color;
   overflow: hidden;
 }

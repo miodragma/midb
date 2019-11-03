@@ -4,6 +4,7 @@ import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.
 import { Actor } from '../../../shared/interfaces/actors/actor.interface';
 import { IonContent, IonSlides } from '@ionic/angular';
 import { CelebritiesService } from '../../services/celebrities.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'celebrities.page.html',
@@ -27,7 +28,7 @@ export class CelebritiesPage implements OnInit {
 
   private _value = '';
 
-  constructor(private _service: CelebritiesService) {
+  constructor(private _service: CelebritiesService, private _router: Router) {
   }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class CelebritiesPage implements OnInit {
   }
 
   checkActor(actor: Actor) {
-    console.log(actor);
+    this._router.navigate([ `details/celebrities/${actor.id}` ]);
   }
 
   clickScroll() {

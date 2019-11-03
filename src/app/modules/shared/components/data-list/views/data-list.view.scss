@@ -6,16 +6,6 @@
   font-size: 12px;
 }
 
-.genresList {
-  --border-style: none;
-  --color: var(--ion-color-primary-contrast);
-  --min-height: 30px;
-}
-
-.dropdownGenreText {
-  color: var(--ion-color-step-600, #666);
-}
-
 ion-list {
   padding-top: 0;
 }
@@ -26,11 +16,16 @@ ion-thumbnail {
 }
 
 ion-item {
-  --border-color: var(--ion-color-primary-contrast);
+  //--border-color: var(--ion-color-primary-contrast);
+  //--border-radius: 20px;
+  //--color: var(--ion-color-primary-contrast);
+  //--ripple-color: var(--ion-color-primary-contrast);
+  //--min-height: 108px;
+  --border-color: rgba(247, 38, 100, .4);
   --border-radius: 20px;
-  --color: var(--ion-color-primary-contrast);
-  --ripple-color: var(--ion-color-primary-contrast);
-  --min-height: 108px;
+  --color: rgb(247, 38, 100);
+  --ripple-color: rgb(247, 38, 100);
+  --min-height: 100px;
 }
 
 ion-fab-button {
