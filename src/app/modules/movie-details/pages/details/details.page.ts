@@ -7,6 +7,8 @@ import { DetailsService } from '../../services/details.service';
 import { DetailsDataPage } from '../../../shared/components/details-data/pages/details-data/details-data.page';
 import { MovieDetails } from '../../../shared/interfaces/movies/details/movie-details.interface';
 import { PopoverListView } from '../../../shared/components/popover-list/views/popover-list/popover-list.view';
+import { Cast } from '../../../shared/interfaces/credits/cast.interface';
+import { SimilarResults } from '../../../shared/interfaces/similar/similar-results.interface';
 
 @Component({
   templateUrl: 'details.page.html',
@@ -43,6 +45,14 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
 
   playVideo(id: string) {
     this._youtube.openVideo(id);
+  }
+
+  navigateCast(cast: Cast) {
+    this.router.navigate([ `/details/celebrities/${cast.id}` ]);
+  }
+
+  navigateMovie(movie: SimilarResults) {
+    this.router.navigate([ `/details/movie/${movie.id}` ]);
   }
 
   ngOnDestroy() {

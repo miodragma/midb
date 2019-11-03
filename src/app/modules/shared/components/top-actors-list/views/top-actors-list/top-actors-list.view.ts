@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Crew } from '../../../../interfaces/credits/crew.interface';
 import { Cast } from '../../../../interfaces/credits/cast.interface';
 
@@ -12,5 +12,6 @@ export class TopActorsListView {
   @Input() casts: Cast[];
   @Input() crews: Crew[];
   @Input() title: string;
+  @Output() navigateCast = new EventEmitter<Cast>();
 
 }

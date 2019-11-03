@@ -28,6 +28,7 @@
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <top-actors-list
+          (navigateCast)="navigateCast($event)"
           [casts]="details?.credits.cast | orderCastCrew"
           [crews]="details?.credits.crew"
           [title]="'Top Series Cast'">
@@ -73,7 +74,11 @@
         sizeSm="8"
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
-        <similar-list [title]="'More Like This'" [similar]="details?.recommendations.results"></similar-list>
+        <similar-list
+          (navigateMovie)="navigateMovie($event)"
+          [title]="'More Like This'"
+          [similar]="details?.recommendations.results">
+        </similar-list>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="details?.overview || details?.tagline">

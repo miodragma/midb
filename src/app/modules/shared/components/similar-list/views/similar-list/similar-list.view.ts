@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SimilarResults } from '../../../../interfaces/similar/similar-results.interface';
 
 @Component({
@@ -10,5 +10,6 @@ export class SimilarListView {
 
   @Input() title: string;
   @Input() similar: SimilarResults[];
+  @Output() navigateMovie = new EventEmitter<SimilarResults>();
 
 }

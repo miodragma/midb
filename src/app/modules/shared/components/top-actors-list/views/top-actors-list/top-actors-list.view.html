@@ -4,7 +4,8 @@
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let cast of casts">
+    *ngFor="let cast of casts"
+    (click)="navigateCast.emit(cast)">
     <img
       [src]="cast?.profile_path !== null ?
             'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + cast.profile_path :

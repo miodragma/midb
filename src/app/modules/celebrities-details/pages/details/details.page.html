@@ -47,7 +47,7 @@
           <ion-card
             class="card"
             *ngFor="let movie of details?.combined_credits.cast"
-            [routerLink]="['/', 'details', 'movie', movie.id]">
+            [routerLink]="['/', 'details', getLink(movie), movie.id]">
             <ion-ripple-effect></ion-ripple-effect>
             <img
               [src]="movie?.poster_path !== null ?
@@ -79,7 +79,7 @@
           <ion-card
             class="card"
             *ngFor="let movie of details?.combined_credits.crew"
-            [routerLink]="['/', 'details', 'movie', movie.id]">
+            [routerLink]="['/', 'details', getLink(movie), movie.id]">
             <ion-ripple-effect></ion-ripple-effect>
             <img
               [src]="movie?.poster_path !== null ?

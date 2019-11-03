@@ -71,6 +71,10 @@ export class DetailsPage implements OnInit {
       || details.biography;
   }
 
+  getLink(movie) {
+    return movie.title ? 'movie' : 'tv-shows';
+  }
+
   ionViewWillLeave() {
     this._subscription.unsubscribe();
   }
