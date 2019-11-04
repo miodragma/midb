@@ -25,4 +25,8 @@ export class SlidesMovieView {
     slides.startAutoplay();
   }
 
+  trackByFn(index, item) {
+    return item.backdrop_path;
+  }
+
 }

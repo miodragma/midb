@@ -5,7 +5,7 @@
       #mySlider
       (ionSlidePrevStart)="slidesDidLoad(mySlider)"
       (ionSlideNextStart)="slidesDidLoad(mySlider)">
-      <ion-slide *ngFor="let slide of slides?.results">
+      <ion-slide *ngFor="let slide of slides?.results; trackBy: trackByFn">
         <img
           [src]="'https://image.tmdb.org/t/p/w400'+ slide.backdrop_path"
           [alt]="slide.backdrop_path">
