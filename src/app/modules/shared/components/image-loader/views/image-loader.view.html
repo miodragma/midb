@@ -1,0 +1,9 @@
+<img
+  [class.hidden]="!isImageLoaded"
+  [src]="src"
+  (load)="onLoad()"
+  (error)="onError()">
+
+<div [style.height]="spinnerWrapper" *ngIf="!isImageLoaded">
+  <ion-spinner color="primary"></ion-spinner>
+</div>

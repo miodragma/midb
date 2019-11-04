@@ -46,14 +46,11 @@
         <div class="scrolling-wrapper">
           <ion-card
             class="card"
-            *ngFor="let movie of details?.combined_credits.cast"
+            *ngFor="let movie of details?.combined_credits.cast; trackBy: trackByCastFn"
             [routerLink]="['/', 'details', getLink(movie), movie.id]">
             <ion-ripple-effect></ion-ripple-effect>
-            <img
-              [src]="movie?.poster_path !== null ?
-            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path :
-            './assets/images/na.jpg'"
-              [alt]="movie.title">
+            <image-loader spinnerWrapper="180px"
+                          [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path"></image-loader>
             <ion-card-header color="secondary" class="top-billed-cast-header">
               <ion-card-title class="ion-card-title">
                 {{ movie.title || movie.name }}
@@ -78,14 +75,11 @@
         <div class="scrolling-wrapper">
           <ion-card
             class="card"
-            *ngFor="let movie of details?.combined_credits.crew"
+            *ngFor="let movie of details?.combined_credits.crew; trackBy: trackByCastFn"
             [routerLink]="['/', 'details', getLink(movie), movie.id]">
             <ion-ripple-effect></ion-ripple-effect>
-            <img
-              [src]="movie?.poster_path !== null ?
-            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path :
-            './assets/images/na.jpg'"
-              [alt]="movie.title">
+            <image-loader spinnerWrapper="180px"
+                          [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path"></image-loader>
             <ion-card-header color="secondary" class="top-billed-cast-header">
               <ion-card-title class="ion-card-title">
                 {{ movie.title || movie.name }}
@@ -110,10 +104,9 @@
         <div class="scrolling-wrapper">
           <ion-card
             class="card"
-            *ngFor="let image of details?.images.profiles">
-            <ion-img
-              [src]="'https://image.tmdb.org/t/p/w200' + image.file_path"
-              [alt]="image.file_path"></ion-img>
+            *ngFor="let image of details?.images.profiles; trackBy: trackByImageFn">
+            <image-loader spinnerWrapper="auto"
+                          [src]="'https://image.tmdb.org/t/p/w200' + image.file_path"></image-loader>
           </ion-card>
         </div>
       </ion-col>

@@ -12,4 +12,8 @@ export class SimilarListView {
   @Input() similar: SimilarResults[];
   @Output() navigateMovie = new EventEmitter<SimilarResults>();
 
+  trackByFn(index, item) {
+    return item.poster_path;
+  }
+
 }

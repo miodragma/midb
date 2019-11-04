@@ -10,4 +10,8 @@ export class ImagesListView {
 
   @Input() images: Image;
 
+  trackByFn(index, item) {
+    return item.file_path;
+  }
+
 }

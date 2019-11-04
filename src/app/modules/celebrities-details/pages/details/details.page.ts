@@ -75,6 +75,14 @@ export class DetailsPage implements OnInit {
     return movie.title ? 'movie' : 'tv-shows';
   }
 
+  trackByCastFn(index, item) {
+    return item.poster_path;
+  }
+
+  trackByImageFn(index, item) {
+    return item.file_path;
+  }
+
   ionViewWillLeave() {
     this._subscription.unsubscribe();
   }

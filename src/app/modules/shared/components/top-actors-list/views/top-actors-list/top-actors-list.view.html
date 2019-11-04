@@ -4,13 +4,10 @@
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let cast of casts"
+    *ngFor="let cast of casts; trackBy: trackByFn"
     (click)="navigateCast.emit(cast)">
-    <img
-      [src]="cast?.profile_path !== null ?
-            'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + cast.profile_path :
-            './assets/images/na.jpg'"
-      [alt]="cast.name">
+    <image-loader spinnerWrapper="180px"
+                  [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + cast.profile_path"></image-loader>
     <ion-card-header color="secondary" class="top-billed-cast-header">
       <ion-card-title>
         {{ cast.name }}
