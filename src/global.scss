@@ -62,6 +62,12 @@ ion-toolbar {
   }
 }
 
+ion-progress-bar {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+}
+
 ion-spinner {
   width: 55px;
   height: 55px;

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class CelebritiesPage implements OnInit {
 
   @ViewChild(IonContent, { static: false }) content: IonContent;
+  math = Math;
 
   slideOpts = {
     // allowTouchMove: false,

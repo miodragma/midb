@@ -24,5 +24,10 @@
       (clicked)="onClickTvShow($event)"
       (scroll)="clickScroll()">
     </data-list>
+    <ion-progress-bar
+      *ngIf="(movies$ | async)?.total_pages < 100 && (movies$ | async)?.total_pages > 1"
+      color="primary"
+      [value]="(math.round((100 * (movies$ | async)?.page) / (movies$ | async)?.total_pages)) / 100">
+    </ion-progress-bar>
   </ion-grid>
 </ion-content>
