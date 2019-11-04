@@ -37,10 +37,5 @@
       (checkActor)="checkActor($event)"
       (scroll)="clickScroll()">
     </actor-list>
-    <ion-progress-bar
-      *ngIf="(actors$ | async)?.total_pages < 100 && (actors$ | async)?.total_pages > 1"
-      color="primary"
-      [value]="(math.round((100 * (actors$ | async)?.page) / (actors$ | async)?.total_pages)) / 100">
-    </ion-progress-bar>
   </ion-grid>
 </ion-content>
