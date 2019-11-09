@@ -69,9 +69,9 @@ export class ListDataPage<T, S extends MovieData<T>> {
         value && this.service.findAllMoviesByValue(value, +page);
         this._isFilter && this.service.findAllFilterMovies(filterQuery, +page);
 
-      this.slides$ = this.service.findAllSlides;
-      this.movies$ = this.service.findMoviesList;
-    });
+        this.slides$ = this.service.findAllSlides;
+        this.movies$ = this.service.findMoviesList;
+      });
   }
 
   onSearch(value: string) {
