@@ -25,6 +25,10 @@ export class MoviesService {
     return this._slidesList.asObservable();
   }
 
+  get val() {
+    return this._moviesList.getValue();
+  }
+
   findAllMovieTrendings() {
     const url = `${this.url}/trending/movie/day?${this.apiKey}`;
     forkJoin([

@@ -1,0 +1,21 @@
+.hidden {
+  display: none;
+}
+
+ion-img {
+  animation: fadeIn .3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+ion-spinner {
+  margin-top: 50%;
+  margin-left: 26%;
+}

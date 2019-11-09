@@ -14,4 +14,8 @@ export class TopActorsListView {
   @Input() title: string;
   @Output() navigateCast = new EventEmitter<Cast>();
 
+  trackByFn(index, item) {
+    return item.profile_path;
+  }
+
 }

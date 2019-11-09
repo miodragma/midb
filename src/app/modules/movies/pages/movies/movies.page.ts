@@ -16,6 +16,7 @@ import { Genre } from '../../../shared/interfaces/genres/genre.interface';
 export class MoviesPage extends ListDataPage<Movie, MoviesService> {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
+  math = Math;
 
   constructor(
     service: MoviesService,
