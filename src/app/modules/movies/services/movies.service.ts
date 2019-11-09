@@ -46,40 +46,21 @@ export class MoviesService {
       ).subscribe();
   }
 
-  findAllMoviesByValue(value: string, page: number, param: string) {
-    const type = !!param ? 'discover' : 'search';
-    const filter = !!param ? param : '';
+  findAllMoviesByValue(value: string, page: number) {
     this._http.get<MovieResponse<Movie>>(`
-    ${this.url}/${type}/movie?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false${filter}`)
+    ${this.url}/search/movie?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`)
       .pipe(tap(data => this._moviesList.next(data))).subscribe();
   }
 
-  findMoreMoviesByValue(value: string, page: number, param: string) {
-    const type = !!param ? 'discover' : 'search';
-    const filter = !!param ? param : '';
-    this._http.get<MovieResponse<Movie>>(`
-    ${this.url}/${type}/movie?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false${filter}`)
-      .pipe(tap(data => this._moviesList.next({
-        ...data,
-        results: [ ...this._moviesList.getValue().results, ...data.results ]
-      }))).subscribe();
-  }
-
-  findAllMoviesByType(type: string = 'popular', page: number = 1, param: string) {
-    const filter = !!param ? param : '';
-    const isDiscover = param === '' ? `/movie/${type}` : `/discover/movie`;
-    return this._http.get<MovieResponse<Movie>>(`${this.url}${isDiscover}?${this.apiKey}&region=US&language=en-US&page=${page}${filter}`)
+  findAllMoviesByType(type: string, page: number) {
+    return this._http.get<MovieResponse<Movie>>(`${this.url}/movie/${type}?${this.apiKey}&region=US&language=en-US&page=${page}`)
       .pipe(tap(data => this._moviesList.next(data))).subscribe();
   }
 
-  findMoreMoviesByType(type: string, page: number, param: string) {
-    const filter = !!param ? param : '';
-    const isDiscover = param === '' ? `/movie/${type}` : `/discover/movie`;
-    this._http.get<MovieResponse<Movie>>(`${this.url}${isDiscover}?${this.apiKey}&region=US&language=en-US&page=${page}${filter}`)
-      .pipe(tap(data => this._moviesList.next({
-        ...data,
-        results: [ ...this._moviesList.getValue().results, ...data.results ]
-      }))).subscribe();
+  findAllFilterMovies(filter: string, page: number = 1) {
+    this._http.get<MovieResponse<Movie>>(`
+    ${this.url}/discover/movie?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`)
+      .pipe(tap(data => this._moviesList.next(data))).subscribe();
   }
 
 }

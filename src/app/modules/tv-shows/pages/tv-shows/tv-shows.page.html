@@ -15,14 +15,14 @@
 <ion-content>
   <ion-grid class="ion-no-padding">
     <slides [slides]="slides$ | async"></slides>
-    <search *ngIf="!_isFilter" [placeholder]="'TV Show'" (changeValue)="onSearch($event)"></search>
-    <type *ngIf="!value && !_isFilter" (selectSegment)="selectSegment($event)" segment="on_the_air"></type>
+    <search [currValue]="value" *ngIf="!_isFilter" [placeholder]="'TV Show'" (changeValue)="onSearch($event)"></search>
+    <type *ngIf="!value && !_isFilter" (selectSegment)="selectSegment($event)" segment="on_the_air"
+          [type]="type"></type>
     <data-list
       [genres]="(tvGenres$ | async)?.genres"
       [movies]="movies$ | async"
-      (more)="more($event)"
       (clicked)="onClickTvShow($event)"
-      (scroll)="clickScroll()">
+      (clickedPage)="onClickedPage($event)">
     </data-list>
   </ion-grid>
 </ion-content>

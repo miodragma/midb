@@ -97,10 +97,10 @@
         <ion-card>
           <ion-card-header class="filter-results-header">
             <ion-card-title>Filter Search Results</ion-card-title>
-            <ion-button color="light" fill="clear" (click)="resetFilter('none')">Reset</ion-button>
+            <ion-button color="light" fill="clear" (click)="resetFilter()">Reset</ion-button>
           </ion-card-header>
 
-          <ion-card-content *ngIf="isResults(tab, (actor$ | async).id,  filterQueryMovie, filterQueryTVShows)">
+          <ion-card-content *ngIf="isResults(tab, (actor$ | async)?.id,  filterQueryMovie, filterQueryTVShows)">
             <ion-col
               *ngIf="tab !== 'tv-shows' && (actor$ | async).id !== 0"
               size="12"

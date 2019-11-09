@@ -21,14 +21,23 @@
           <p class="movieReleaseDate">{{ movie.genre_ids | findGenres: genres }}</p>
         </ion-label>
       </ion-item>
-      <ion-button *ngIf="movies?.page < movies?.total_pages" color="primary" fill="clear"
-                  (click)="more.emit(movies?.page)">More
-      </ion-button>
-      <ion-fab *ngIf="movies?.results.length > 15" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="scroll.emit()">
-          <ion-icon name="arrow-round-up"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
     </ion-list>
+  </ion-col>
+</ion-row>
+<ion-row class="row-pagination" *ngIf="movies?.total_pages > 1">
+  <ion-col
+    size="12"
+    sizeSm="8"
+    offsetSm="2">
+    <div class="scrolling-wrapper">
+      <ion-button
+        *ngFor="let page of counter(movies?.total_pages); let i = index; trackBy: trackByFn"
+        fill="clear"
+        class="pages"
+        [color]="i + 1 === movies?.page ? 'primary' : 'light'"
+        (click)="clickedPage.emit(i + 1)">
+        {{ i + 1 }}
+      </ion-button>
+    </div>
   </ion-col>
 </ion-row>

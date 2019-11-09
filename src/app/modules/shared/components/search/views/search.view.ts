@@ -13,6 +13,10 @@ export class SearchView {
   @Output() changeValue = new EventEmitter<string>();
   @Input() placeholder: string;
 
+  @Input() set currValue(value: string) {
+    this._value = value;
+  }
+
   private _value = '';
 
   set value(value: string) {
@@ -26,7 +30,7 @@ export class SearchView {
   }
 
   onSearch(event) {
-    this.value = event.target.value.trim();
+    this.value = event.target.value && event.target.value.trim();
   }
 
   onSpeech() {
