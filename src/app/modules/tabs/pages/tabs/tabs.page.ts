@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TabsService } from '../../services/tabs.service';
 
 @Component({
   selector: 'tabs',
@@ -7,12 +6,5 @@ import { TabsService } from '../../services/tabs.service';
   styleUrls: [ 'tabs.page.scss' ]
 })
 export class TabsPage {
-
-  constructor(private _tabsService: TabsService) {
-  }
-
-  clickTab(tab: string) {
-    this._tabsService.changeTab(tab);
-  }
 
 }

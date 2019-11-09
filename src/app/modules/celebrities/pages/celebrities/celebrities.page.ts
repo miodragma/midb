@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.interface';
 import { Actor } from '../../../shared/interfaces/actors/actor.interface';
-import { IonContent, IonSlides } from '@ionic/angular';
+import { IonSlides } from '@ionic/angular';
 import { CelebritiesService } from '../../services/celebrities.service';
 import { Router } from '@angular/router';
 
@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: [ 'celebrities.page.scss' ]
 })
 export class CelebritiesPage implements OnInit {
-
-  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   slideOpts = {
     // allowTouchMove: false,
@@ -54,10 +52,6 @@ export class CelebritiesPage implements OnInit {
 
   checkActor(actor: Actor) {
     this._router.navigate([ `details/celebrities/${actor.id}` ]);
-  }
-
-  clickScroll() {
-    this.content.scrollToTop(1000);
   }
 
 }

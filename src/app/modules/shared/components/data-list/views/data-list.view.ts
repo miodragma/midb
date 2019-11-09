@@ -14,8 +14,7 @@ import { MovieList } from '../../list-data/interfaces/movie-list.interface';
 export class DataListView {
 
   @Output() clicked = new EventEmitter<number>();
-  @Output() scroll = new EventEmitter();
-  @Output() more = new EventEmitter<number>();
+  @Output() clickedPage = new EventEmitter<number>();
 
   @Input() genres: Genre[];
 
@@ -35,6 +34,14 @@ export class DataListView {
   private _movies: MovieResponse<MovieList>;
 
   constructor(private _loaderService: LoaderService) {
+  }
+
+  counter(i: number) {
+    return new Array(i);
+  }
+
+  trackByFn(index) {
+    return index;
   }
 
 }

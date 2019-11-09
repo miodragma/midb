@@ -21,12 +21,12 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> {
     service: MoviesService,
     route: ActivatedRoute,
     loaderService: LoaderService,
+    router: Router,
     private _genresService: GenresService,
-    private _router: Router,
     private _navCtrl: NavController,
     private _routerOutlet: IonRouterOutlet,
     private _platform: Platform) {
-    super(service, route, loaderService);
+    super(service, route, loaderService, router);
     service.findAllMovieTrendings();
   }
 
@@ -35,8 +35,8 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> {
     this.subscription = this._platform.backButton.subscribe(() => {
       if (this._routerOutlet && this._routerOutlet.canGoBack()) {
         this._routerOutlet.pop();
-      } else if (this._router.url !== '/tabs/tab/movies') {
-        this._router.navigate([ '/tabs/tab/movies' ]);
+      } else if (this.router.url !== '/tabs/tab/movies') {
+        this.router.navigate([ '/tabs/tab/movies' ]);
       } else {
         navigator['app'].exitApp();
       }
@@ -46,7 +46,7 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> {
   }
 
   onClickMovie(id: number) {
-    this._router.navigate([ `details/movie/${id}` ]);
+    this.router.navigate([ `details/movie/${id}` ]);
   }
 
 }

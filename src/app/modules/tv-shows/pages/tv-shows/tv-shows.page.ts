@@ -20,9 +20,9 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
     service: TvShowService,
     route: ActivatedRoute,
     loaderService: LoaderService,
-    private _genresService: GenresService,
-    private _router: Router) {
-    super(service, route, loaderService);
+    router: Router,
+    private _genresService: GenresService,) {
+    super(service, route, loaderService, router);
     service.findAllMovieTrendings();
   }
 
@@ -32,7 +32,7 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
   }
 
   onClickTvShow(id: number) {
-    this._router.navigate([ `details/tv-shows/${id}` ]);
+    this.router.navigate([ `details/tv-shows/${id}` ]);
   }
 
 }
