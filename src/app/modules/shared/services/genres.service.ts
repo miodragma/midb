@@ -55,19 +55,21 @@ export class GenresService {
       years.push({ id: i, value: i, isChecked: false });
     }
     this._filterMovieYearsList.next(years);
-    this._http.get<{ genres: Genre[] }>(`${this._url}/genre/movie/list?${this._apiKey}&language=en-US`)
-      .pipe(
-        tap(genres => {
-          this._genresList.next(genres);
-          const filterGenres = genres.genres.map(genre => (
-            {
-              ...genre,
-              isChecked: false
-            }
-          ));
-          this._filterMoviesGenresList.next(filterGenres);
-        })
-      ).subscribe();
+    if (!this._filterMoviesGenresList.getValue().length) {
+      this._http.get<{ genres: Genre[] }>(`${this._url}/genre/movie/list?${this._apiKey}&language=en-US`)
+        .pipe(
+          tap(genres => {
+            this._genresList.next(genres);
+            const filterGenres = genres.genres.map(genre => (
+              {
+                ...genre,
+                isChecked: false
+              }
+            ));
+            this._filterMoviesGenresList.next(filterGenres);
+          })
+        ).subscribe();
+    }
   }
 
   findAllTVGenres() {
@@ -77,19 +79,21 @@ export class GenresService {
       years.push({ id: i, value: i, isChecked: false });
     }
     this._filterTVShowsYearsList.next(years);
-    this._http.get<{ genres: Genre[] }>(`${this._url}/genre/tv/list?${this._apiKey}&language=en-US`)
-      .pipe(
-        tap(genres => {
-          this._genresTvList.next(genres);
-          const filterGenres = genres.genres.map(genre => (
-            {
-              ...genre,
-              isChecked: false
-            }
-          ));
-          this._filterTVShowsGenresList.next(filterGenres);
-        })
-      ).subscribe();
+    if (!this._filterTVShowsGenresList.getValue().length) {
+      this._http.get<{ genres: Genre[] }>(`${this._url}/genre/tv/list?${this._apiKey}&language=en-US`)
+        .pipe(
+          tap(genres => {
+            this._genresTvList.next(genres);
+            const filterGenres = genres.genres.map(genre => (
+              {
+                ...genre,
+                isChecked: false
+              }
+            ));
+            this._filterTVShowsGenresList.next(filterGenres);
+          })
+        ).subscribe();
+    }
   }
 
   updateFilterGenres(tab: string, genre: FilterGenre) {
