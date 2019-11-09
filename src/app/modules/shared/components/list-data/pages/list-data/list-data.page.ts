@@ -14,7 +14,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
   private _value = '';
   private _type = 'popular';
   private _page = 1;
-  private _param = '';
   private _isFilter = false;
 
   set value(value: string) {
@@ -65,12 +64,11 @@ export class ListDataPage<T, S extends MovieData<T>> {
 
         type && (this._type = type);
         !isParam && this.navigateToDefault();
-        type && this.service.findAllMoviesByType(type, +page);
-        value && this.service.findAllMoviesByValue(value, +page);
-        this._isFilter && this.service.findAllFilterMovies(filterQuery, +page);
+        type && (this.movies$ = this.service.findAllMoviesByType(type, +page));
+        value && (this.movies$ = this.service.findAllMoviesByValue(value, +page));
+        this._isFilter && (this.movies$ = this.service.findAllFilterMovies(filterQuery, +page));
 
         this.slides$ = this.service.findAllSlides;
-        this.movies$ = this.service.findMoviesList;
       });
   }
 

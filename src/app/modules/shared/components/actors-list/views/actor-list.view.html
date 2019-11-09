@@ -10,11 +10,14 @@
       [detail]="!singleActor"
       (click)="checkActor.emit(actor)" button>
       <ion-thumbnail slot="start">
-        <img
-          [alt]="actor.profile_path"
-          [src]="actor.profile_path === null ?
-                  './assets/images/na.jpg' :
-                  'https://image.tmdb.org/t/p/w200'+ actor.profile_path">
+        <image-loader
+          spinnerMarginTop="21%"
+          spinnerMarginLeft="15%"
+          spinnerWidth="40px"
+          spinnerWrapperHeight="84px"
+          spinnerWrapperWidth="56px"
+          [src]="'https://image.tmdb.org/t/p/w200'+ actor.profile_path">
+        </image-loader>
       </ion-thumbnail>
       <ion-label>{{ actor.name }}</ion-label>
       <ion-radio *ngIf="singleActor"
@@ -23,14 +26,23 @@
       </ion-radio>
       <ion-ripple-effect type="bounded"></ion-ripple-effect>
     </ion-item>
-    <ion-button *ngIf="actors.page < actors.total_pages" color="primary" fill="clear"
-                (click)="more.emit(actors.page)">More
-    </ion-button>
-    <ion-fab *ngIf="actors.results.length > 15" vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="scroll.emit()">
-        <ion-icon name="arrow-round-up"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
   </ion-list>
-
 </ion-col>
+<ion-row *ngIf="actors?.total_pages > 1">
+  <ion-col
+    class="col-scrolling-wrapper"
+    size="12"
+    sizeSm="8"
+    offsetSm="2">
+    <div class="scrolling-wrapper">
+      <ion-button
+        *ngFor="let page of counter(actors?.total_pages); let i = index; trackBy: trackByFn"
+        fill="clear"
+        class="pages"
+        [color]="i + 1 === actors?.page ? 'primary' : 'light'"
+        (click)="onClickedPage(i + 1)">
+        {{ i + 1 }}
+      </ion-button>
+    </div>
+  </ion-col>
+</ion-row>

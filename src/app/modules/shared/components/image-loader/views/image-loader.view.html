@@ -4,6 +4,14 @@
   (load)="onLoad()"
   (error)="onError()">
 
-<div [style.height]="spinnerWrapper" *ngIf="!isImageLoaded">
-  <ion-spinner color="primary"></ion-spinner>
+<div
+  [style.width]="spinnerWrapperWidth"
+  [style.height]="spinnerWrapperHeight"
+  *ngIf="!isImageLoaded">
+  <ion-spinner
+    [style.marginTop]="spinnerMarginTop"
+    [style.marginLeft]="spinnerMarginLeft"
+    [style.width]="spinnerWidth"
+    color="primary">
+  </ion-spinner>
 </div>

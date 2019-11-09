@@ -7,8 +7,13 @@
     *ngFor="let movie of similar; trackBy: trackByFn"
     (click)="navigateMovie.emit(movie)">
     <ion-ripple-effect></ion-ripple-effect>
-    <image-loader spinnerWrapper="180px"
-                  [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path"></image-loader>
+    <image-loader
+      spinnerMarginTop="50%"
+      spinnerMarginLeft="35%"
+      spinnerWidth="40px"
+      spinnerWrapperHeight="180px"
+      [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path">
+    </image-loader>
     <ion-card-header color="secondary" class="top-billed-cast-header">
       <ion-card-title>
         {{ movie.title || movie.name }}

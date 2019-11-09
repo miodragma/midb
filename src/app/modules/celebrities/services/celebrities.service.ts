@@ -32,10 +32,7 @@ export class CelebritiesService {
 
   findMoreActorsByValue(actor: string, page: number) {
     this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`)
-      .pipe(tap(data => this._actorsList.next({
-        ...data,
-        results: [ ...this._actorsList.getValue().results, ...data.results ]
-      }))).subscribe();
+      .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 
   removeActorsFromList() {

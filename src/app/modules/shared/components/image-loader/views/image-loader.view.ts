@@ -8,7 +8,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class ImageLoaderView {
 
-  @Input() spinnerWrapper = '';
+  @Input() spinnerWrapperHeight = '';
+  @Input() spinnerWrapperWidth = '';
+  @Input() spinnerMarginTop = '';
+  @Input() spinnerMarginLeft = '';
+  @Input() spinnerWidth = '';
 
   @Input() set src(src: string) {
     this._isImageLoaded = false;

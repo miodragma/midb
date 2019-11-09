@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { Actor } from '../../../interfaces/actors/actor.interface';
 import { MovieResponse } from '../../../interfaces/movies/movie-response.interface';
 
@@ -10,10 +10,26 @@ import { MovieResponse } from '../../../interfaces/movies/movie-response.interfa
 export class ActorListView {
 
   @Output() checkActor = new EventEmitter<Actor>();
-  @Output() more = new EventEmitter<number>();
-  @Output() scroll = new EventEmitter();
+  @Output() clickedPage = new EventEmitter<number>();
 
   @Input() actors: MovieResponse<Actor>;
   @Input() singleActor: Actor;
+
+  constructor(private _elRef: ElementRef) {
+  }
+
+  counter(i: number) {
+    return new Array(i);
+  }
+
+  trackByFn(index) {
+    return index;
+  }
+
+  onClickedPage(page) {
+    const el = this._elRef.nativeElement.querySelector('ion-col');
+    el.scrollIntoView();
+    this.clickedPage.emit(page);
+  }
 
 }

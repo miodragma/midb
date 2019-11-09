@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
@@ -11,14 +11,9 @@ export class TvShowService {
   apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   url = 'https://api.themoviedb.org/3';
 
-  private _moviesList = new BehaviorSubject<MovieResponse<TvShow>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
   private _slidesList = new BehaviorSubject<MovieResponse<TvShow>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
 
   constructor(private _http: HttpClient) {
-  }
-
-  get findMoviesList() {
-    return this._moviesList.asObservable();
   }
 
   get findAllSlides() {
@@ -42,21 +37,21 @@ export class TvShowService {
       ).subscribe();
   }
 
-  findAllMoviesByValue(value: string, page: number) {
-    this._http.get<MovieResponse<TvShow>>(`
+  findAllMoviesByValue(value: string, page: number): Observable<MovieResponse<TvShow>> {
+    return this._http.get<MovieResponse<TvShow>>(`
     ${this.url}/search/tv?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`)
-      .pipe(tap(data => this._moviesList.next(data))).subscribe();
+      .pipe(tap(data => data));
   }
 
-  findAllMoviesByType(type: string, page: number) {
+  findAllMoviesByType(type: string, page: number): Observable<MovieResponse<TvShow>> {
     return this._http.get<MovieResponse<TvShow>>(`${this.url}/tv/${type}?${this.apiKey}&region=US&language=en-US&page=${page}`)
-      .pipe(tap(data => this._moviesList.next(data))).subscribe();
+      .pipe(tap(data => data));
   }
 
-  findAllFilterMovies(filter: string, page: number) {
-    this._http.get<MovieResponse<TvShow>>(`
+  findAllFilterMovies(filter: string, page: number): Observable<MovieResponse<TvShow>> {
+    return this._http.get<MovieResponse<TvShow>>(`
     ${this.url}/discover/tv?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`)
-      .pipe(tap(data => this._moviesList.next(data))).subscribe();
+      .pipe(tap(data => data));
   }
 
 }
