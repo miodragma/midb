@@ -37,7 +37,7 @@ export class FilterPage implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _genresService: GenresService,
-    private _filterService: FilterService,) {
+    private _filterService: FilterService) {
   }
 
   ngOnInit() {
@@ -47,9 +47,11 @@ export class FilterPage implements OnInit {
         map(qParam => qParam.get('tab')),
         tap(param => {
           if (param === 'tv-shows') {
+            this._genresService.findAllTVGenres();
             this.genres$ = this._genresService.filterTVShowsGenresList;
             this.years$ = this._genresService.filterTVShowsYearsList;
           } else if (param === 'movies') {
+            this._genresService.findAllMovieGenres();
             this.years$ = this._genresService.filterMovieYearsList;
             this.genres$ = this._genresService.filterMoviesGenresList;
             this.actors$ = this._filterService.findActorsList;
