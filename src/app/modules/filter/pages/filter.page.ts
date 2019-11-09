@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { FilterYear } from '../interfaces/filter-year.interface';
 import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
 import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { FilterService } from '../services/filter.service';
-import { IonContent } from '@ionic/angular';
 
 @Component({
   templateUrl: 'filter.page.html',
@@ -22,8 +21,6 @@ export class FilterPage implements OnInit {
   isGenres = false;
   isYears = false;
   isActors = true;
-
-  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   genres$: Observable<FilterGenre[]>;
   years$: Observable<FilterYear[]>;
@@ -112,10 +109,6 @@ export class FilterPage implements OnInit {
   more(page: number) {
     const newPage = page + 1;
     this._filterService.findMoreActorsByValue(this._value, newPage);
-  }
-
-  clickScroll() {
-    this.content.scrollToTop(1000);
   }
 
   resetFilter() {

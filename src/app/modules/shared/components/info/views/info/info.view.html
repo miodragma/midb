@@ -32,11 +32,14 @@
   </ion-item>
   <ion-item class="ion-no-padding">
     <ion-thumbnail slot="start">
-      <img
-        [src]="details.poster_path === null ?
-                    './assets/images/na.jpg' :
-                    'https://image.tmdb.org/t/p/w200'+ details.poster_path"
-        [alt]="details.poster_path">
+      <image-loader
+        spinnerMarginLeft="30%"
+        spinnerMarginTop="42%"
+        spinnerWidth="40px"
+        spinnerWrapperHeight="148px"
+        spinnerWrapperWidth="98px"
+        [src]="'https://image.tmdb.org/t/p/w200'+ details.poster_path">
+      </image-loader>
     </ion-thumbnail>
     <p class="details-overview">{{ details.overview | overview }}</p>
   </ion-item>

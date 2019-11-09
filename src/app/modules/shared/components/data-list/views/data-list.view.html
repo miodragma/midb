@@ -9,11 +9,13 @@
       <ion-item *ngFor="let movie of movies?.results" detail
                 (click)="clicked.emit(movie.id)">
         <ion-thumbnail slot="start">
-          <img
-            [src]="movie.poster_path === null ?
-                  './assets/images/na.jpg' :
-                  'https://image.tmdb.org/t/p/w200'+ movie.poster_path"
-            [alt]="movie.poster_path">
+          <image-loader
+            spinnerMarginLeft="15%"
+            spinnerMarginTop="20%"
+            spinnerWidth="40px"
+            spinnerWrapperHeight="84px"
+            spinnerWrapperWidth="56px"
+            [src]="'https://image.tmdb.org/t/p/w200'+ movie.poster_path"></image-loader>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
           <p class="movieListText">{{ movie.title || movie.name }}</p>

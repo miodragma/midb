@@ -79,9 +79,8 @@
               *ngIf="_value !== '' && isActors"
               [actors]="actors$ | async"
               [singleActor]="actor$ | async"
-              (more)="more($event)"
-              (checkActor)="checkActor($event)"
-              (scroll)="clickScroll()">
+              (clickedPage)="more($event)"
+              (checkActor)="checkActor($event)">
             </actor-list>
           </ion-card-content>
         </ion-card>

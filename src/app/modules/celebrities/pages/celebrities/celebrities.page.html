@@ -33,9 +33,8 @@
     <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
     <actor-list
       [actors]="actors$ | async"
-      (more)="more($event)"
-      (checkActor)="checkActor($event)"
-      (scroll)="clickScroll()">
+      (clickedPage)="more($event)"
+      (checkActor)="checkActor($event)">
     </actor-list>
   </ion-grid>
 </ion-content>
