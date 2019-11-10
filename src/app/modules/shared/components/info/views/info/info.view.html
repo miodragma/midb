@@ -25,6 +25,7 @@
       </p>
     </ion-label>
     <ion-button
+      (click)="allEpisodes.emit(details?.id)"
       fill="outline"
       slot="{{ details.in_production && details.next_episode_to_air !== null ? 'end' : 'start'}}">
       All Episodes

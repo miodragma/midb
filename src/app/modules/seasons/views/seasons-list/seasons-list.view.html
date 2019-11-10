@@ -1,0 +1,52 @@
+<div>
+  <ion-row>
+    <ion-col
+      size="12"
+      sizeSm="8"
+      offsetSm="2"
+      class="col-pagination">
+      <div class="scrolling-wrapper">
+        <ion-button
+          *ngFor="let page of counter(seasonList?.length); let i = index"
+          fill="clear"
+          class="season"
+          color="light"
+          (click)="onClickSeason(i)">
+          {{ i + 1 }}
+        </ion-button>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" sizeSm="8" offsetSm="2" class="ion-text-center">
+      <ion-slides [options]="slideOpts" #slider>
+        <ion-slide *ngFor="let season of seasonList">
+          <ion-card color="secondary">
+            <ion-card-header>
+              <ion-card-title>{{ season.name }}</ion-card-title>
+              <ion-card-subtitle>
+                {{ season.air_date | date }}
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-item>
+              <image-loader
+                [src]="'https://image.tmdb.org/t/p/w200'+ season.poster_path">
+              </image-loader>
+            </ion-item>
+            <ion-card-content>
+              <p>{{ season.overview | overview }}</p>
+            </ion-card-content>
+            <div>
+              <ion-button
+                [routerLink]="['/seasons', season.season_number, tvShowId]"
+                fill="clear"
+                color="primary">
+                More
+              </ion-button>
+            </div>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+</div>

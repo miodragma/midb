@@ -17,7 +17,7 @@
       <ion-col class="ion-no-padding">
         <ion-card class="ion-no-margin ion-padding-bottom" color="secondary">
           <video-trailer [videos]="details?.videos" (playVideo)="playVideo($event)"></video-trailer>
-          <info [details]="details"></info>
+          <info (allEpisodes)="navigateSeasons($event)" [details]="details"></info>
         </ion-card>
       </ion-col>
     </ion-row>

@@ -15,7 +15,6 @@ import { TvShow } from '../../interfaces/tv-show.interface';
 export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
 
   tvGenres$: Observable<{ genres: Genre[] }>;
-  math = Math;
 
   constructor(
     service: TvShowService,
