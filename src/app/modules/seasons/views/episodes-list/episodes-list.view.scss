@@ -1,0 +1,23 @@
+.movieListText {
+  color: var(--ion-color-primary-contrast);
+}
+
+.movieReleaseDate {
+  font-size: 12px;
+}
+
+ion-list {
+  padding-top: 0;
+}
+
+ion-thumbnail {
+  width: 100px;
+}
+
+ion-item {
+  --border-color: rgba(247, 38, 100, .4);
+  --border-radius: 20px;
+  --color: rgb(247, 38, 100);
+  --ripple-color: rgb(247, 38, 100);
+  --min-height: 100px;
+}

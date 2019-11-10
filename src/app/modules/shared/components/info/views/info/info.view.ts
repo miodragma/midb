@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MovieDetails } from '../../../../interfaces/movies/details/movie-details.interface';
 
 @Component({
@@ -9,5 +9,6 @@ import { MovieDetails } from '../../../../interfaces/movies/details/movie-detail
 export class InfoView {
 
   @Input() details: MovieDetails;
+  @Output() allEpisodes = new EventEmitter<number>();
 
 }
