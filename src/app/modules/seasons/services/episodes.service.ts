@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Season } from '../../shared/interfaces/season-list/season.interface';
+import { Episode } from '../../shared/interfaces/episodes/episode.interface';
+import { map, mergeMap } from 'rxjs/operators';
+import { OmdbDetails } from '../../shared/interfaces/omdb/omdb-details.interface';
 
 @Injectable()
 export class EpisodesService {
@@ -12,8 +15,20 @@ export class EpisodesService {
   constructor(private _http: HttpClient) {
   }
 
-  findAllEpisodesList(seasonId: number, tvShowId: number): Observable<Season> {
-    return this._http.get<Season>(`${this._url}/tv/${tvShowId}/season/${seasonId}?api_key=e78954865ca9c1de70cf8701f4a24d26&language=en-US`);
+  findAllEpisodesList(seasonNumber: number, tvShowId: number): Observable<Season> {
+    return this._http.get<Season>(`${this._url}/tv/${tvShowId}/season/${seasonNumber}?${this._apiKey}&language=en-US`);
+  }
+
+  findEpisodeDetailsById(tvShowId: number, seasonNumber: number, episodeNumber: number): Observable<Episode> {
+    return this._http.get<Episode>(`${this._url}/tv/${tvShowId}/season/${seasonNumber}/episode/${episodeNumber}?${this._apiKey}&language=en-US&include_image_language=en,null&append_to_response=videos,images,recommendations,external_ids,credits`)
+      .pipe(
+        mergeMap(details => {
+          return this._http.get<OmdbDetails>(`https://www.omdbapi.com/?apikey=8ed6e6d5&i=${details.external_ids.imdb_id}`)
+            .pipe(
+              map(omdb => ({ ...details, omdbDetails: omdb }))
+            );
+        })
+      );
   }
 
 }

@@ -24,17 +24,13 @@ export class EpisodesListPage {
   ionViewWillEnter() {
     this._route.paramMap
       .pipe(
-        filter(params => !!params.has('seasonId') && !!params.has('id')),
+        filter(params => !!params.has('seasonNumber') && !!params.has('id')),
         tap(param => {
-          this.seasonNumber = param.get('seasonId');
-          this.season$ = this._episodesService.findAllEpisodesList(+param.get('seasonId'), +param.get('id'));
+          this.seasonNumber = param.get('seasonNumber');
+          this.season$ = this._episodesService.findAllEpisodesList(+param.get('seasonNumber'), +param.get('id'));
         })
       )
       .subscribe();
-  }
-
-  onEpisodeClicked(episodeId: number) {
-    console.log(episodeId);
   }
 
   navigate() {

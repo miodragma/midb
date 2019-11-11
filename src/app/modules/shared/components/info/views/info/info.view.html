@@ -51,8 +51,8 @@
     <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
       <ion-icon class="icon-star" name="star"></ion-icon>
       <div class="voteWrapper">
-        <h5 class="whiteText vote">{{ details.omdbDetails.imdbRating }}</h5>
-        <span class="whiteText voteSlashTen">/ 10</span>
+        <h5>{{ details.omdbDetails.imdbRating }}</h5>
+        <span>/ 10</span>
       </div>
       <p class="vote-count">{{ details.omdbDetails.imdbVotes | formatNumber }}</p>
     </div>

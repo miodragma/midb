@@ -1,0 +1,85 @@
+@import "./colors";
+
+ion-item {
+  --ion-background-color: var(--ion-color-secondary);
+}
+
+ion-card-subtitle {
+  font-size: smaller;
+}
+
+ion-thumbnail {
+  height: 100%;
+  width: 30%;
+  margin: 0 16px 0 0;
+}
+
+ion-label {
+  margin: 0;
+}
+
+ion-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-left: 0;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.imdb-rating-wrapper {
+  text-align: center;
+  float: left;
+}
+
+.imdb-rating-wrapper > div > h5 {
+  color: $text-color;
+  display: inline-block;
+  margin: 0;
+}
+
+.imdb-rating-wrapper > div > span {
+  color: $text-color;
+  font-size: 13px;
+}
+
+.icon-star {
+  color: #e4bb24;
+  font-size: 30px;
+}
+
+.vote-count {
+  color: $silver-color;
+  font-size: 11px;
+  margin: 3px;
+  text-align: center;
+}
+
+.imdb-metascore-wrapper {
+  text-align: center;
+  float: right;
+}
+
+.icon-square {
+  color: #66cc33;
+  font-size: 35px;
+}
+
+.metascore {
+  position: absolute;
+  color: $text-color;
+  top: 5px;
+  right: 73px;
+}
+
+.metascore-title {
+  margin: 0;
+}
+
+.details-overview {
+  max-height: 160px;
+  color: $text-color;
+  overflow: hidden;
+}

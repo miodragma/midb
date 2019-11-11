@@ -24,7 +24,7 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
   initialization() {
     this._subscription = this.route.paramMap
       .pipe(
-        filter(params => params.has('id')),
+        filter(params => !!params.has('id')),
         tap(params => {
           this.loadingCtrl.create()
             .then(loadingEl => {

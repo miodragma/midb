@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Season } from '../../../shared/interfaces/season-list/season.interface';
 
 @Component({
@@ -9,6 +9,5 @@ import { Season } from '../../../shared/interfaces/season-list/season.interface'
 export class EpisodesListView {
 
   @Input() season: Season;
-  @Output() episodeClicked = new EventEmitter<number>();
 
 }
