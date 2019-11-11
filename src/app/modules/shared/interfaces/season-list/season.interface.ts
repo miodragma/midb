@@ -1,4 +1,4 @@
-import { EpisodeList } from './episode-list.interface';
+import { EpisodeList } from '../episodes/episode-list.interface';
 
 export interface Season {
   _id: string;

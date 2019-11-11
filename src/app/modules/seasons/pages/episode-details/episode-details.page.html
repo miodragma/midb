@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="navigate()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ episodeDetails?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isLoading | async">
+  <ion-grid class="load-grid ion-no-padding">
+
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin ion-padding-bottom" color="secondary">
+          <video-trailer [videos]="episodeDetails?.videos" (playVideo)="playVideo($event)"></video-trailer>
+          <episode-info [episodeDetails]="episodeDetails"></episode-info>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="episodeDetails?.credits.cast.length > 0 || episodeDetails?.credits.crew.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <top-actors-list
+          (navigateCast)="navigateCast($event)"
+          [casts]="episodeDetails?.credits.cast | orderCastCrew"
+          [crews]="episodeDetails?.credits.crew"
+          [title]="'Top Billed Cast'">
+        </top-actors-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="episodeDetails?.credits.guest_stars.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <top-actors-list
+          (navigateGuest)="navigateGuest($event)"
+          [guests]="episodeDetails?.credits.guest_stars | guestOrder"
+          [title]="'Top Guest Stars'">
+        </top-actors-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="episodeDetails?.videos.results.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <videos-list [videos]="episodeDetails?.videos" (playVideo)="playVideo($event)"></videos-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="episodeDetails?.images.stills.length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Images</h5>
+        </div>
+        <div class="scrolling-wrapper">
+          <ion-card
+            class="card images-card"
+            *ngFor="let image of episodeDetails.images.stills; trackBy: trackByFn">
+            <image-loader
+              spinnerMarginTop="14%"
+              spinnerMarginLeft="40%"
+              spinnerWidth="40px"
+              spinnerWrapperWidth="200px"
+              spinnerWrapperHeight="113px"
+              [src]="'https://image.tmdb.org/t/p/w200' + image.file_path">
+            </image-loader>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="episodeDetails?.omdbDetails.Response !== 'False' && episodeDetails?.omdbDetails.Awards !== 'N/A'">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Awards</h5>
+        </div>
+        <div class="info-wrapper">
+          <p class="info-label">{{ episodeDetails.omdbDetails.Awards.split('.')[0] }}</p>
+          <p class="info-title">{{ episodeDetails.omdbDetails.Awards.split('.')[1] }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="episodeDetails?.overview">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <storyline [storyline]="{overview: episodeDetails.overview, tagline: ''}"></storyline>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="isDetails(episodeDetails)">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>Details</h5>
+        </div>
+        <div class="info-wrapper">
+          <p
+            *ngIf="episodeDetails.air_date"
+            class="info-label">Release Date
+          </p>
+          <p class="info-title">{{ episodeDetails.air_date| date }}</p>
+          <p
+            *ngIf="episodeDetails.omdbDetails.Language"
+            class="info-label">Language Spoken
+          </p>
+          <p class="info-title">{{ episodeDetails.omdbDetails.Language }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

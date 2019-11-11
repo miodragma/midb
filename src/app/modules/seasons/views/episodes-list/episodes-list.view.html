@@ -7,7 +7,7 @@
     offsetSm="2">
     <ion-list class="ion-padding-top ion-padding-bottom">
       <ion-item *ngFor="let episode of season?.episodes" detail
-                (click)="episodeClicked.emit(episode.id)">
+                [routerLink]="['/', 'seasons', 'episode-details', episode.show_id, episode.season_number, episode.episode_number]">
         <ion-thumbnail slot="start">
           <image-loader
             spinnerMarginLeft="30%"

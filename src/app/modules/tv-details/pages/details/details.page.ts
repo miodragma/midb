@@ -48,7 +48,7 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
   }
 
   navigateSeasons(id: number) {
-    this.router.navigate([ `/seasons/${id}` ]);
+    this.router.navigate([ `/seasons/tv-show/${id}` ]);
   }
 
   ngOnDestroy() {

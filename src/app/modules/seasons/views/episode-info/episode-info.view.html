@@ -1,0 +1,48 @@
+<ion-card-header color="secondary" class="card-shadow">
+  <ion-card-title>
+    {{ episodeDetails?.name }}
+  </ion-card-title>
+  <ion-card-subtitle>
+    {{ episodeDetails?.air_date | date }}&nbsp;&nbsp;
+    {{ episodeDetails?.omdbDetails.Rated }}&nbsp;&nbsp;
+    {{ episodeDetails?.omdbDetails.Runtime }}&nbsp;&nbsp;
+    {{ episodeDetails?.omdbDetails.Genre }}
+  </ion-card-subtitle>
+</ion-card-header>
+<ion-card-content class="card-content">
+  <ion-item class="ion-no-padding">
+    <ion-thumbnail slot="start">
+      <image-loader
+        spinnerMarginLeft="30%"
+        spinnerMarginTop="0"
+        spinnerWidth="40px"
+        spinnerWrapperHeight="55px"
+        spinnerWrapperWidth="98px"
+        [src]="'https://image.tmdb.org/t/p/w200'+ episodeDetails.still_path">
+      </image-loader>
+    </ion-thumbnail>
+    <p class="details-overview">{{ episodeDetails.overview | overview }}</p>
+  </ion-item>
+</ion-card-content>
+<ion-item class="ion-padding-end ion-padding-start"
+          *ngIf="!(episodeDetails.omdbDetails.imdbRating === 'N/A' && episodeDetails.omdbDetails.Metascore === 'N/A') && episodeDetails.omdbDetails.Response !== 'False'">
+  <div style="width: 100%; padding: 0 35px;">
+    <div class="imdb-rating-wrapper" *ngIf="episodeDetails.omdbDetails.imdbRating !== 'N/A'">
+      <ion-icon class="icon-star" name="star"></ion-icon>
+      <div class="voteWrapper">
+        <h5>{{ episodeDetails.omdbDetails.imdbRating }}</h5>
+        <span>/ 10</span>
+      </div>
+      <p class="vote-count">{{ episodeDetails.omdbDetails.imdbVotes | formatNumber }}</p>
+    </div>
+    <div class="imdb-metascore-wrapper" *ngIf="episodeDetails.omdbDetails.Metascore !== 'N/A'">
+      <div>
+        <ion-icon name="square" class="icon-square"></ion-icon>
+        <span class="metascore">{{ episodeDetails.omdbDetails.Metascore }}</span>
+      </div>
+      <div>
+        <p class="metascore-title">Metascore</p>
+      </div>
+    </div>
+  </div>
+</ion-item>

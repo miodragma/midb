@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { SeasonList } from '../../../shared/interfaces/season-list/season-list.i
   templateUrl: 'seasons-list.page.html',
   styleUrls: [ 'seasons-list.page.scss' ]
 })
-export class SeasonsListPage {
+export class SeasonsListPage implements OnInit {
 
   tvShowId$: Observable<number>;
   seasonList$: Observable<SeasonList[]>;
@@ -21,7 +21,7 @@ export class SeasonsListPage {
     private _seasonsService: SeasonsService) {
   }
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.seasonList$ = this._seasonsService.seasonsList;
     this.tvShowId$ = this._route.paramMap
       .pipe(

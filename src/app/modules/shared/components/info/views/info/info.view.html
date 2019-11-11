@@ -25,6 +25,7 @@
       </p>
     </ion-label>
     <ion-button
+      [style.right]="details.in_production && details.next_episode_to_air !== null ? '0' : ''"
       (click)="allEpisodes.emit(details?.id)"
       fill="outline"
       slot="{{ details.in_production && details.next_episode_to_air !== null ? 'end' : 'start'}}">
@@ -51,8 +52,8 @@
     <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
       <ion-icon class="icon-star" name="star"></ion-icon>
       <div class="voteWrapper">
-        <h5 class="whiteText vote">{{ details.omdbDetails.imdbRating }}</h5>
-        <span class="whiteText voteSlashTen">/ 10</span>
+        <h5>{{ details.omdbDetails.imdbRating }}</h5>
+        <span>/ 10</span>
       </div>
       <p class="vote-count">{{ details.omdbDetails.imdbVotes | formatNumber }}</p>
     </div>

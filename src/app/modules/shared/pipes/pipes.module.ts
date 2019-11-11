@@ -11,6 +11,7 @@ import { Director } from './director.pipe';
 import { Writers } from './writers.pipe';
 import { OrderCastCrew } from './order-cast-crew.pipe';
 import { Countries } from './countries.pipe';
+import { OrderGuest } from './order-guest.pipe';
 
 const pages = [];
 
@@ -28,7 +29,8 @@ const pipes = [
   Director,
   Writers,
   OrderCastCrew,
-  Countries
+  Countries,
+  OrderGuest
 ];
 
 const modules = [
