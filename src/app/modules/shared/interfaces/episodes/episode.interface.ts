@@ -1,8 +1,8 @@
 import { Video } from '../videos/video.interface';
-import { EpisodeImages } from './episode-images.interface';
 import { OmdbDetails } from '../omdb/omdb-details.interface';
 import { ExternalIds } from '../external-ids/external-ids.interface';
 import { Credits } from '../credits/credits.interface';
+import { Stills } from './stills.interface';
 
 export interface Episode {
   air_date: string;
@@ -17,7 +17,7 @@ export interface Episode {
   vote_average: number;
   vote_count: number;
   videos: Video;
-  images: EpisodeImages;
+  images: Stills;
   omdbDetails: OmdbDetails;
   external_ids: ExternalIds;
   credits: Credits;

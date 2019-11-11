@@ -14,6 +14,8 @@ import { EpisodeDetailsPage } from './pages/episode-details/episode-details.page
 import { VideoTrailerModule } from '../shared/components/video/video-trailer.module';
 import { EpisodeInfoView } from './views/episode-info/episode-info.view';
 import { TopActorsListModule } from '../shared/components/top-actors-list/top-actors-list.module';
+import { VideosListModule } from '../shared/components/videos-list/videos-list.module';
+import { StorylineModule } from '../shared/components/storyline/storyline.module';
 
 const pages = [
   SeasonsListPage,
@@ -39,7 +41,9 @@ const modules = [
   SeasonsRoutingModule,
   ImageLoaderModule,
   VideoTrailerModule,
-  TopActorsListModule
+  TopActorsListModule,
+  VideosListModule,
+  StorylineModule
 ];
 
 @NgModule({

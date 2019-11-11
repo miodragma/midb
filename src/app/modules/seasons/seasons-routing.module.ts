@@ -6,17 +6,17 @@ import { EpisodeDetailsPage } from './pages/episode-details/episode-details.page
 
 const routes: Routes = [
   {
-    path: 'episode-details/:showId/:seasonNumber/:episodeNumber',
-    component: EpisodeDetailsPage
-  },
-  {
-    path: ':id',
+    path: 'tv-show/:id',
     component: SeasonsListPage
   },
   {
-    path: ':seasonNumber/:id',
+    path: 'episode-list/:id/:seasonNumber',
     component: EpisodesListPage
   },
+  {
+    path: 'episode-details/:showId/:seasonNumber/:episodeNumber',
+    component: EpisodeDetailsPage
+  }
 ];
 
 @NgModule({

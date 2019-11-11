@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, tap } from 'rxjs/operators';
 import { EpisodesService } from '../../services/episodes.service';
@@ -13,7 +13,7 @@ import { Guest } from '../../../shared/interfaces/credits/guest.interface';
   templateUrl: 'episode-details.page.html',
   styleUrls: [ 'episode-details.page.scss' ]
 })
-export class EpisodeDetailsPage {
+export class EpisodeDetailsPage implements OnInit {
 
   episodeDetails: Episode;
 
@@ -30,7 +30,7 @@ export class EpisodeDetailsPage {
     private _screenOrientation: ScreenOrientation) {
   }
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this._screenOrientation.lock(this._screenOrientation.ORIENTATIONS.PORTRAIT);
     this._route.paramMap
       .pipe(
@@ -68,6 +68,22 @@ export class EpisodeDetailsPage {
       .subscribe();
   }
 
+  trackByFn(index, item) {
+    return item.file_path;
+  }
+
+  isDetails(details) {
+    return details.release_date
+      || details.first_air_date
+      || details.production_countries
+      || details.origin_country
+      || details.omdbDetails.Language
+      || details.budget
+      || details.revenue
+      || details.omdbDetails.Production
+      || details.production_companies.length > 0;
+  }
+
   navigateCast(cast: Cast) {
     this._router.navigate([ `/details/celebrities/${cast.id}` ]);
   }
@@ -77,9 +93,7 @@ export class EpisodeDetailsPage {
   }
 
   navigate() {
-    console.log(this.episodeDetails);
-    console.log(`/seasons/${this.episodeDetails.season_number}/${this.episodeDetails.show_id}`);
-    // this._router.navigate([`/seasons/${this.episodeDetails.season_number}/${this.episodeDetails.show_id}`]);
+    this._navCtrl.back();
   }
 
   playVideo(id: string) {

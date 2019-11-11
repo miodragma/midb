@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { CelebrityResponse } from '../../interfaces/celebrity-response.interface';
 import { CelebritiesDetailsService } from '../../services/celebrities-details.service';
 
@@ -21,7 +21,8 @@ export class DetailsPage implements OnInit {
     private _loadingCtrl: LoadingController,
     private _service: CelebritiesDetailsService,
     private _alertCtrl: AlertController,
-    private _router: Router
+    private _router: Router,
+    private _navCtrl: NavController
   ) {
   }
 
@@ -81,6 +82,10 @@ export class DetailsPage implements OnInit {
 
   trackByImageFn(index, item) {
     return item.file_path;
+  }
+
+  navigate() {
+    this._navCtrl.back();
   }
 
   ionViewWillLeave() {

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { filter, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -10,18 +10,19 @@ import { EpisodesService } from '../../services/episodes.service';
   templateUrl: 'episodes-list.page.html',
   styleUrls: [ 'episodes-list.page.scss' ]
 })
-export class EpisodesListPage {
+export class EpisodesListPage implements OnInit {
 
   season$: Observable<Season>;
   seasonNumber: string;
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _navCtrl: NavController,
     private _episodesService: EpisodesService) {
   }
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this._route.paramMap
       .pipe(
         filter(params => !!params.has('seasonNumber') && !!params.has('id')),
