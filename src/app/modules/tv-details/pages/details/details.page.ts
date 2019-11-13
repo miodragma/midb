@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
@@ -22,7 +22,8 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
     alertCtrl: AlertController,
     router: Router,
     private _screenOrientation: ScreenOrientation,
-    private _youtube: YoutubeVideoPlayer) {
+    private _youtube: YoutubeVideoPlayer,
+    private _navCtrl: NavController) {
     super(service, route, loadingCtrl, alertCtrl, router);
   }
 
@@ -49,6 +50,10 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
 
   navigateSeasons(id: number) {
     this.router.navigate([ `/seasons/tv-show/${id}` ]);
+  }
+
+  navigate() {
+    this._navCtrl.back();
   }
 
   ngOnDestroy() {
