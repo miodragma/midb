@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab/tv-shows"></ion-back-button>
+      <ion-button (click)="navigate()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button (click)="onPopover($event)">

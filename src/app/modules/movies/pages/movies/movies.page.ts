@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonRouterOutlet, NavController, Platform } from '@ionic/angular';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { Genre } from '../../../shared/interfaces/genres/genre.interface';
   templateUrl: 'movies.page.html',
   styleUrls: [ 'movies.page.scss' ]
 })
-export class MoviesPage extends ListDataPage<Movie, MoviesService> {
+export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnDestroy {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
 
@@ -33,12 +33,12 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> {
   ionViewWillEnter() {
     this._navCtrl.setTopOutlet(this._routerOutlet);
     this.subscription = this._platform.backButton.subscribe(() => {
-      if (this._routerOutlet && this._routerOutlet.canGoBack()) {
-        this._routerOutlet.pop();
-      } else if (this.router.url !== '/tabs/tab/movies') {
-        this.router.navigate([ '/tabs/tab/movies' ]);
-      } else {
+      let currentUrl = this.router.url;
+      currentUrl = currentUrl.split('?', currentUrl.length)[0];
+      if (currentUrl === '/tabs/tab/movies' || currentUrl === '/tabs/tab/tv-shows' || currentUrl === '/tabs/tab/celebrities') {
         navigator['app'].exitApp();
+      } else {
+        this._navCtrl.back();
       }
     });
     this.initialization();
@@ -47,6 +47,10 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> {
 
   onClickMovie(id: number) {
     this.router.navigate([ `details/movie/${id}` ]);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
