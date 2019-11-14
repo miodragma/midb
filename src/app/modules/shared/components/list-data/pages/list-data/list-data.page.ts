@@ -31,8 +31,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
     return this._type;
   }
 
-  slides$: Observable<MovieResponse<T>>;
-
   movies$: Observable<MovieResponse<T>>;
 
   constructor(
@@ -67,8 +65,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
         type && (this.movies$ = this.service.findAllMoviesByType(type, +page));
         value && (this.movies$ = this.service.findAllMoviesByValue(value, +page));
         this._isFilter && (this.movies$ = this.service.findAllFilterMovies(filterQuery, +page));
-
-        this.slides$ = this.service.findAllSlides;
       });
   }
 

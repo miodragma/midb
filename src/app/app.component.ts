@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoaderService } from './modules/shared/services/loader.service';
 import { GenresService } from './modules/shared/services/genres.service';
+import { SlidesService } from './modules/shared/services/slides.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private _loaderService: LoaderService,
     private _genresService: GenresService,
+    private _slidesService: SlidesService
   ) {
     this.initializeApp();
   }
@@ -28,6 +30,8 @@ export class AppComponent {
       this.splashScreen.hide();
       this._genresService.findAllMovieGenres();
       this._genresService.findAllTVGenres();
+      this._slidesService.findAllMovieTrendings();
+      this._slidesService.findAllTvShowTrendings();
     });
   }
 }

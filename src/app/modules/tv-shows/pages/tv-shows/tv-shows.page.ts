@@ -7,6 +7,8 @@ import { TvShowService } from '../../services/tv-show.service';
 import { Observable } from 'rxjs';
 import { Genre } from '../../../shared/interfaces/genres/genre.interface';
 import { TvShow } from '../../interfaces/tv-show.interface';
+import { SlidesService } from '../../../shared/services/slides.service';
+import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.interface';
 
 @Component({
   templateUrl: 'tv-shows.page.html',
@@ -15,18 +17,20 @@ import { TvShow } from '../../interfaces/tv-show.interface';
 export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
 
   tvGenres$: Observable<{ genres: Genre[] }>;
+  slides$: Observable<MovieResponse<TvShow>>;
 
   constructor(
     service: TvShowService,
     route: ActivatedRoute,
     loaderService: LoaderService,
     router: Router,
-    private _genresService: GenresService,) {
+    private _genresService: GenresService,
+    private _slidesService: SlidesService) {
     super(service, route, loaderService, router);
-    service.findAllMovieTrendings();
   }
 
   ionViewWillEnter() {
+    this.slides$ = this._slidesService.findAllTvShowSlides;
     this.initialization();
     this.tvGenres$ = this._genresService.genresTvList;
   }
