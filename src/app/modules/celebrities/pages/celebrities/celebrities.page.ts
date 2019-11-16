@@ -13,12 +13,13 @@ import { Router } from '@angular/router';
 export class CelebritiesPage implements OnInit {
 
   slideOpts = {
+    observer: true,
     // allowTouchMove: false,
     autoplay: true,
     // slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
-    speed: 1000
+    speed: 500
   };
 
   actors$: Observable<MovieResponse<Actor>>;
