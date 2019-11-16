@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, IonItemSliding, ToastController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { Watchlist } from '../../interfaces/watchlist.model';
+import { Watchlist } from '../../models/watchlist.model';
 
 @Component({
   templateUrl: 'watchlist.page.html',

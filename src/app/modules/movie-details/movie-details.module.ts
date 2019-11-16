@@ -16,10 +16,11 @@ import { StorylineModule } from '../shared/components/storyline/storyline.module
 import { DetailsInfoModule } from '../shared/components/details-info/details-info.module';
 import { InfoModule } from '../shared/components/info/info.module';
 import { PopoverListView } from '../shared/components/popover-list/views/popover-list/popover-list.view';
+import { CreateNotificationView } from '../shared/components/notification/create-notification.view';
 
 const pages = [ DetailsPage ];
 
-const views = [ PopoverListView ];
+const views = [ PopoverListView, CreateNotificationView ];
 
 const services = [ ScreenOrientation, DetailsService, YoutubeVideoPlayer, NativeStorage ];
 
@@ -41,7 +42,7 @@ const modules = [
   imports: [ ...modules ],
   declarations: [ ...pages, ...views ],
   providers: [ ...services ],
-  entryComponents: [ PopoverListView ]
+  entryComponents: [ ...views ]
 })
 export class MoviesModule {
 }
