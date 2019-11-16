@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { Genre } from '../../../shared/interfaces/genres/genre.interface';
 import { TvShow } from '../../interfaces/tv-show.interface';
 import { SlidesService } from '../../../shared/services/slides.service';
-import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.interface';
 
 @Component({
   templateUrl: 'tv-shows.page.html',
@@ -17,7 +16,6 @@ import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.
 export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
 
   tvGenres$: Observable<{ genres: Genre[] }>;
-  slides$: Observable<MovieResponse<TvShow>>;
 
   constructor(
     service: TvShowService,
@@ -30,7 +28,6 @@ export class TvShowsPage extends ListDataPage<TvShow, TvShowService> {
   }
 
   ionViewWillEnter() {
-    this.slides$ = this._slidesService.findAllTvShowSlides;
     this.initialization();
     this.tvGenres$ = this._genresService.genresTvList;
   }

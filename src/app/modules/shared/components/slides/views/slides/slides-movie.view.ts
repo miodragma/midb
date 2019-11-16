@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { MovieResponse } from '../../../../interfaces/movies/movie-response.interface';
-import { MovieList } from '../../../list-data/interfaces/movie-list.interface';
 import { IonSlides } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { MovieResponse } from '../../../../interfaces/movies/movie-response.interface';
+import { SlidesService } from '../../../../services/slides.service';
 
 @Component({
   selector: 'slides',
@@ -10,7 +11,18 @@ import { IonSlides } from '@ionic/angular';
 })
 export class SlidesMovieView {
 
-  @Input() slides: MovieResponse<MovieList>;
+  @Input() set type(type: string) {
+    type === 'movies' && (this.slides$ = this._slidesService.findAllMovieTrendings());
+    type === 'tvShow' && (this.slides$ = this._slidesService.findAllTvShowTrendings());
+    setTimeout(() => this.paragraphShow = true, 3000);
+  }
+
+  constructor(private _slidesService: SlidesService) {
+  }
+
+  paragraphShow = false;
+
+  slides$: Observable<MovieResponse<any>>;
 
   slideOpts = {
     // allowTouchMove: false,
@@ -18,7 +30,7 @@ export class SlidesMovieView {
     // slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
-    speed: 1000
+    speed: 500
   };
 
   slidesDidLoad(slides: IonSlides) {

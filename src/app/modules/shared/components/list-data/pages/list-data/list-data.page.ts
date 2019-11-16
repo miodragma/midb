@@ -31,6 +31,10 @@ export class ListDataPage<T, S extends MovieData<T>> {
     return this._type;
   }
 
+  get is_filter() {
+    return this._isFilter;
+  }
+
   movies$: Observable<MovieResponse<T>>;
 
   constructor(
@@ -74,6 +78,11 @@ export class ListDataPage<T, S extends MovieData<T>> {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { value, page: 1 }
+      });
+    } else {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { type: 'popular', page: 1 }
       });
     }
   }

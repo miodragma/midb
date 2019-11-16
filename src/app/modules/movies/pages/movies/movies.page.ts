@@ -8,7 +8,6 @@ import { GenresService } from '../../../shared/services/genres.service';
 import { Movie } from '../../../shared/interfaces/movies/movie.interface';
 import { ListDataPage } from '../../../shared/components/list-data/pages/list-data/list-data.page';
 import { Genre } from '../../../shared/interfaces/genres/genre.interface';
-import { MovieResponse } from '../../../shared/interfaces/movies/movie-response.interface';
 import { SlidesService } from '../../../shared/services/slides.service';
 
 @Component({
@@ -18,7 +17,6 @@ import { SlidesService } from '../../../shared/services/slides.service';
 export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnDestroy {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
-  slides$: Observable<MovieResponse<Movie>>;
 
   constructor(
     service: MoviesService,
@@ -34,7 +32,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   }
 
   ionViewWillEnter() {
-    this.slides$ = this._slidesService.findAllMovieSlides;
     this._navCtrl.setTopOutlet(this._routerOutlet);
     this.subscription = this._platform.backButton.subscribe(() => {
       let currentUrl = this.router.url;

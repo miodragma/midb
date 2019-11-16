@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { MovieResponse } from '../interfaces/movies/movie-response.interface';
 import { Movie } from '../interfaces/movies/movie.interface';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TvShow } from '../../tv-shows/interfaces/tv-show.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -28,7 +28,7 @@ export class SlidesService {
 
   findAllMovieTrendings() {
     const url = `${this._url}/trending/movie/day?${this._apiKey}`;
-    forkJoin([
+    return forkJoin([
       this._http.get<MovieResponse<Movie>>(`${url}&page=1`),
       this._http.get<MovieResponse<Movie>>(`${url}&page=2)`)
     ])
@@ -39,13 +39,12 @@ export class SlidesService {
             results: [ ...trending[0].results, ...trending[1].results ]
           }
         )),
-        tap(trending => this._slidesMovieList.next(trending))
-      ).subscribe();
+      );
   }
 
   findAllTvShowTrendings() {
     const url = `${this._url}/trending/tv/day?${this._apiKey}`;
-    forkJoin([
+    return forkJoin([
       this._http.get<MovieResponse<TvShow>>(`${url}&page=1`),
       this._http.get<MovieResponse<TvShow>>(`${url}&page=2)`)
     ])
@@ -56,8 +55,7 @@ export class SlidesService {
             results: [ ...trending[0].results, ...trending[1].results ]
           }
         )),
-        tap(trending => this._slidesTvShowList.next(trending))
-      ).subscribe();
+      );
   }
 
 }

@@ -47,7 +47,7 @@ export interface MovieDetails {
   omdbDetails: OmdbDetails;
 
   created_by: CreatedBy[];
-  episode_run_time: [];
+  episode_run_time: [ 0 ];
   first_air_date: string;
   in_production: boolean;
   languages: [];

@@ -24,6 +24,10 @@ export class SearchView {
       .pipe(tap(val => this.changeValue.emit(val))).subscribe();
   }
 
+  get value() {
+    return this._value;
+  }
+
   constructor(
     private _speechRecognition: SpeechRecognition,
     private _cd: ChangeDetectorRef) {
