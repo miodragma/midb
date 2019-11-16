@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, NavParams, PopoverController, ToastController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { Watchlist } from '../../../../../watchlist/interfaces/watchlist.model';
+import { Watchlist } from '../../../../../watchlist/models/watchlist.model';
+import { NotificationModel } from '../../../../models/notification.model';
+import { CreateNotificationView } from '../../../notification/create-notification.view';
 
 @Component({
   templateUrl: 'popover-list.view.html',
@@ -62,6 +64,68 @@ export class PopoverListView implements OnInit {
       duration: 2000
     })
       .then(toastEl => toastEl.present());
+  }
+
+  onAddNotification() {
+    this.pop.dismiss();
+    const currentDate = Math.floor(new Date().getTime() / 1000.0);
+    const movieReleaseDate = new Date(this.movie.releaseDate).getTime() / 1000.0;
+    const isUpcoming = movieReleaseDate > currentDate;
+    const releaseButton = isUpcoming ? {
+      text: 'Use Release Date',
+      handler: () => {
+        this.openNotificationModal('release');
+      }
+    } : null;
+    const buttons = [
+      {
+        text: 'Select Date',
+        handler: () => {
+          this.openNotificationModal('select');
+        }
+      },
+      releaseButton,
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+    ];
+    this._actionSheetCtrl
+      .create({
+        header: 'Choose an Action',
+        buttons: buttons.filter(button => button !== null)
+      })
+      .then(actionSheetEl => {
+        actionSheetEl.present();
+      });
+  }
+
+  openNotificationModal(mode: 'release' | 'select') {
+    const newMovie = new NotificationModel(
+      this.movie.id,
+      this.movie.title,
+      this.movie.poster,
+      this.movie.genre,
+      this.movie.releaseDate,
+      this.movie.actors
+    );
+    this._modalCtrl.create({
+      component: CreateNotificationView,
+      componentProps: { movie: newMovie, currMode: mode }
+    })
+      .then(modalEl => {
+        modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then(resultData => {
+        if (resultData.role === 'success') {
+          this._toastCtrl.create({
+            message: 'The notification has been created!',
+            duration: 2000
+          })
+            .then(toastEl => toastEl.present());
+        }
+      });
   }
 
 }

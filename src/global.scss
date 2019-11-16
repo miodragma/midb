@@ -29,6 +29,10 @@ ion-title, ion-label, ion-segment-button {
   font-family: 'Anton', sans-serif;
 }
 
+ion-action-sheet {
+  --background: rgba(255, 255, 255, .9) !important;
+}
+
 p {
   color: $text-color;
 }
@@ -71,6 +75,11 @@ ion-card-subtitle {
 h5 {
   margin: 0;
   color: $text-color;
+}
+
+.action-sheet-title.sc-ion-action-sheet-md {
+  font-family: 'Oswald', sans-serif;
+  border-bottom: 1px solid #ccc;
 }
 
 .alert-wrapper.sc-ion-alert-md {
@@ -143,4 +152,9 @@ h5 {
   width: 120px;
   margin: 0 16px 0 0;
   display: inline-block;
+}
+
+.swiper-pagination {
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.1) !important;
 }

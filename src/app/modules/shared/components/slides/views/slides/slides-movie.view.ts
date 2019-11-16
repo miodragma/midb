@@ -25,6 +25,7 @@ export class SlidesMovieView {
   slides$: Observable<MovieResponse<any>>;
 
   slideOpts = {
+    observer: true,
     // allowTouchMove: false,
     autoplay: true,
     // slidesPerView: 1,

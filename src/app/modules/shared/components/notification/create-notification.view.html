@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Notification</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center ion-padding">
+  <ion-row>
+    <ion-col size="12" sizeSm="8" offsetSm="2" class="ion-text-center">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ movie.title }}</ion-card-title>
+          <ion-card-subtitle>{{ movie.releaseDate}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-col sizeSm="6" offsetSm="3" class="ion-text-center">
+          <ion-img [src]="movie.poster === null ?
+                    './assets/images/na.jpg' :
+                    'https://image.tmdb.org/t/p/w200'+ movie.poster"
+                   [alt]="movie.poster">
+          </ion-img>
+        </ion-col>
+        <ion-card-content>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col sizeSm="3">
+      <ion-item>
+        <ion-label position="floating">Date</ion-label>
+        <ion-datetime
+          [pickerOptions]="pickerOption"
+          mode="md"
+          placeholder="Choose date"
+          displayFormat="MMM DD YYYY"
+          pickerFormat="MMM DD YYYY"
+          [min]="minTime"
+          #date
+          [value]="releaseDate"
+          (ionChange)="isDateAdded()"
+          [disabled]="isReleaseDate"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col sizeSm="3">
+      <ion-item>
+        <ion-label position="floating">Time</ion-label>
+        <ion-datetime
+          mode="md"
+          placeholder="Choose time"
+          displayFormat="HH mm"
+          pickerFormat="HH mm"
+          [min]="minTime"
+          #time
+          (ionChange)="isDateAdded()"
+        ></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col sizeSm="6" offsetSm="3">
+      <ion-button
+        (click)="onSubmitMovie()"
+        type="submit"
+        color="primary"
+        expand="block"
+        [disabled]="!isAdded">
+        Submit
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
