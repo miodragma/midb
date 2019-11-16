@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { CelebrityResponse } from '../interfaces/celebrity-response.interface';
 
 @Injectable()
@@ -13,10 +12,7 @@ export class CelebritiesDetailsService {
   }
 
   findDetailsById(id: number) {
-    return this._http.get<CelebrityResponse>(`${this.url}/person/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=images,combined_credits`)
-      .pipe(
-        map(res => res)
-      );
+    return this._http.get<CelebrityResponse>(`${this.url}/person/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=images,combined_credits`);
   }
 
 }
