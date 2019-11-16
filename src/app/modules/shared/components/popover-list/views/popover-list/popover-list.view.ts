@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, NavParams, PopoverController, ToastController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { Watchlist } from '../../../../../watchlist/interfaces/watchlist.interface';
+import { Watchlist } from '../../../../../watchlist/interfaces/watchlist.model';
 
 @Component({
   templateUrl: 'popover-list.view.html',
@@ -22,13 +22,8 @@ export class PopoverListView implements OnInit {
 
   ngOnInit() {
     this.pop = this._navParams.get('popoverController');
-    const currData = this._navParams.data.movie;
-    this.movie.id = currData.id;
-    this.movie.title = currData.original_title;
-    this.movie.poster = currData.poster_path;
-    this.movie.genre = currData.omdbDetails.Genre;
-    this.movie.releaseDate = currData.omdbDetails.Released;
-    this.movie.actors = currData.omdbDetails.Actors;
+    const { id, original_title, poster_path, omdbDetails } = this._navParams.data.movie;
+    this.movie = new Watchlist(id, original_title, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors);
   }
 
   onAddToWatchList() {
