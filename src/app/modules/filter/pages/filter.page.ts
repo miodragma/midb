@@ -37,6 +37,10 @@ export class FilterPage implements OnInit {
     private _filterService: FilterService) {
   }
 
+  get value() {
+    return this._value;
+  }
+
   ngOnInit() {
     this._route.queryParamMap
       .pipe(

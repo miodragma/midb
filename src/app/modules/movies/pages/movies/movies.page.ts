@@ -8,6 +8,7 @@ import { GenresService } from '../../../shared/services/genres.service';
 import { Movie } from '../../../shared/interfaces/movies/movie.interface';
 import { ListDataPage } from '../../../shared/components/list-data/pages/list-data/list-data.page';
 import { Genre } from '../../../shared/interfaces/genres/genre.interface';
+import { SlidesService } from '../../../shared/services/slides.service';
 
 @Component({
   templateUrl: 'movies.page.html',
@@ -25,9 +26,9 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     private _genresService: GenresService,
     private _navCtrl: NavController,
     private _routerOutlet: IonRouterOutlet,
-    private _platform: Platform) {
+    private _platform: Platform,
+    private _slidesService: SlidesService) {
     super(service, route, loaderService, router);
-    service.findAllMovieTrendings();
   }
 
   ionViewWillEnter() {

@@ -31,7 +31,9 @@ export class ListDataPage<T, S extends MovieData<T>> {
     return this._type;
   }
 
-  slides$: Observable<MovieResponse<T>>;
+  get is_filter() {
+    return this._isFilter;
+  }
 
   movies$: Observable<MovieResponse<T>>;
 
@@ -67,8 +69,6 @@ export class ListDataPage<T, S extends MovieData<T>> {
         type && (this.movies$ = this.service.findAllMoviesByType(type, +page));
         value && (this.movies$ = this.service.findAllMoviesByValue(value, +page));
         this._isFilter && (this.movies$ = this.service.findAllFilterMovies(filterQuery, +page));
-
-        this.slides$ = this.service.findAllSlides;
       });
   }
 
@@ -78,6 +78,11 @@ export class ListDataPage<T, S extends MovieData<T>> {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { value, page: 1 }
+      });
+    } else {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { type: 'popular', page: 1 }
       });
     }
   }

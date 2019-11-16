@@ -70,13 +70,13 @@
 
           <ion-card-content class="ion-no-padding">
             <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
-            <ion-button *ngIf="_value !== ''" (click)="openActors()" expand="full" color="secondary">
+            <ion-button *ngIf="value !== ''" (click)="openActors()" expand="full" color="secondary">
               <span>Actors</span>
               <ion-icon *ngIf="!isActors" slot="end" name="arrow-dropdown"></ion-icon>
               <ion-icon *ngIf="isActors" slot="end" name="arrow-dropup"></ion-icon>
             </ion-button>
             <actor-list
-              *ngIf="_value !== '' && isActors"
+              *ngIf="value !== '' && isActors"
               [actors]="actors$ | async"
               [singleActor]="actor$ | async"
               (clickedPage)="more($event)"
