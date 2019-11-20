@@ -2,13 +2,14 @@
 
 .top-billed-cast-header {
   background-color: var(--ion-color-secondary-tint);
-  padding: 16px 8px;
+  padding: 8px;
   height: 100px;
 }
 
 .top-billed-cast-header > ion-card-title {
   font-size: 14px;
   white-space: initial;
+  line-height: 1.3;
 }
 
 .top-billed-cast-header > ion-card-subtitle {
@@ -30,4 +31,13 @@
   font-size: 14px;
   color: $silver-color;
   margin: 0;
+}
+
+.acting-as {
+  font-size: smaller;
+  color: #737373;
+  white-space: initial;
+  margin: 2px 0 0 0;
+  bottom: 8px;
+  position: absolute;
 }

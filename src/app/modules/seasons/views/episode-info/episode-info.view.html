@@ -21,7 +21,7 @@
         [src]="'https://image.tmdb.org/t/p/w200'+ episodeDetails.still_path">
       </image-loader>
     </ion-thumbnail>
-    <p class="details-overview">{{ episodeDetails.overview | overview }}</p>
+    <p class="details-overview">{{ episodeDetails.overview | overview: 200 }}</p>
   </ion-item>
 </ion-card-content>
 <ion-item class="ion-padding-end ion-padding-start"

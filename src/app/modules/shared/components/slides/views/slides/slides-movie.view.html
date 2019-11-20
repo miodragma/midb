@@ -10,7 +10,7 @@
         <img
           [src]="'https://image.tmdb.org/t/p/w400'+ slide.backdrop_path"
           [alt]="slide.backdrop_path">
-        <p *ngIf="paragraphShow"> {{ slide.title || slide.name }} </p>
+        <p> {{ slide.title || slide.name }} </p>
       </ion-slide>
     </ion-slides>
   </ion-col>

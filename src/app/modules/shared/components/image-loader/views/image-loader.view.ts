@@ -41,7 +41,7 @@ export class ImageLoaderView {
   onError() {
     this._isImageLoaded = true;
     this.error.emit();
-    this._src = './assets/images/na.jpg';
+    this._src = './assets/images/na.png';
   }
 
 }

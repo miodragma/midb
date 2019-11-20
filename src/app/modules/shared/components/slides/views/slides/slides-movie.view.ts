@@ -26,12 +26,12 @@ export class SlidesMovieView {
 
   slideOpts = {
     observer: true,
-    // allowTouchMove: false,
+    // // allowTouchMove: false,
     autoplay: true,
-    // slidesPerView: 1,
-    spaceBetween: 0,
+    // // slidesPerView: 1,
+    // spaceBetween: 0,
     loop: true,
-    speed: 500
+    // speed: 500,
   };
 
   slidesDidLoad(slides: IonSlides) {

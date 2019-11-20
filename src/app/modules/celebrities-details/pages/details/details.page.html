@@ -33,25 +33,25 @@
                   [src]="'https://image.tmdb.org/t/p/w200'+ details.profile_path">
                 </image-loader>
               </ion-thumbnail>
-              <p class="details-overview">{{ details.biography | overview }}</p>
+              <p class="details-overview">{{ details.biography | overview: 200 }}</p>
             </ion-item>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="details?.combined_credits.cast.length > 0">
+    <ion-row *ngIf="filterCastMovies(details?.combined_credits.cast).length > 0">
       <ion-col
         size="12"
         sizeSm="8"
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Cast</h5>
+          <h5>Movies Cast In</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
             class="card"
-            *ngFor="let movie of details?.combined_credits.cast; trackBy: trackByCastFn"
+            *ngFor="let movie of filterCastMovies(details?.combined_credits.cast); trackBy: trackByCastFn"
             [routerLink]="['/', 'details', getLink(movie), movie.id]">
             <ion-ripple-effect></ion-ripple-effect>
             <image-loader
@@ -61,13 +61,49 @@
               spinnerWrapperHeight="180px"
               [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path">
             </image-loader>
+            <p class="release-date">
+              {{ movie.release_date | date: 'y' }}
+            </p>
             <ion-card-header color="secondary" class="top-billed-cast-header">
               <ion-card-title class="ion-card-title">
-                {{ movie.title || movie.name }}
+                {{ movie.title | overview: 50 }}
               </ion-card-title>
-              <ion-card-subtitle class="release-date">
-                {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
-              </ion-card-subtitle>
+              <p *ngIf="movie.character" class="acting-as">as ( {{ movie.character | overview: 17 }} )</p>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="filterCastTVShows(details?.combined_credits.cast).length > 0">
+      <ion-col
+        size="12"
+        sizeSm="8"
+        offsetSm="2"
+        class="billed-cast-col ion-no-padding">
+        <div class="card-shadow ion-padding">
+          <h5>TV Shows Cast In</h5>
+        </div>
+        <div class="scrolling-wrapper">
+          <ion-card
+            class="card"
+            *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast); trackBy: trackByCastFn"
+            [routerLink]="['/', 'details', getLink(movie), movie.id]">
+            <ion-ripple-effect></ion-ripple-effect>
+            <image-loader
+              spinnerMarginTop="50%"
+              spinnerMarginLeft="35%"
+              spinnerWidth="40px"
+              spinnerWrapperHeight="180px"
+              [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path">
+            </image-loader>
+            <p class="release-date">
+              {{ movie.first_air_date | date: 'y' }}
+            </p>
+            <ion-card-header color="secondary" class="top-billed-cast-header">
+              <ion-card-title class="ion-card-title">
+                {{ movie.name | overview: 50 }}
+              </ion-card-title>
+              <p *ngIf="movie.character" class="acting-as">as ( {{ movie.character | overview: 17 }} )</p>
             </ion-card-header>
           </ion-card>
         </div>
@@ -80,7 +116,7 @@
         offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Crew</h5>
+          <h5>Crew In</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
@@ -95,13 +131,14 @@
               spinnerWrapperHeight="180px"
               [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path">
             </image-loader>
+            <p class="release-date">
+              {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
+            </p>
             <ion-card-header color="secondary" class="top-billed-cast-header">
               <ion-card-title class="ion-card-title">
                 {{ movie.title || movie.name }}
               </ion-card-title>
-              <ion-card-subtitle class="release-date">
-                {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
-              </ion-card-subtitle>
+              <p *ngIf="movie.job" class="acting-as">as ( {{ movie.job | overview: 17 }} )</p>
             </ion-card-header>
           </ion-card>
         </div>

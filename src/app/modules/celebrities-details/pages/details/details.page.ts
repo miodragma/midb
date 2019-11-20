@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { CelebrityResponse } from '../../interfaces/celebrity-response.interface';
 import { CelebritiesDetailsService } from '../../services/celebrities-details.service';
+import { CelebrityCast } from '../../interfaces/celebrity-cast.interface';
+import { CelebrityCrew } from '../../interfaces/celebrity-crew.interface';
 
 @Component({
   templateUrl: 'details.page.html',
@@ -74,6 +76,24 @@ export class DetailsPage implements OnInit {
 
   getLink(movie) {
     return movie.title ? 'movie' : 'tv-shows';
+  }
+
+  filterCastMovies(movies: CelebrityCast[]) {
+    return movies.filter(movie => movie.media_type === 'movie' && movie.release_date)
+      .sort((a, b) => {
+        return Math.floor(new Date(b.release_date).getTime() / 1000.0) - Math.floor(new Date(a.release_date).getTime() / 1000.0);
+      });
+  }
+
+  filterCastTVShows(movies: CelebrityCast[]) {
+    return movies.filter(movie => movie.media_type === 'tv' && movie.first_air_date)
+      .sort((a, b) => {
+        return Math.floor(new Date(b.first_air_date).getTime() / 1000.0) - Math.floor(new Date(a.first_air_date).getTime() / 1000.0);
+      });
+  }
+
+  filterCrewMovies(movies: CelebrityCrew[], media: string) {
+    return movies.filter(movie => movie.media_type === media);
   }
 
   trackByCastFn(index, item) {

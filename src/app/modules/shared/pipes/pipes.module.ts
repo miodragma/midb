@@ -12,6 +12,7 @@ import { Writers } from './writers.pipe';
 import { OrderCastCrew } from './order-cast-crew.pipe';
 import { Countries } from './countries.pipe';
 import { OrderGuest } from './order-guest.pipe';
+import { OrderSimilar } from './oreder-similar.pipe';
 
 const pages = [];
 
@@ -30,7 +31,8 @@ const pipes = [
   Writers,
   OrderCastCrew,
   Countries,
-  OrderGuest
+  OrderGuest,
+  OrderSimilar
 ];
 
 const modules = [

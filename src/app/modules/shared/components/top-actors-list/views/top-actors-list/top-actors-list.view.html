@@ -17,9 +17,7 @@
       <ion-card-title>
         {{ cast.name }}
       </ion-card-title>
-      <ion-card-subtitle>
-        {{ cast.character }}
-      </ion-card-subtitle>
+      <p *ngIf="cast.character" class="acting-as">as ( {{ cast.character | overview: 17 }} )</p>
     </ion-card-header>
   </ion-card>
 </div>
@@ -39,9 +37,7 @@
       <ion-card-title>
         {{ guest.name }}
       </ion-card-title>
-      <ion-card-subtitle>
-        {{ guest.character }}
-      </ion-card-subtitle>
+      <p *ngIf="guest.character" class="acting-as">as ( {{ guest.character | overview: 17 }} )</p>
     </ion-card-header>
   </ion-card>
 </div>
