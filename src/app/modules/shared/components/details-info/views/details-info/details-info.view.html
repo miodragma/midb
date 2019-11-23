@@ -35,18 +35,19 @@
     class="info-title">${{ detailsInfo.revenue | formatNumber }}
   </p>
   <p
-    *ngIf="detailsInfo.omdbDetails.Production || detailsInfo.production_companies.length > 0"
+    *ngIf="detailsInfo.omdbDetails.Production !== 'N/A' || detailsInfo.production_companies.length > 0"
     class="info-label">Production
   </p>
   <p
-    *ngIf="detailsInfo.title"
+    *ngIf="detailsInfo.omdbDetails.Production !== 'N/A'"
     class="info-title">{{ detailsInfo.omdbDetails.Production }}
-  </p>
-  <div *ngIf="detailsInfo.production_companies.length > 0 && detailsInfo.name">
+  </p>mo
+  <div
+    *ngIf="detailsInfo.production_companies.length > 0 && (detailsInfo.name || detailsInfo.omdbDetails.Production === 'N/A')">
     <p
-      *ngFor="let production of detailsInfo.production_companies"
+      *ngFor="let production of detailsInfo.production_companies;"
       class="info-title">
-      {{ production.origin_country !== '' ? production.name + ' | ' : ''}}
+      {{ production.name}}
       {{ production.origin_country !== '' ? production.origin_country : ''}}
     </p>
   </div>
