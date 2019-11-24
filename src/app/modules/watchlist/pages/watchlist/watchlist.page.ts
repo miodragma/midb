@@ -13,9 +13,9 @@ export class WatchlistPage implements OnInit {
   currMovies = { watchlist: [], reminder: [] };
 
   constructor(
-    private nativeStorage: NativeStorage,
-    private alertCtrl: AlertController,
-    private toastCtrl: ToastController) {
+    private _nativeStorage: NativeStorage,
+    private _alertCtrl: AlertController,
+    private _toastCtrl: ToastController) {
   }
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class WatchlistPage implements OnInit {
     //   {id: 994327, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'titanic'}
     // ];
 
-    this.nativeStorage.getItem('movies')
+    this._nativeStorage.getItem('movies')
       .then(res => {
         this.watchlist = res.watchlist;
         this.currMovies = res;
@@ -34,7 +34,7 @@ export class WatchlistPage implements OnInit {
 
   onRemoveMovie(id, slidingEl: IonItemSliding) {
     const currMovie = this.watchlist.find(movie => movie.id === id);
-    this.alertCtrl.create({
+    this._alertCtrl.create({
       header: 'Confirm!',
       subHeader: `${currMovie.title}`,
       message: `Are you sure that you want to delete this movie?`,
@@ -54,11 +54,11 @@ export class WatchlistPage implements OnInit {
             slidingEl.close();
             const updatedMovies = { ...this.currMovies };
             updatedMovies.watchlist = updatedMovies.watchlist.filter(movie => movie.id !== id);
-            this.nativeStorage.setItem('movies', updatedMovies)
+            this._nativeStorage.setItem('movies', updatedMovies)
               .then(res => {
                 this.watchlist = [ ...this.watchlist ].filter(movie => movie.id !== id);
                 this.currMovies = updatedMovies;
-                this.toastCtrl.create({
+                this._toastCtrl.create({
                   message: 'Successfully deleted!',
                   duration: 2000
                 })
