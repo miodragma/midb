@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~8.2.9",
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
+    "@ionic-native/admob-pro": "^5.17.0",
     "@ionic-native/core": "^5.15.0",
     "@ionic-native/local-notifications": "^5.16.0",
     "@ionic-native/native-storage": "^5.15.0",
@@ -34,7 +35,9 @@
     "@ionic-native/youtube-video-player": "^5.15.1",
     "@ionic/angular": "^4.10.1",
     "cordova-android": "^8.1.0",
+    "cordova-plugin-admobpro": "^2.49.0",
     "cordova-plugin-badge": "^0.8.8",
+    "cordova-plugin-extension": "^1.5.4",
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-screen-orientation": "^3.0.2",
@@ -96,7 +99,11 @@
       "cordova-plugin-youtube-video-player": {},
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-screen-orientation": {},
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-admobpro": {
+        "ADMOB_APP_ID": "ca-app-pub-2221766326187811~2261858145",
+        "PLAY_SERVICES_VERSION": "16.0.0"
+      }
     },
     "platforms": [
       "android"

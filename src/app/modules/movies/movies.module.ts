@@ -8,12 +8,13 @@ import { SearchModule } from '../shared/components/search/search.module';
 import { DataListModule } from '../shared/components/data-list/data-list.module';
 import { TypeModule } from '../shared/components/type/type.module';
 import { SlidesModule } from '../shared/components/slides/slides.module';
+import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 
 const pages = [ MoviesPage ];
 
 const views = [];
 
-const services = [ MoviesService ];
+const services = [ MoviesService, AdMobPro ];
 
 const modules = [
   CommonModule,
