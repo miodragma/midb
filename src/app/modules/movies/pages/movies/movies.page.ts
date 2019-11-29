@@ -114,7 +114,7 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
             this._nativeStorage.getItem('movies')
               .then(res => {
                 currWatchlist = res;
-                if (currWatchlist.watchlist.some(item => item.id === movieId)) {
+                if (currWatchlist.watchlist.some(item => item.id === movie.id)) {
                   this.onShowToast(`${movie.title} is already in Watchlist!`);
                 } else {
                   currWatchlist.watchlist.push(movie);

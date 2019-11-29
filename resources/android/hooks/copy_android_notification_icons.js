@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-console.log('start')
-var filestocopy = [ {
+const fs = require('fs');
+const path = require('path');
+const filestocopy = [ {
   "resources/android/icon/drawable-hdpi-icon.png":
     "platforms/android/app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png"
 }, {
@@ -23,15 +22,15 @@ var filestocopy = [ {
 module.exports = function (context) {
 
   // no need to configure below
-  var rootdir = context.opts.projectRoot;
+  const rootdir = context.opts.projectRoot;
 
   filestocopy.forEach(function (obj) {
     Object.keys(obj).forEach(function (key) {
-      var val = obj[key];
-      var srcfile = path.join(rootdir, key);
-      var destfile = path.join(rootdir, val);
+      const val = obj[key];
+      const srcfile = path.join(rootdir, key);
+      const destfile = path.join(rootdir, val);
       console.log("copying " + srcfile + " to " + destfile);
-      var destdir = path.dirname(destfile);
+      const destdir = path.dirname(destfile);
       if (fs.existsSync(srcfile) && fs.existsSync(destdir)) {
         fs.createReadStream(srcfile).pipe(
           fs.createWriteStream(destfile));
