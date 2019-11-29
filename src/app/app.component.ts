@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { LoaderService } from './modules/shared/services/loader.service';
 import { GenresService } from './modules/shared/services/genres.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private _alertCtrl: AlertController,
+    private _router: Router,
     private _loaderService: LoaderService,
     private _genresService: GenresService
   ) {
@@ -30,4 +34,5 @@ export class AppComponent {
       this._genresService.findAllTVGenres();
     });
   }
+
 }
