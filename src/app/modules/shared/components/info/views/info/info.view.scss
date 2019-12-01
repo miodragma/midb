@@ -33,20 +33,43 @@ ion-button {
   float: left;
 }
 
+.rating-image-rating-wrapper > div > h5 {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.tmdb-rating-wrapper {
+  margin-top: 2px;
+}
+
+.tmdb-rating {
+  margin-top: 3px;
+}
+
+.rotten-rating-wrapper {
+  margin-top: -3px;
+}
+
+.rotten-rating-wrapper > div > h5 {
+  margin-top: 7px;
+  text-align: center;
+}
+
+.metascore-square {
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+}
+
 .imdb-rating-wrapper > div > h5 {
   color: $text-color;
   display: inline-block;
-  margin: 0;
+  margin-top: 5px;
 }
 
 .imdb-rating-wrapper > div > span {
-  color: $text-color;
+  color: $silver-color;
   font-size: 13px;
-}
-
-.icon-star {
-  color: #e4bb24;
-  font-size: 30px;
 }
 
 .vote-count {
@@ -56,25 +79,26 @@ ion-button {
   text-align: center;
 }
 
-.imdb-metascore-wrapper {
+.metascore-wrapper {
   text-align: center;
   float: right;
 }
 
-.icon-square {
-  color: #66cc33;
-  font-size: 35px;
+.rating-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.rating-logo {
+  width: 45px;
 }
 
 .metascore {
-  position: absolute;
-  color: $text-color;
-  top: 5px;
-  right: 73px;
-}
-
-.metascore-title {
   margin: 0;
+  padding: 9px;
+  color: $text-color;
 }
 
 .details-overview {

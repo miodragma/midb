@@ -1,3 +1,5 @@
+import { Ratings } from './ratings.interface';
+
 export interface OmdbDetails {
   Title: string;
   Year: string;
@@ -17,6 +19,7 @@ export interface OmdbDetails {
   imdbRating: string;
   imdbVotes: string;
   imdbID: string;
+  Ratings: Ratings[];
   Type: string;
   DVD: string;
   BoxOffice: string;
