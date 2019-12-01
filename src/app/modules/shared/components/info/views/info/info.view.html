@@ -46,24 +46,34 @@
     <p class="details-overview">{{ details.overview | overview: 200 }}</p>
   </ion-item>
 </ion-card-content>
-<ion-item class="ion-padding-end ion-padding-start"
-          *ngIf="!(details.omdbDetails.imdbRating === 'N/A' && details.omdbDetails.Metascore === 'N/A') && details.omdbDetails.Response !== 'False'">
-  <div style="width: 100%; padding: 0 35px;">
-    <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
-      <ion-icon class="icon-star" name="star"></ion-icon>
-      <div class="voteWrapper">
-        <h5>{{ details.omdbDetails.imdbRating }}</h5>
-        <span>/ 10</span>
+<ion-item class="ion-padding-end ion-padding-start">
+  <div class="rating-wrapper">
+    <div class="imdb-rating-wrapper tmdb-rating-wrapper" *ngIf="details.vote_average">
+      <img src="./assets/images/tmdb.png" alt="tmdb" class="rating-logo">
+      <div class="tmdb-rating">
+        <h5>{{ details.vote_average }}</h5>
+        <span> / 10</span>
       </div>
-      <p class="vote-count">{{ details.omdbDetails.imdbVotes | formatNumber }}</p>
+      <p class="vote-count">{{ details.vote_count | number }}</p>
     </div>
-    <div class="imdb-metascore-wrapper" *ngIf="details.omdbDetails.Metascore !== 'N/A'">
+    <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
+      <img src="./assets/images/imdb.png" alt="imdb" class="rating-logo">
       <div>
-        <ion-icon name="square" class="icon-square"></ion-icon>
-        <span class="metascore">{{ details.omdbDetails.Metascore }}</span>
+        <h5>{{ details.omdbDetails.imdbRating }}</h5>
+        <span> / 10</span>
       </div>
+      <p class="vote-count">{{ details.omdbDetails.imdbVotes }}</p>
+    </div>
+    <div class="rotten-rating-wrapper"
+         *ngIf="details.omdbDetails.Ratings.length && details.omdbDetails.Ratings.length > 1 && details.omdbDetails.Ratings[1].Source === 'Rotten Tomatoes'">
+      <img src="./assets/images/rotten-tomatoes.png" alt="rotten-tomatoes" class="rating-logo">
       <div>
-        <p class="metascore-title">Metascore</p>
+        <h5>{{ details.omdbDetails.Ratings[1].Value }}</h5>
+      </div>
+    </div>
+    <div class="metascore-wrapper" *ngIf="details.omdbDetails.Metascore !== 'N/A'">
+      <div class="metascore-square" [ngStyle]="{'backgroundColor': metascoreColor}">
+        <p class="metascore">{{ details.omdbDetails.Metascore }}</p>
       </div>
     </div>
   </div>

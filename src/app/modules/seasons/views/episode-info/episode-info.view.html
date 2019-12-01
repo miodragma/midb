@@ -35,7 +35,7 @@
       </div>
       <p class="vote-count">{{ episodeDetails.omdbDetails.imdbVotes | formatNumber }}</p>
     </div>
-    <div class="imdb-metascore-wrapper" *ngIf="episodeDetails.omdbDetails.Metascore !== 'N/A'">
+    <div class="metascore-wrapper" *ngIf="episodeDetails.omdbDetails.Metascore !== 'N/A'">
       <div>
         <ion-icon name="square" class="icon-square"></ion-icon>
         <span class="metascore">{{ episodeDetails.omdbDetails.Metascore }}</span>

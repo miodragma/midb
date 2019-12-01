@@ -13,6 +13,7 @@ export class ImageLoaderView {
   @Input() spinnerMarginTop = '';
   @Input() spinnerMarginLeft = '';
   @Input() spinnerWidth = '';
+  @Input() imageStyle = '';
 
   @Input() set src(src: string) {
     this._isImageLoaded = false;
