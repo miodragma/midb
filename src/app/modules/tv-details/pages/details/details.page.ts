@@ -28,7 +28,7 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
   }
 
   ngOnInit() {
-    this._screenOrientation.lock(this._screenOrientation.ORIENTATIONS.PORTRAIT);
+    // this._screenOrientation.lock(this._screenOrientation.ORIENTATIONS.PORTRAIT);
     this.initialization();
   }
 
