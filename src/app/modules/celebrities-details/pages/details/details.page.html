@@ -41,9 +41,6 @@
     </ion-row>
     <ion-row *ngIf="filterCastMovies(details?.combined_credits.cast).length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
           <h5>Movies Cast In</h5>
@@ -76,9 +73,6 @@
     </ion-row>
     <ion-row *ngIf="filterCastTVShows(details?.combined_credits.cast).length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
           <h5>TV Shows Cast In</h5>
@@ -111,9 +105,6 @@
     </ion-row>
     <ion-row *ngIf="details?.combined_credits.crew.length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
           <h5>Crew In</h5>
@@ -146,9 +137,6 @@
     </ion-row>
     <ion-row *ngIf="details?.images.profiles.length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
           <h5>Images</h5>
@@ -171,9 +159,6 @@
     </ion-row>
     <ion-row *ngIf="isDetails(details)">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
           <h5>Personal Details</h5>

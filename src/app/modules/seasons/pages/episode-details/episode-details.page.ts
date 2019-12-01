@@ -31,7 +31,7 @@ export class EpisodeDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    this._screenOrientation.lock(this._screenOrientation.ORIENTATIONS.PORTRAIT);
+    // this._screenOrientation.lock(this._screenOrientation.ORIENTATIONS.PORTRAIT);
     this._route.paramMap
       .pipe(
         filter(params => !!params.has('showId') && !!params.get('seasonNumber') && !!params.get('episodeNumber')),

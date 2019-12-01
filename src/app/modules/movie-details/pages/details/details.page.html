@@ -25,9 +25,6 @@
     </ion-row>
     <ion-row *ngIf="details?.credits.cast.length > 0 || details?.credits.crew.length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <top-actors-list
           (navigateCast)="navigateCast($event)"
@@ -39,27 +36,18 @@
     </ion-row>
     <ion-row *ngIf="(details?.videos.results).length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <videos-list [videos]="details?.videos" (playVideo)="playVideo($event)"></videos-list>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="(details?.images.backdrops).length > 0 || (details?.images.posters).length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <images-list [images]="details?.images"></images-list>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="details?.omdbDetails.Response !== 'False' && details?.omdbDetails.Awards !== 'N/A'">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
           <h5>Awards</h5>
@@ -72,9 +60,6 @@
     </ion-row>
     <ion-row *ngIf="details?.recommendations.results.length > 0">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <similar-list
           (navigateMovie)="navigateMovie($event)"
@@ -85,18 +70,12 @@
     </ion-row>
     <ion-row *ngIf="details?.overview || details?.tagline">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <storyline [storyline]="{overview: details.overview, tagline: details.tagline}"></storyline>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="isDetails(details)">
       <ion-col
-        size="12"
-        sizeSm="8"
-        offsetSm="2"
         class="billed-cast-col ion-no-padding">
         <details-info [detailsInfo]="details"></details-info>
       </ion-col>

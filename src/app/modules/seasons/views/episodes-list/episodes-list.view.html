@@ -1,10 +1,7 @@
 <ion-row>
   <ion-col
     *ngIf="season?.episodes.length > 0"
-    class="ion-text-center ion-no-padding"
-    size="12"
-    sizeSm="8"
-    offsetSm="2">
+    class="ion-text-center ion-no-padding">
     <ion-list class="ion-padding-top ion-padding-bottom">
       <ion-item *ngFor="let episode of season?.episodes" detail
                 [routerLink]="['/', 'seasons', 'episode-details', episode.show_id, episode.season_number, episode.episode_number]">

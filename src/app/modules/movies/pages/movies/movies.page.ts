@@ -50,11 +50,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     this._oneSignal.inFocusDisplaying(this._oneSignal.OSInFocusDisplayOption.None);
 
     this._oneSignal.handleNotificationReceived().subscribe(data => {
-      // make something
-      // const msg = data.payload.body;
-      // const title = data.payload.title;
-      // const additionalData = data.payload.additionalData;
-      // this.showAlert(title, msg, additionalData);
     });
 
     this._oneSignal.handleNotificationOpened().subscribe(data => {

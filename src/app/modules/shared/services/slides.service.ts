@@ -14,11 +14,11 @@ export class SlidesService {
   }
 
   findAllMovieTrendings() {
-    return this._http.get<MovieResponse<Movie>>(`${this._url}/trending/movie/day?${this._apiKey}&page=1`);
+    return this._http.get<MovieResponse<Movie>>(`${this._url}/trending/movie/day?${this._apiKey}&region=US&language=en-US&page=1`);
   }
 
   findAllTvShowTrendings() {
-    return this._http.get<MovieResponse<TvShow>>(`${this._url}/trending/tv/day?${this._apiKey}&page=1`);
+    return this._http.get<MovieResponse<TvShow>>(`${this._url}/trending/tv/day?${this._apiKey}&region=US&language=en-US&page=1`);
   }
 
 }
