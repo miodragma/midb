@@ -1,14 +1,16 @@
 <ion-item class="ion-no-padding"
-          *ngIf="(videos?.results | firstTrailer) as videoResults"
-          (click)="playVideo.emit(videoResults)">
-  <div class="trailer-video">
-    <img
-      class="trailer-image"
-      [src]="videoResults !== '' ?
+          *ngIf="(videos?.results | firstTrailer) as videoResults">
+  <div class="stretchy-wrapper">
+    <div>
+      <img [src]="videoResults !== '' ?
                   'https://i.ytimg.com/vi/' + videoResults + '/hqdefault.jpg' :
                   './assets/images/na.png'"
-      [alt]="videoResults">
-    <ion-icon class="play-icon" name="play-circle"></ion-icon>
+           [alt]="videoResults" style="overflow: hidden; width:100%;"/>
+      <ion-icon
+        (click)="playVideo.emit(videoResults)"
+        class="play-icon"
+        name="play-circle"></ion-icon>
+    </div>
   </div>
 </ion-item>
 <ion-item class="ion-text-center" *ngIf="!(videos?.results | firstTrailer)">

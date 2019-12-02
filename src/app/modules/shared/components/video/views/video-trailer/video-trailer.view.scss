@@ -23,3 +23,19 @@ ion-item {
   font-size: 70px;
   color: #cccccc8f;
 }
+
+div.stretchy-wrapper {
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  position: relative;
+  //background: blue;
+  overflow: hidden;
+}
+
+div.stretchy-wrapper > div {
+  position: absolute;
+  top: -16.75%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
