@@ -11,6 +11,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    AdMobPro,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

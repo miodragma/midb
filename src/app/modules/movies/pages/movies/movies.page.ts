@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonRouterOutlet, NavController, Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { MoviesService } from '../../services/movies.service';
@@ -22,7 +21,7 @@ import { Watchlist } from '../../../watchlist/models/watchlist.model';
   templateUrl: 'movies.page.html',
   styleUrls: [ 'movies.page.scss' ]
 })
-export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnInit, OnDestroy {
+export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnInit {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
 
@@ -32,15 +31,12 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     loaderService: LoaderService,
     router: Router,
     private _genresService: GenresService,
-    private _navCtrl: NavController,
-    private _routerOutlet: IonRouterOutlet,
     private _platform: Platform,
     private _slidesService: SlidesService,
     private _oneSignal: OneSignal,
     private _nativeStorage: NativeStorage,
     private _movieDetailsService: DetailsService,
     private _toastCtrl: ToastController,
-    private _adMob: AdMobPro,
     private _router: Router) {
     super(service, route, loaderService, router);
   }
@@ -64,35 +60,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   }
 
   ionViewWillEnter() {
-    const adMboIds = {
-      banner: 'ca-app-pub-2221766326187811~2261858145',
-      interstitial: 'ca-app-pub-2221766326187811/5542627609'
-    };
-    this._adMob.createBanner({
-      // adId: adMboIds.banner,
-      isTesting: true,
-      autoShow: true,
-      position: this._adMob.AD_POSITION.BOTTOM_CENTER
-    });
-    this._adMob.prepareInterstitial({
-      // adId: adMboIds.interstitial,
-      isTesting: true,
-      autoShow: false
-    });
-    this._navCtrl.setTopOutlet(this._routerOutlet);
-    this.subscription = this._platform.backButton.subscribe(() => {
-      let currentUrl = this.router.url;
-      currentUrl = currentUrl.split('?', currentUrl.length)[0];
-      if (currentUrl === '/tabs/tab/movies' || currentUrl === '/tabs/tab/tv-shows' || currentUrl === '/tabs/tab/celebrities') {
-        this._adMob.showInterstitial();
-        this._adMob.onAdDismiss()
-          .subscribe(t => {
-            navigator['app'].exitApp();
-          });
-      } else {
-        this._navCtrl.back();
-      }
-    });
     this.initialization();
     this.movieGenres$ = this._genresService.genresList;
   }
@@ -141,10 +108,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
 
   onClickMovie(id: number) {
     this.router.navigate([ `details/movie/${id}` ]);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
 }

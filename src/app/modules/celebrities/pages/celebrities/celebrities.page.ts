@@ -16,7 +16,7 @@ export class CelebritiesPage implements OnInit {
     observer: true,
     // allowTouchMove: false,
     autoplay: true,
-    // slidesPerView: 1,
+    slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
     speed: 500

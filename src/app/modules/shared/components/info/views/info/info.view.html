@@ -48,7 +48,7 @@
 </ion-card-content>
 <ion-item class="ion-padding-end ion-padding-start">
   <div class="rating-wrapper">
-    <div class="imdb-rating-wrapper tmdb-rating-wrapper" *ngIf="details.vote_average">
+    <div class="imdb-rating-wrapper tmdb-rating-wrapper" *ngIf="details.vote_average > 0">
       <img src="./assets/images/tmdb.png" alt="tmdb" class="rating-logo">
       <div class="tmdb-rating">
         <h5>{{ details.vote_average }}</h5>
@@ -56,7 +56,8 @@
       </div>
       <p class="vote-count">{{ details.vote_count | number }}</p>
     </div>
-    <div class="imdb-rating-wrapper" *ngIf="details.omdbDetails.imdbRating !== 'N/A'">
+    <div class="imdb-rating-wrapper"
+         *ngIf="details.omdbDetails.Response === 'True' && details.omdbDetails.imdbRating !== 'N/A'">
       <img src="./assets/images/imdb.png" alt="imdb" class="rating-logo">
       <div>
         <h5>{{ details.omdbDetails.imdbRating }}</h5>
@@ -65,7 +66,8 @@
       <p class="vote-count">{{ details.omdbDetails.imdbVotes }}</p>
     </div>
     <div class="rotten-rating-wrapper"
-         *ngIf="details.omdbDetails.Ratings.length && details.omdbDetails.Ratings.length > 1 && details.omdbDetails.Ratings[1].Source === 'Rotten Tomatoes'">
+         *ngIf="details.omdbDetails.Response === 'True' && details.omdbDetails.Ratings.length &&
+         details.omdbDetails.Ratings.length > 1 && details.omdbDetails.Ratings[1].Source === 'Rotten Tomatoes'">
       <img src="./assets/images/rotten-tomatoes.png" alt="rotten-tomatoes" class="rating-logo">
       <div>
         <h5>{{ details.omdbDetails.Ratings[1].Value }}</h5>

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-
-import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
@@ -21,7 +19,7 @@ const pages = [ MoviesPage ];
 
 const views = [];
 
-const services = [ MoviesService, AdMobPro, OneSignal, DetailsService, NativeStorage ];
+const services = [ MoviesService, OneSignal, DetailsService, NativeStorage ];
 
 const modules = [
   CommonModule,
