@@ -3,6 +3,7 @@
 </div>
 <div class="scrolling-wrapper" *ngIf="casts">
   <ion-card
+    button
     class="card"
     *ngFor="let cast of casts; trackBy: trackByFn"
     (click)="navigateCast.emit(cast)">
@@ -19,6 +20,7 @@
       </ion-card-title>
       <p *ngIf="cast.character" class="acting-as">as ( {{ cast.character | overview: 17 }} )</p>
     </ion-card-header>
+    <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
 </div>
 <div class="scrolling-wrapper" *ngIf="guests">

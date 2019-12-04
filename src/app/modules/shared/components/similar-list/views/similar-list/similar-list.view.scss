@@ -35,3 +35,27 @@ ion-card {
   width: 100%;
   background: rgba(0, 0, 0, 0.2);
 }
+
+.add-icon {
+  font-size: 16px;
+  position: absolute;
+  top: 0;
+  color: white;
+  z-index: 5;
+  right: 7px;
+}
+
+.bookmark {
+  font-size: 30px;
+  position: absolute;
+  top: -4px;
+  right: 0;
+  //color: var(--ion-color-primary);
+}
+
+ion-spinner {
+  width: 35px;
+  position: absolute;
+  top: -16px;
+  right: 44px;
+}

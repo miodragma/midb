@@ -11,18 +11,17 @@
   <ion-grid class="ion-text-center">
     <ion-row>
       <ion-col
-        class="ion-text-center"
-        sizeMd="6"
-        offsetMd="3"
-        *ngIf="watchlist.length === 0">
-        <p>No Watchlist found!</p>
-      </ion-col>
-      <ion-col
         sizeMd="6"
         offsetMd="3">
         <ion-list>
+          <ion-item-divider>
+            <ion-label>
+              Movies
+            </ion-label>
+          </ion-item-divider>
+          <p *ngIf="watchlist.watchlistMovies.length < 1">There are no movies in the watchlist</p>
           <ion-item-sliding
-            *ngFor="let movie of watchlist"
+            *ngFor="let movie of watchlist.watchlistMovies"
             #slidingMovie>
             <ion-item
               [routerLink]="['/', 'details', 'movie', movie.id]">
@@ -42,7 +41,40 @@
               <ion-item-option
                 expandable
                 color="secondary"
-                (click)="onRemoveMovie(movie.id, slidingMovie)">
+                (click)="onRemoveMovie(movie.type, movie.id, slidingMovie)">
+                <ion-icon name="trash" slot="top"></ion-icon>
+                Delete
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+          <ion-item-divider>
+            <ion-label>
+              Tv Shows
+            </ion-label>
+          </ion-item-divider>
+          <p *ngIf="watchlist.watchlistTvShows.length < 1">There are no tv shows in the watchlist</p>
+          <ion-item-sliding
+            *ngFor="let show of watchlist.watchlistTvShows"
+            #slidingMovie>
+            <ion-item
+              [routerLink]="['/', 'details', 'tv-shows', show.id]">
+              <ion-avatar slot="start">
+                <img
+                  [src]="show.poster === null ?
+                    './assets/images/na.png' :
+                    'https://image.tmdb.org/t/p/w200'+ show.poster"
+                  [alt]="show.poster">
+              </ion-avatar>
+              <ion-label>
+                <h5>{{ show.name }}</h5>
+                <p> {{ show.genre }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item-options>
+              <ion-item-option
+                expandable
+                color="secondary"
+                (click)="onRemoveMovie(show.type, show.id, slidingMovie)">
                 <ion-icon name="trash" slot="top"></ion-icon>
                 Delete
               </ion-item-option>

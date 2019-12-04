@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, IonItemSliding, ToastController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { Watchlist } from '../../models/watchlist.model';
 
 @Component({
   templateUrl: 'watchlist.page.html',
@@ -9,8 +8,8 @@ import { Watchlist } from '../../models/watchlist.model';
 })
 export class WatchlistPage implements OnInit {
 
-  watchlist: Watchlist[] = [];
-  currMovies = { watchlist: [], reminder: [] };
+  watchlist = { watchlistMovies: [], watchlistTvShows: [] };
+  currMovies = { watchlistMovies: [], watchlistTvShows: [] };
 
   constructor(
     private _nativeStorage: NativeStorage,
@@ -19,25 +18,24 @@ export class WatchlistPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.watchlist = [
-    //   {id: 420817, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'aladin'},
-    //   {id: 2331, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'friends'},
-    //   {id: 994327, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'titanic'}
-    // ];
-
+    // this.watchlist = {watchlistMovies: [
+    //   {id: 420817, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'aladin', type: 'watchlistMovies'},
+    //   {id: 2331, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'friends', type: 'watchlistMovies'},
+    //   {id: 994327, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'titanic', type: 'watchlistMovies'}
+    // ], watchlistTvShows: []};
     this._nativeStorage.getItem('movies')
       .then(res => {
-        this.watchlist = res.watchlist;
+        this.watchlist = res;
         this.currMovies = res;
       });
   }
 
-  onRemoveMovie(id, slidingEl: IonItemSliding) {
-    const currMovie = this.watchlist.find(movie => movie.id === id);
+  onRemoveMovie(type: string, id, slidingEl: IonItemSliding) {
+    const currMovie = this.watchlist[type].find(movie => movie.id === id);
     this._alertCtrl.create({
       header: 'Confirm!',
       subHeader: `${currMovie.title}`,
-      message: `Are you sure that you want to delete this movie?`,
+      message: `Are you sure that you want to delete?`,
       buttons: [
         {
           text: 'Cancel',
@@ -53,10 +51,10 @@ export class WatchlistPage implements OnInit {
           handler: () => {
             slidingEl.close();
             const updatedMovies = { ...this.currMovies };
-            updatedMovies.watchlist = updatedMovies.watchlist.filter(movie => movie.id !== id);
+            updatedMovies[type] = updatedMovies[type].filter(movie => movie.id !== id);
             this._nativeStorage.setItem('movies', updatedMovies)
               .then(res => {
-                this.watchlist = [ ...this.watchlist ].filter(movie => movie.id !== id);
+                this.watchlist[type] = { ...this.watchlist }[type].filter(movie => movie.id !== id);
                 this.currMovies = updatedMovies;
                 this._toastCtrl.create({
                   message: 'Successfully deleted!',

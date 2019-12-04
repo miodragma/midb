@@ -4,9 +4,20 @@
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let movie of similar | orderSimilar; trackBy: trackByFn"
-    (click)="navigateMovie.emit(movie)">
-    <ion-ripple-effect></ion-ripple-effect>
+    *ngFor="let movie of similar | orderSimilar; let i = index; trackBy: trackByFn">
+    <ion-icon
+      [style.pointerEvents]="isColor(movie.id) === 'primary' ? 'none' : 'auto'"
+      (click)="addToWatchlist(movie.id, i)"
+      name="add"
+      class="add-icon">
+    </ion-icon>
+    <ion-icon
+      #bookmark
+      name="bookmark"
+      class="bookmark"
+      [color]="isColor(movie.id)">
+    </ion-icon>
+    <ion-spinner *ngIf="i === bookmarkIndex" color="primary" name="dots"></ion-spinner>
     <image-loader
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
@@ -17,10 +28,12 @@
     <p class="release-date">
       {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
     </p>
-    <ion-card-header color="secondary" class="top-billed-cast-header">
+    <ion-card-header (click)="navigateMovie.emit(movie)" color="secondary"
+                     class="top-billed-cast-header ion-activatable">
       <ion-card-title>
         {{ movie.title || movie.name }}
       </ion-card-title>
+      <ion-ripple-effect></ion-ripple-effect>
     </ion-card-header>
   </ion-card>
 </div>

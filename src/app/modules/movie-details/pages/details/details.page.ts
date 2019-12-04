@@ -38,7 +38,7 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
     this._popoverCtrl.create({
       component: PopoverListView,
       event: events,
-      componentProps: { movie: this.details, popoverController: this._popoverCtrl }
+      componentProps: { movie: this.details, type: 'watchlistMovies', popoverController: this._popoverCtrl }
     }).then(popEl => {
       popEl.present();
     });
