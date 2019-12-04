@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, mergeMap } from 'rxjs/operators';
 import { OmdbDetails } from '../../shared/interfaces/omdb/omdb-details.interface';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DetailsService {
 
   apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';

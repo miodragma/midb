@@ -5,7 +5,8 @@ export class Watchlist {
     public poster: string,
     public genre: string,
     public releaseDate: string,
-    public actors: string
+    public actors: string,
+    public type: string
   ) {
   }
 }

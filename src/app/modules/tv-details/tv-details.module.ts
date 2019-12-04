@@ -5,6 +5,7 @@ import { DetailsPage } from './pages/details/details.page';
 import { TvDetailsRoutingModule } from './tv-details-routing.module';
 import { VideoTrailerModule } from '../shared/components/video/video-trailer.module';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { DetailsService } from './services/details.service';
 import { TopActorsListModule } from '../shared/components/top-actors-list/top-actors-list.module';
 import { VideosListModule } from '../shared/components/videos-list/videos-list.module';
@@ -19,7 +20,7 @@ const pages = [ DetailsPage ];
 
 const views = [];
 
-const services = [ ScreenOrientation, DetailsService, YoutubeVideoPlayer ];
+const services = [ ScreenOrientation, DetailsService, YoutubeVideoPlayer, NativeStorage ];
 
 const modules = [
   CommonModule,

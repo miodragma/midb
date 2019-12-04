@@ -25,20 +25,20 @@ export class PopoverListView implements OnInit {
   ngOnInit() {
     this.pop = this._navParams.get('popoverController');
     const { id, original_title, poster_path, omdbDetails } = this._navParams.data.movie;
-    this.movie = new Watchlist(id, original_title, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors);
+    this.movie = new Watchlist(id, original_title, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors, 'watchlistMovies');
   }
 
   onAddToWatchList() {
-    let currWatchlist = { watchlist: [], reminder: [] };
+    let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
     this._nativeStorage.keys().then(resKeys => {
       if (resKeys[0] === 'movies') {
         this._nativeStorage.getItem('movies')
           .then(res => {
             currWatchlist = res;
-            if (currWatchlist.watchlist.some(item => item.id === this.movie.id)) {
+            if (currWatchlist.watchlistMovies.some(item => item.id === this.movie.id)) {
               this.onShowToast(`${this.movie.title} is already in Watchlist!`);
             } else {
-              currWatchlist.watchlist.push(this.movie);
+              currWatchlist.watchlistMovies.push(this.movie);
               this._nativeStorage.setItem('movies', currWatchlist)
                 .then(ress => {
                   this.onShowToast(`${this.movie.title} has been added to Watchlist!`);
@@ -46,10 +46,9 @@ export class PopoverListView implements OnInit {
             }
           });
       } else {
-        this._nativeStorage.setItem('movies', { watchlist: [ this.movie ], reminder: [] })
-          .then(res => {
-            this.onShowToast(`${this.movie.title} has been added to Watchlist!`);
-          });
+        this._nativeStorage.setItem('movies', { watchlistMovies: [ this.movie ], watchlistTvShows: [] }).then(res => {
+          this.onShowToast(`${this.movie.title} has been added to Watchlist!`);
+        });
       }
     })
       .catch(error => {

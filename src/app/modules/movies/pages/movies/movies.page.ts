@@ -68,25 +68,25 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     this._movieDetailsService.findDetailsById(movieId)
       .subscribe(data => {
         const movie = new Watchlist(
-          data.id, data.original_title, data.poster_path, data.omdbDetails.Genre, data.omdbDetails.Released, data.omdbDetails.Actors
+          data.id, data.original_title, data.poster_path, data.omdbDetails.Genre, data.omdbDetails.Released, data.omdbDetails.Actors, 'watchlistMovies'
         );
-        let currWatchlist = { watchlist: [], reminder: [] };
+        let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
         this._nativeStorage.keys().then(resKeys => {
           if (resKeys[0] === 'movies') {
             this._nativeStorage.getItem('movies')
               .then(res => {
                 currWatchlist = res;
-                if (currWatchlist.watchlist.some(item => item.id === movie.id)) {
+                if (currWatchlist.watchlistMovies.some(item => item.id === movie.id)) {
                   this.onShowToast(`${movie.title} is already in Watchlist!`);
                 } else {
-                  currWatchlist.watchlist.push(movie);
+                  currWatchlist.watchlistMovies.push(movie);
                   this._nativeStorage.setItem('movies', currWatchlist).then(ress => {
                     this.onShowToast(`${movie.title} has been added to Watchlist!`);
                   });
                 }
               });
           } else {
-            this._nativeStorage.setItem('movies', { watchlist: [ movie ], reminder: [] }).then(res => {
+            this._nativeStorage.setItem('movies', { watchlistMovies: [ movie ], watchlistTvShows: [] }).then(res => {
               this.onShowToast(`${movie.title} has been added to Watchlist!`);
             });
           }

@@ -17,6 +17,7 @@
       class="bookmark"
       [color]="isColor(movie.id)">
     </ion-icon>
+    <ion-spinner *ngIf="i === bookmarkIndex" color="primary" name="dots"></ion-spinner>
     <image-loader
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
