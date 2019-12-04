@@ -3,6 +3,7 @@
   <ion-list *ngIf="actors.page > 0">
 
     <ion-item
+      button
       *ngFor="let actor of actors.results"
       [detail]="!singleActor"
       (click)="checkActor.emit(actor)" button>
@@ -21,7 +22,7 @@
                  [checked]="actor.id === singleActor.id"
                  slot="end">
       </ion-radio>
-      <ion-ripple-effect type="bounded"></ion-ripple-effect>
+      <ion-ripple-effect></ion-ripple-effect>
     </ion-item>
   </ion-list>
 </ion-col>

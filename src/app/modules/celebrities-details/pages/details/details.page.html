@@ -47,10 +47,10 @@
         </div>
         <div class="scrolling-wrapper">
           <ion-card
+            button
             class="card"
             *ngFor="let movie of filterCastMovies(details?.combined_credits.cast); trackBy: trackByCastFn"
             [routerLink]="['/', 'details', getLink(movie), movie.id]">
-            <ion-ripple-effect></ion-ripple-effect>
             <image-loader
               spinnerMarginTop="50%"
               spinnerMarginLeft="35%"
@@ -67,6 +67,7 @@
               </ion-card-title>
               <p *ngIf="movie.character" class="acting-as">as ( {{ movie.character | overview: 17 }} )</p>
             </ion-card-header>
+            <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
         </div>
       </ion-col>
@@ -79,10 +80,10 @@
         </div>
         <div class="scrolling-wrapper">
           <ion-card
+            button
             class="card"
             *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast); trackBy: trackByCastFn"
             [routerLink]="['/', 'details', getLink(movie), movie.id]">
-            <ion-ripple-effect></ion-ripple-effect>
             <image-loader
               spinnerMarginTop="50%"
               spinnerMarginLeft="35%"
@@ -99,6 +100,7 @@
               </ion-card-title>
               <p *ngIf="movie.character" class="acting-as">as ( {{ movie.character | overview: 17 }} )</p>
             </ion-card-header>
+            <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
         </div>
       </ion-col>
@@ -111,10 +113,10 @@
         </div>
         <div class="scrolling-wrapper">
           <ion-card
+            button
             class="card"
             *ngFor="let movie of details?.combined_credits.crew; trackBy: trackByCastFn"
             [routerLink]="['/', 'details', getLink(movie), movie.id]">
-            <ion-ripple-effect></ion-ripple-effect>
             <image-loader
               spinnerMarginTop="50%"
               spinnerMarginLeft="35%"
@@ -131,6 +133,7 @@
               </ion-card-title>
               <p *ngIf="movie.job" class="acting-as">as ( {{ movie.job | overview: 17 }} )</p>
             </ion-card-header>
+            <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
         </div>
       </ion-col>

@@ -3,7 +3,7 @@
     *ngIf="movies && movies?.results.length > 0"
     class="ion-text-center ion-no-padding">
     <ion-list>
-      <ion-item *ngFor="let movie of movies?.results" detail
+      <ion-item button *ngFor="let movie of movies?.results" detail
                 (click)="clicked.emit(movie.id)">
         <ion-thumbnail slot="start">
           <image-loader
@@ -19,6 +19,7 @@
           <p class="movieReleaseDate">{{ movie.release_date | date }}</p>
           <p class="movieReleaseDate">{{ movie.genre_ids | findGenres: genres }}</p>
         </ion-label>
+        <ion-ripple-effect></ion-ripple-effect>
       </ion-item>
     </ion-list>
   </ion-col>

@@ -14,6 +14,22 @@ export class DetailsService {
   constructor(private _http: HttpClient) {
   }
 
+  findAllTvDetails(id: number): Observable<MovieDetails> {
+    const detailsUrl = `${this.url}/tv/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=videos,images,recommendations,credits,external_ids`;
+    return this._http.get<MovieDetails>(detailsUrl)
+      .pipe(
+        mergeMap(details => {
+          const imdbId = details.external_ids.imdb_id;
+          return this._http.get<OmdbDetails>(`https://www.omdbapi.com/?apikey=8ed6e6d5&i=${imdbId}`)
+            .pipe(
+              map(omdb => {
+                return { ...details, omdbDetails: omdb };
+              })
+            );
+        }),
+      );
+  }
+
   findDetailsById(id: number): Observable<MovieDetails> {
     const detailsUrl = `${this.url}/movie/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=videos,images,recommendations,credits`;
     return this._http.get<MovieDetails>(detailsUrl)

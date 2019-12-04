@@ -46,10 +46,13 @@ export class SimilarListView implements OnInit {
 
   addToWatchlist(movieId: number, index: number) {
     this.bookmarkIndex = index;
-    this._movieDetailsService.findDetailsById(movieId)
+    const type = this.watchlistType === 'watchlistMovies' ?
+      this._movieDetailsService.findDetailsById(movieId) :
+      this._movieDetailsService.findAllTvDetails(movieId);
+    type
       .subscribe(data => {
         const movie = new Watchlist(
-          data.id, data.original_title, data.poster_path, data.omdbDetails.Genre, data.omdbDetails.Released, data.omdbDetails.Actors, 'watchlistMovies'
+          data.id, data.title, data.name, data.poster_path, data.omdbDetails.Genre, data.omdbDetails.Released, data.omdbDetails.Actors, this.watchlistType
         );
         let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
         this._nativeStorage.keys().then(resKeys => {
@@ -70,7 +73,10 @@ export class SimilarListView implements OnInit {
                 }
               });
           } else {
-            this._nativeStorage.setItem('movies', { watchlistMovies: [ movie ], watchlistTvShows: [] }).then(res => {
+            const value = this.watchlistType === 'watchlistMovies' ?
+              { watchlistMovies: [ movie ], watchlistTvShows: [] } :
+              { watchlistMovies: [], watchlistTvShows: [ movie ] };
+            this._nativeStorage.setItem('movies', value).then(res => {
               this.hasBeenAdded(movie, index);
               return;
             });
@@ -85,7 +91,8 @@ export class SimilarListView implements OnInit {
 
   hasBeenAdded(movie: Watchlist, index: number) {
     this.bookmark.find((b, i) => i === index).color = 'primary';
-    this.onShowToast(`${movie.title} has been added to Watchlist!`);
+    const title = this.watchlistType === 'watchlistMovies' ? movie.title : movie.name;
+    this.onShowToast(`${title} has been added to Watchlist!`);
     this.bookmarkIndex = -1;
   }
 

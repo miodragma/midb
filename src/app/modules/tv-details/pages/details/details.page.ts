@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController, PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
@@ -8,6 +8,7 @@ import { DetailsDataPage } from '../../../shared/components/details-data/pages/d
 import { MovieDetails } from '../../../shared/interfaces/movies/details/movie-details.interface';
 import { Cast } from '../../../shared/interfaces/credits/cast.interface';
 import { SimilarResults } from '../../../shared/interfaces/similar/similar-results.interface';
+import { PopoverListView } from '../../../shared/components/popover-list/views/popover-list/popover-list.view';
 
 @Component({
   templateUrl: 'details.page.html',
@@ -23,6 +24,7 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
     router: Router,
     private _screenOrientation: ScreenOrientation,
     private _youtube: YoutubeVideoPlayer,
+    private _popoverCtrl: PopoverController,
     private _navCtrl: NavController) {
     super(service, route, loadingCtrl, alertCtrl, router);
   }
@@ -33,7 +35,13 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
   }
 
   onPopover(events) {
-    console.log(events);
+    this._popoverCtrl.create({
+      component: PopoverListView,
+      event: events,
+      componentProps: { movie: this.details, type: 'watchlistTvShows', popoverController: this._popoverCtrl }
+    }).then(popEl => {
+      popEl.present();
+    });
   }
 
   playVideo(id: string) {

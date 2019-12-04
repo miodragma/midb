@@ -28,11 +28,12 @@
     <p class="release-date">
       {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
     </p>
-    <ion-card-header (click)="navigateMovie.emit(movie)" color="secondary" class="top-billed-cast-header">
+    <ion-card-header (click)="navigateMovie.emit(movie)" color="secondary"
+                     class="top-billed-cast-header ion-activatable">
       <ion-card-title>
         {{ movie.title || movie.name }}
       </ion-card-title>
+      <ion-ripple-effect></ion-ripple-effect>
     </ion-card-header>
-    <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
 </div>

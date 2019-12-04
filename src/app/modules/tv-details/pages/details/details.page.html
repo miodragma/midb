@@ -62,6 +62,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <similar-list
+          watchlistType="watchlistTvShows"
           (navigateMovie)="navigateMovie($event)"
           [title]="'More Like This'"
           [similar]="details?.recommendations.results">

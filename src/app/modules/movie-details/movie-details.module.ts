@@ -15,12 +15,11 @@ import { SimilarModule } from '../shared/components/similar-list/similar.module'
 import { StorylineModule } from '../shared/components/storyline/storyline.module';
 import { DetailsInfoModule } from '../shared/components/details-info/details-info.module';
 import { InfoModule } from '../shared/components/info/info.module';
-import { PopoverListView } from '../shared/components/popover-list/views/popover-list/popover-list.view';
 import { CreateNotificationView } from '../shared/components/notification/create-notification.view';
 
 const pages = [ DetailsPage ];
 
-const views = [ PopoverListView, CreateNotificationView ];
+const views = [ CreateNotificationView ];
 
 const services = [ ScreenOrientation, DetailsService, YoutubeVideoPlayer, NativeStorage ];
 

@@ -13,6 +13,7 @@ export class PopoverListView implements OnInit {
 
   pop: PopoverController;
   movie: Watchlist;
+  type: string;
 
   constructor(
     private _navParams: NavParams,
@@ -24,30 +25,36 @@ export class PopoverListView implements OnInit {
 
   ngOnInit() {
     this.pop = this._navParams.get('popoverController');
-    const { id, original_title, poster_path, omdbDetails } = this._navParams.data.movie;
-    this.movie = new Watchlist(id, original_title, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors, 'watchlistMovies');
+    const { id, title, name, poster_path, omdbDetails } = this._navParams.data.movie;
+    const type = this._navParams.data.type;
+    this.type = type;
+    this.movie = new Watchlist(id, title, name, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors, type);
   }
 
   onAddToWatchList() {
+    const title = this.type === 'watchlistMovies' ? this.movie.title : this.movie.name;
     let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
     this._nativeStorage.keys().then(resKeys => {
       if (resKeys[0] === 'movies') {
         this._nativeStorage.getItem('movies')
           .then(res => {
             currWatchlist = res;
-            if (currWatchlist.watchlistMovies.some(item => item.id === this.movie.id)) {
-              this.onShowToast(`${this.movie.title} is already in Watchlist!`);
+            if (currWatchlist[this.type].some(item => item.id === this.movie.id)) {
+              this.onShowToast(`${title} is already in Watchlist!`);
             } else {
-              currWatchlist.watchlistMovies.push(this.movie);
+              currWatchlist[this.type].push(this.movie);
               this._nativeStorage.setItem('movies', currWatchlist)
                 .then(ress => {
-                  this.onShowToast(`${this.movie.title} has been added to Watchlist!`);
+                  this.onShowToast(`${title} has been added to Watchlist!`);
                 });
             }
           });
       } else {
-        this._nativeStorage.setItem('movies', { watchlistMovies: [ this.movie ], watchlistTvShows: [] }).then(res => {
-          this.onShowToast(`${this.movie.title} has been added to Watchlist!`);
+        const value = this.type === 'watchlistMovies' ?
+          { watchlistMovies: [ this.movie ], watchlistTvShows: [] } :
+          { watchlistMovies: [], watchlistTvShows: [ this.movie ] };
+        this._nativeStorage.setItem('movies', value).then(res => {
+          this.onShowToast(`${title} has been added to Watchlist!`);
         });
       }
     })

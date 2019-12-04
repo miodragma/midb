@@ -12,11 +12,12 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AdMobPro } from '@ionic-native/admob-pro/ngx';
+import { PopoverListView } from './modules/shared/components/popover-list/views/popover-list/popover-list.view';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [ AppComponent, PopoverListView ],
+  entryComponents: [ PopoverListView ],
   imports: [ BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule ],
   providers: [
     StatusBar,
@@ -25,6 +26,6 @@ import { AdMobPro } from '@ionic-native/admob-pro/ngx';
     AdMobPro,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {}
