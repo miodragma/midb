@@ -21,6 +21,7 @@ export class SimilarListView implements OnInit {
 
   currWatchlistMovies: { watchlistMovies: [], watchlistTvShows: [] };
   bookmarkIndex = -1;
+  url = 'https://image.tmdb.org/t/p/w200';
 
   constructor(
     private _nativeStorage: NativeStorage,
@@ -42,6 +43,10 @@ export class SimilarListView implements OnInit {
       return this.currWatchlistMovies[this.watchlistType].findIndex(movie => movie.id === movieId) > -1 ? 'primary' : 'medium';
     }
     return 'medium';
+  }
+
+  onLoad() {
+    this.url = 'https://image.tmdb.org/t/p/original';
   }
 
   addToWatchlist(movieId: number, index: number) {

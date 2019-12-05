@@ -18,6 +18,8 @@ export class DetailsPage implements OnInit {
 
   details: CelebrityResponse;
 
+  url = 'https://image.tmdb.org/t/p/w200';
+
   constructor(
     private _route: ActivatedRoute,
     private _loadingCtrl: LoadingController,
@@ -72,6 +74,10 @@ export class DetailsPage implements OnInit {
       || details.place_of_birth
       || details.deathday
       || details.biography;
+  }
+
+  onLoad() {
+    this.url = 'https://image.tmdb.org/t/p/original';
   }
 
   getLink(movie) {

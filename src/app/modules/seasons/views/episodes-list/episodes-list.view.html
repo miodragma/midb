@@ -7,11 +7,6 @@
                 [routerLink]="['/', 'seasons', 'episode-details', episode.show_id, episode.season_number, episode.episode_number]">
         <ion-thumbnail slot="start">
           <image-loader
-            spinnerMarginLeft="30%"
-            spinnerMarginTop="0"
-            spinnerWidth="40px"
-            spinnerWrapperHeight="56px"
-            spinnerWrapperWidth="100px"
             [src]="'https://image.tmdb.org/t/p/w200'+ episode.still_path"></image-loader>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">

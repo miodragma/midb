@@ -8,11 +8,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class ImageLoaderView {
 
-  @Input() spinnerWrapperHeight = '';
-  @Input() spinnerWrapperWidth = '';
-  @Input() spinnerMarginTop = '';
-  @Input() spinnerMarginLeft = '';
-  @Input() spinnerWidth = '';
   @Input() imageStyle = '';
 
   @Input() set src(src: string) {

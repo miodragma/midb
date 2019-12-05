@@ -15,7 +15,13 @@ export class ActorListView {
   @Input() actors: MovieResponse<Actor>;
   @Input() singleActor: Actor;
 
+  url = 'https://image.tmdb.org/t/p/w200';
+
   constructor(private _elRef: ElementRef) {
+  }
+
+  onLoad() {
+    this.url = 'https://image.tmdb.org/t/p/original';
   }
 
   counter(i: number) {

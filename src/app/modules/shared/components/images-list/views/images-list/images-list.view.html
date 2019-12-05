@@ -6,13 +6,9 @@
     class="card"
     *ngFor="let image of images.backdrops.length ? images.backdrops : images.posters; trackBy: trackByFn">
     <image-loader
-      spinnerMarginTop="14%"
-      spinnerMarginLeft="40%"
-      spinnerWidth="40px"
-      spinnerWrapperWidth="200px"
-      spinnerWrapperHeight="113px"
+      (load)="onLoad()"
       imageStyle="200px"
-      [src]="'https://image.tmdb.org/t/p/original' + image.file_path">
+      [src]="url + image.file_path">
     </image-loader>
   </ion-card>
 </div>

@@ -8,11 +8,8 @@
     *ngFor="let cast of casts; trackBy: trackByFn"
     (click)="navigateCast.emit(cast)">
     <image-loader
-      spinnerMarginTop="50%"
-      spinnerMarginLeft="35%"
-      spinnerWidth="40px"
-      spinnerWrapperHeight="180px"
-      [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + cast.profile_path">
+      (load)="onLoad()"
+      [src]="url + cast.profile_path">
     </image-loader>
     <ion-card-header color="secondary" class="top-billed-cast-header">
       <ion-card-title>
@@ -29,11 +26,8 @@
     *ngFor="let guest of guests; trackBy: trackByFn"
     (click)="navigateGuest.emit(guest)">
     <image-loader
-      spinnerMarginTop="50%"
-      spinnerMarginLeft="35%"
-      spinnerWidth="40px"
-      spinnerWrapperHeight="180px"
-      [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + guest.profile_path">
+      (load)="onLoad()"
+      [src]="url + guest.profile_path">
     </image-loader>
     <ion-card-header color="secondary" class="top-billed-cast-header">
       <ion-card-title>

@@ -35,12 +35,8 @@
   <ion-item class="ion-no-padding">
     <ion-thumbnail slot="start">
       <image-loader
-        spinnerMarginLeft="30%"
-        spinnerMarginTop="42%"
-        spinnerWidth="40px"
-        spinnerWrapperHeight="148px"
-        spinnerWrapperWidth="98px"
-        [src]="'https://image.tmdb.org/t/p/w200'+ details.poster_path">
+        (load)="onLoad()"
+        [src]="url + details.poster_path">
       </image-loader>
     </ion-thumbnail>
     <p class="details-overview">{{ details.overview | overview: 200 }}</p>

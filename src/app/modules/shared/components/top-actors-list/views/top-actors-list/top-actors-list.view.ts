@@ -10,6 +10,8 @@ import { Guest } from '../../../../interfaces/credits/guest.interface';
 })
 export class TopActorsListView {
 
+  url = 'https://image.tmdb.org/t/p/w200';
+
   @Input() casts: Cast[];
   @Input() crews: Crew[];
   @Input() guests: Guest[];
@@ -19,6 +21,10 @@ export class TopActorsListView {
 
   trackByFn(index, item) {
     return item.profile_path;
+  }
+
+  onLoad() {
+    this.url = 'https://image.tmdb.org/t/p/original';
   }
 
 }

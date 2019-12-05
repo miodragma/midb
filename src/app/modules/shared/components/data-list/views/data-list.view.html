@@ -7,11 +7,6 @@
                 (click)="clicked.emit(movie.id)">
         <ion-thumbnail slot="start">
           <image-loader
-            spinnerMarginLeft="15%"
-            spinnerMarginTop="20%"
-            spinnerWidth="40px"
-            spinnerWrapperHeight="84px"
-            spinnerWrapperWidth="56px"
             [src]="'https://image.tmdb.org/t/p/w200'+ movie.poster_path"></image-loader>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">

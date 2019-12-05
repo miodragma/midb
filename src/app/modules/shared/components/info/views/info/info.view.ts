@@ -12,6 +12,7 @@ export class InfoView implements OnInit {
   @Output() allEpisodes = new EventEmitter<number>();
 
   metascoreColor: string;
+  url = 'https://image.tmdb.org/t/p/w200';
 
   ngOnInit() {
     const metascore = +this.details.omdbDetails.Metascore;
@@ -24,6 +25,10 @@ export class InfoView implements OnInit {
     if (metascore > 60) {
       this.metascoreColor = '#6c3';
     }
+  }
+
+  onLoad() {
+    this.url = 'https://image.tmdb.org/t/p/original';
   }
 
 }
