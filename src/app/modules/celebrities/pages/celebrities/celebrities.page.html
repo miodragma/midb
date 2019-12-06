@@ -19,11 +19,11 @@
           <ion-slide *ngFor="let slide of (slides$ | async)?.results">
             <div class="profile-path">
               <img
-                [src]="'https://image.tmdb.org/t/p/w400'+ slide.profile_path" [alt]="slide.profile_path">
+                [src]="'https://image.tmdb.org/t/p/w200'+ slide.profile_path" [alt]="slide.profile_path">
               <p class="profile-path-name"> {{ slide.name }} </p>
             </div>
             <div class="backdrop-path">
-              <img *ngFor="let image of slide?.known_for" [src]="'https://image.tmdb.org/t/p/w400' + image.poster_path"
+              <img *ngFor="let image of slide?.known_for" [src]="'https://image.tmdb.org/t/p/w200' + image.poster_path"
                    [alt]="image.poster_path">
             </div>
           </ion-slide>

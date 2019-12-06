@@ -29,16 +29,17 @@ export class TopActorsListView {
   }
 
   openPreview(img) {
-    this._modalCtrl.create({
+    const url = 'https://image.tmdb.org/t/p/original' + img;
+    img && this._modalCtrl.create({
       component: ImageModalPage,
       componentProps: {
-        img
+        img: url
       },
     }).then(modal => modal.present());
   }
 
   onLoad() {
-    setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
+    // setTimeout(() => this.url = 'https://image.tmdb.org/t/p/w92', 2000);
   }
 
 }

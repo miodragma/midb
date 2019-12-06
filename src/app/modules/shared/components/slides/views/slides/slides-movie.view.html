@@ -8,7 +8,7 @@
       (ionSlideNextStart)="slidesDidLoad(mySlider)">
       <ion-slide *ngFor="let slide of (slides$ | async)?.results; trackBy: trackByFn">
         <img
-          [src]="'https://image.tmdb.org/t/p/original'+ slide.backdrop_path"
+          [src]="'https://image.tmdb.org/t/p/w780'+ slide.backdrop_path"
           [alt]="slide.backdrop_path">
         <p> {{ slide.title || slide.name }} </p>
       </ion-slide>

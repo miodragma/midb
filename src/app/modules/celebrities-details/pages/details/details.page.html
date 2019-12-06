@@ -25,7 +25,7 @@
             <ion-item class="ion-no-padding">
               <ion-thumbnail slot="start">
                 <image-loader
-                  (click)="openPreview(url + details.profile_path)"
+                  (click)="openPreview(details.profile_path)"
                   spinnerMarginLeft="30%"
                   spinnerMarginTop="42%"
                   spinnerWidth="40px"
@@ -53,7 +53,7 @@
             class="card"
             *ngFor="let movie of filterCastMovies(details?.combined_credits.cast); trackBy: trackByCastFn">
             <image-loader
-              (click)="openPreview(url + movie.poster_path)"
+              (click)="openPreview(movie.poster_path)"
               spinnerMarginLeft="30%"
               spinnerMarginTop="42%"
               spinnerWidth="40px"
@@ -89,7 +89,7 @@
             class="card"
             *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast); trackBy: trackByCastFn">
             <image-loader
-              (click)="openPreview(url + movie.poster_path)"
+              (click)="openPreview(movie.poster_path)"
               spinnerMarginLeft="30%"
               spinnerMarginTop="42%"
               spinnerWidth="40px"
@@ -125,7 +125,7 @@
             class="card"
             *ngFor="let movie of details?.combined_credits.crew; trackBy: trackByCastFn">
             <image-loader
-              (click)="openPreview(url + movie.poster_path)"
+              (click)="openPreview(movie.poster_path)"
               spinnerMarginLeft="30%"
               spinnerMarginTop="42%"
               spinnerWidth="40px"
@@ -162,7 +162,7 @@
             class="card"
             *ngFor="let image of details?.images.profiles; trackBy: trackByImageFn">
             <image-loader
-              (click)="openPreview(url + image.file_path)"
+              (click)="openPreview(image.file_path)"
               spinnerMarginLeft="30%"
               spinnerMarginTop="42%"
               spinnerWidth="40px"

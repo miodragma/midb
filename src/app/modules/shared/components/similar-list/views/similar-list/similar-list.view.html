@@ -23,7 +23,7 @@
       spinnerMarginLeft="35%"
       spinnerWidth="40px"
       spinnerWrapperHeight="180px"
-      (click)="openPreview(url + movie.poster_path)"
+      (click)="openPreview(movie.poster_path)"
       (load)="onLoad()"
       [src]="url + movie.poster_path">
     </image-loader>

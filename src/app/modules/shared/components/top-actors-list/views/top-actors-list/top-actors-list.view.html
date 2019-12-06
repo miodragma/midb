@@ -7,7 +7,7 @@
     class="card"
     *ngFor="let cast of casts; trackBy: trackByFn">
     <image-loader
-      (click)="openPreview(url + cast.profile_path)"
+      (click)="openPreview(cast.profile_path)"
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
       spinnerWidth="40px"
@@ -30,7 +30,7 @@
     class="card"
     *ngFor="let guest of guests; trackBy: trackByFn">
     <image-loader
-      (click)="openPreview(url + guest.profile_path)"
+      (click)="openPreview(guest.profile_path)"
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
       spinnerWidth="40px"

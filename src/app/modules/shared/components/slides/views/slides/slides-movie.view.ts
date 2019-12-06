@@ -27,10 +27,10 @@ export class SlidesMovieView {
   slideOpts = {
     observer: true,
     // // allowTouchMove: false,
-    autoplay: true,
+    // autoplay: true,
     slidesPerView: 1,
     // spaceBetween: 0,
-    loop: true,
+    // loop: true,
     // speed: 500,
   };
 
