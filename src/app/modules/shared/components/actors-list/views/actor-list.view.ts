@@ -21,7 +21,7 @@ export class ActorListView {
   }
 
   onLoad() {
-    this.url = 'https://image.tmdb.org/t/p/original';
+    setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
   }
 
   counter(i: number) {

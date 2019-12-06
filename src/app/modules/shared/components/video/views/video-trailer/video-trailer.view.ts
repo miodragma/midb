@@ -14,7 +14,7 @@ export class VideoTrailerView {
   path = '/default.jpg';
 
   onLoad() {
-    this.path = '/hqdefault.jpg';
+    setTimeout(() => this.path = '/hqdefault.jpg', 2000);
   }
 
 }

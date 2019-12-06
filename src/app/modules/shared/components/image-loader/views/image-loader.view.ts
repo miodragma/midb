@@ -8,10 +8,17 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class ImageLoaderView {
 
+  @Input() spinnerWrapperHeight = '';
+  @Input() spinnerWrapperWidth = '';
+  @Input() spinnerMarginTop = '';
+  @Input() spinnerMarginLeft = '';
+  @Input() spinnerWidth = '';
   @Input() imageStyle = '';
 
+  oneLoader = true;
+
   @Input() set src(src: string) {
-    this._isImageLoaded = false;
+    this.oneLoader && (this._isImageLoaded = false);
     this._src = src;
   }
 
@@ -30,6 +37,7 @@ export class ImageLoaderView {
   }
 
   onLoad() {
+    this.oneLoader = false;
     this._isImageLoaded = true;
     this.load.emit();
   }

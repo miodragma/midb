@@ -3,7 +3,8 @@ import { SimilarResults } from '../../../../interfaces/similar/similar-results.i
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Watchlist } from '../../../../../watchlist/models/watchlist.model';
 import { DetailsService } from '../../../../../movie-details/services/details.service';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { ImageModalPage } from '../../../image-modal/page/image-modal.page';
 
 @Component({
   selector: 'similar-list',
@@ -26,7 +27,8 @@ export class SimilarListView implements OnInit {
   constructor(
     private _nativeStorage: NativeStorage,
     private _toastCtrl: ToastController,
-    private _movieDetailsService: DetailsService) {
+    private _movieDetailsService: DetailsService,
+    private _modalCtrl: ModalController) {
   }
 
   ngOnInit() {
@@ -46,7 +48,16 @@ export class SimilarListView implements OnInit {
   }
 
   onLoad() {
-    this.url = 'https://image.tmdb.org/t/p/original';
+    setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
+  }
+
+  openPreview(img) {
+    this._modalCtrl.create({
+      component: ImageModalPage,
+      componentProps: {
+        img
+      },
+    }).then(modal => modal.present());
   }
 
   addToWatchlist(movieId: number, index: number) {

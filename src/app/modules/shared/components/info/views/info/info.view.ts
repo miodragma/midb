@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MovieDetails } from '../../../../interfaces/movies/details/movie-details.interface';
+import { ImageModalPage } from '../../../image-modal/page/image-modal.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'info',
@@ -14,6 +16,9 @@ export class InfoView implements OnInit {
   metascoreColor: string;
   url = 'https://image.tmdb.org/t/p/w200';
 
+  constructor(private _modalCtrl: ModalController) {
+  }
+
   ngOnInit() {
     const metascore = +this.details.omdbDetails.Metascore;
     if (metascore < 40) {
@@ -27,8 +32,17 @@ export class InfoView implements OnInit {
     }
   }
 
+  openPreview(img) {
+    this._modalCtrl.create({
+      component: ImageModalPage,
+      componentProps: {
+        img
+      },
+    }).then(modal => modal.present());
+  }
+
   onLoad() {
-    this.url = 'https://image.tmdb.org/t/p/original';
+    setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
   }
 
 }

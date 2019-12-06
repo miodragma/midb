@@ -9,6 +9,11 @@
       (click)="checkActor.emit(actor)" button>
       <ion-thumbnail slot="start">
         <image-loader
+          spinnerMarginTop="21%"
+          spinnerMarginLeft="15%"
+          spinnerWidth="40px"
+          spinnerWrapperHeight="84px"
+          spinnerWrapperWidth="56px"
           (load)="onLoad()"
           [src]="url + actor.profile_path">
         </image-loader>

@@ -14,6 +14,6 @@ export class VideosListView {
   @Output() playVideo = new EventEmitter<string>();
 
   onLoad() {
-    this.path = '/hqdefault.jpg';
+    setTimeout(() => this.path = '/hqdefault.jpg', 2000);
   }
 }

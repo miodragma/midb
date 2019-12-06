@@ -1,6 +1,19 @@
 <img
+  [class.hidden]="!isImageLoaded"
   [src]="src"
   (load)="onLoad()"
   (error)="onError()"
   [style.width]="imageStyle"
   alt="image">
+
+<div
+  [style.width]="spinnerWrapperWidth"
+  [style.height]="spinnerWrapperHeight"
+  *ngIf="!isImageLoaded">
+  <ion-spinner
+    [style.marginTop]="spinnerMarginTop"
+    [style.marginLeft]="spinnerMarginLeft"
+    [style.width]="spinnerWidth"
+    color="primary">
+  </ion-spinner>
+</div>

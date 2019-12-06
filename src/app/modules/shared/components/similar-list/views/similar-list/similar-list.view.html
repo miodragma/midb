@@ -19,6 +19,11 @@
     </ion-icon>
     <ion-spinner *ngIf="i === bookmarkIndex" color="primary" name="dots"></ion-spinner>
     <image-loader
+      spinnerMarginTop="50%"
+      spinnerMarginLeft="35%"
+      spinnerWidth="40px"
+      spinnerWrapperHeight="180px"
+      (click)="openPreview(url + movie.poster_path)"
       (load)="onLoad()"
       [src]="url + movie.poster_path">
     </image-loader>

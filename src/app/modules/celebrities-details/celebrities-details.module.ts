@@ -7,6 +7,7 @@ import { CelebritiesDetailsService } from './services/celebrities-details.servic
 import { PipesModule } from '../shared/pipes/pipes.module';
 import { TopActorsListModule } from '../shared/components/top-actors-list/top-actors-list.module';
 import { ImageLoaderModule } from '../shared/components/image-loader/image-loader.module';
+import { ImageModalModule } from '../shared/components/image-modal/image-modal.module';
 
 const pages = [ DetailsPage ];
 
@@ -20,7 +21,8 @@ const modules = [
   CelebritiesDetailsRoutingModule,
   PipesModule,
   TopActorsListModule,
-  ImageLoaderModule
+  ImageLoaderModule,
+  ImageModalModule
 ];
 
 @NgModule({

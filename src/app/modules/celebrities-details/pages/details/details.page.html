@@ -25,6 +25,12 @@
             <ion-item class="ion-no-padding">
               <ion-thumbnail slot="start">
                 <image-loader
+                  (click)="openPreview(url + details.profile_path)"
+                  spinnerMarginLeft="30%"
+                  spinnerMarginTop="42%"
+                  spinnerWidth="40px"
+                  spinnerWrapperHeight="148px"
+                  spinnerWrapperWidth="98px"
                   (load)="onLoad()"
                   [src]="url + details.profile_path">
                 </image-loader>
@@ -45,16 +51,22 @@
           <ion-card
             button
             class="card"
-            *ngFor="let movie of filterCastMovies(details?.combined_credits.cast); trackBy: trackByCastFn"
-            [routerLink]="['/', 'details', getLink(movie), movie.id]">
+            *ngFor="let movie of filterCastMovies(details?.combined_credits.cast); trackBy: trackByCastFn">
             <image-loader
+              (click)="openPreview(url + movie.poster_path)"
+              spinnerMarginLeft="30%"
+              spinnerMarginTop="42%"
+              spinnerWidth="40px"
+              spinnerWrapperHeight="148px"
+              spinnerWrapperWidth="98px"
               (load)="onLoad()"
               [src]="url + movie.poster_path">
             </image-loader>
             <p class="release-date">
               {{ movie.release_date | date: 'y' }}
             </p>
-            <ion-card-header color="secondary" class="top-billed-cast-header">
+            <ion-card-header color="secondary" class="top-billed-cast-header"
+                             [routerLink]="['/', 'details', getLink(movie), movie.id]">
               <ion-card-title class="ion-card-title">
                 {{ movie.title | overview: 50 }}
               </ion-card-title>
@@ -75,16 +87,22 @@
           <ion-card
             button
             class="card"
-            *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast); trackBy: trackByCastFn"
-            [routerLink]="['/', 'details', getLink(movie), movie.id]">
+            *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast); trackBy: trackByCastFn">
             <image-loader
+              (click)="openPreview(url + movie.poster_path)"
+              spinnerMarginLeft="30%"
+              spinnerMarginTop="42%"
+              spinnerWidth="40px"
+              spinnerWrapperHeight="148px"
+              spinnerWrapperWidth="98px"
               (load)="onLoad()"
               [src]="url + movie.poster_path">
             </image-loader>
             <p class="release-date">
               {{ movie.first_air_date | date: 'y' }}
             </p>
-            <ion-card-header color="secondary" class="top-billed-cast-header">
+            <ion-card-header color="secondary" class="top-billed-cast-header"
+                             [routerLink]="['/', 'details', getLink(movie), movie.id]">
               <ion-card-title class="ion-card-title">
                 {{ movie.name | overview: 50 }}
               </ion-card-title>
@@ -105,16 +123,24 @@
           <ion-card
             button
             class="card"
-            *ngFor="let movie of details?.combined_credits.crew; trackBy: trackByCastFn"
-            [routerLink]="['/', 'details', getLink(movie), movie.id]">
+            *ngFor="let movie of details?.combined_credits.crew; trackBy: trackByCastFn">
             <image-loader
+              (click)="openPreview(url + movie.poster_path)"
+              spinnerMarginLeft="30%"
+              spinnerMarginTop="42%"
+              spinnerWidth="40px"
+              spinnerWrapperHeight="148px"
+              spinnerWrapperWidth="98px"
               (load)="onLoad()"
               [src]="url + movie.poster_path">
             </image-loader>
             <p class="release-date">
               {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}
             </p>
-            <ion-card-header color="secondary" class="top-billed-cast-header">
+            <ion-card-header
+              color="secondary"
+              class="top-billed-cast-header"
+              [routerLink]="['/', 'details', getLink(movie), movie.id]">
               <ion-card-title class="ion-card-title">
                 {{ movie.title || movie.name }}
               </ion-card-title>
@@ -136,6 +162,12 @@
             class="card"
             *ngFor="let image of details?.images.profiles; trackBy: trackByImageFn">
             <image-loader
+              (click)="openPreview(url + image.file_path)"
+              spinnerMarginLeft="30%"
+              spinnerMarginTop="42%"
+              spinnerWidth="40px"
+              spinnerWrapperHeight="148px"
+              spinnerWrapperWidth="98px"
               (load)="onLoad()"
               [src]="url + image.file_path">
             </image-loader>
