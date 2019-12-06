@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-slides [options]="sliderOpts">
+  <ion-slide>
+    <div
+      swipeAll
+      (swipeup)="onSwipeClose($event)"
+      (swipedown)="onSwipeClose($event)"
+      class="swiper-zoom-container">
+      <img [src]="img" alt="img">
+    </div>
+  </ion-slide>
+</ion-slides>

@@ -23,7 +23,9 @@
       spinnerMarginLeft="35%"
       spinnerWidth="40px"
       spinnerWrapperHeight="180px"
-      [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path">
+      (click)="openPreview(url + movie.poster_path)"
+      (load)="onLoad()"
+      [src]="url + movie.poster_path">
     </image-loader>
     <p class="release-date">
       {{ (movie.release_date | date: 'y') || (movie.first_air_date | date: 'y') }}

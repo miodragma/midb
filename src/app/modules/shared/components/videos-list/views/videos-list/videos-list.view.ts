@@ -8,6 +8,12 @@ import { Video } from '../../../../interfaces/videos/video.interface';
 })
 export class VideosListView {
 
+  path = '/default.jpg';
+
   @Input() videos: Video;
   @Output() playVideo = new EventEmitter<string>();
+
+  onLoad() {
+    setTimeout(() => this.path = '/hqdefault.jpg', 2000);
+  }
 }

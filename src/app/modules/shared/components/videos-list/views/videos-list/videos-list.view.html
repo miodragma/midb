@@ -5,12 +5,19 @@
   <ion-card
     class="card"
     *ngFor="let video of videos?.results">
-    <div class="crop-black-image" (click)="playVideo.emit(video.key)">
-      <img
-        class="video-image"
-        [src]="'https://i.ytimg.com/vi/' + video.key + '/mqdefault.jpg'"
-        [alt]="video.name">
-      <ion-icon class="play-video-icon" name="play-circle"></ion-icon>
+    <div class="stretchy-wrapper" (click)="playVideo.emit(video.key)">
+      <div>
+        <image-loader
+          spinnerMarginLeft="95%"
+          spinnerMarginTop="39%"
+          spinnerWidth="40px"
+          spinnerWrapperHeight="148px"
+          spinnerWrapperWidth="98px"
+          class="video-image"
+          (load)="onLoad()"
+          [src]="'https://i.ytimg.com/vi/' + video.key + path"></image-loader>
+        <ion-icon class="play-video-icon" name="play-circle"></ion-icon>
+      </div>
     </div>
     <ion-card-header color="secondary" class="video-header">
       <ion-card-title>

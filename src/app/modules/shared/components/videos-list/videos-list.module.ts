@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../../pipes/pipes.module';
 import { VideosListView } from './views/videos-list/videos-list.view';
+import { ImageLoaderModule } from '../image-loader/image-loader.module';
 
 const pages = [];
 
@@ -13,7 +14,8 @@ const services = [];
 const modules = [
   CommonModule,
   IonicModule,
-  PipesModule
+  PipesModule,
+  ImageLoaderModule
 ];
 
 @NgModule({

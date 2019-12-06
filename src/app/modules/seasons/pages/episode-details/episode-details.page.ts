@@ -3,11 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, tap } from 'rxjs/operators';
 import { EpisodesService } from '../../services/episodes.service';
 import { Episode } from '../../../shared/interfaces/episodes/episode.interface';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Cast } from '../../../shared/interfaces/credits/cast.interface';
 import { Guest } from '../../../shared/interfaces/credits/guest.interface';
+import { ImageModalPage } from '../../../shared/components/image-modal/page/image-modal.page';
 
 @Component({
   templateUrl: 'episode-details.page.html',
@@ -27,7 +28,8 @@ export class EpisodeDetailsPage implements OnInit {
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController,
     private _youtube: YoutubeVideoPlayer,
-    private _screenOrientation: ScreenOrientation) {
+    private _screenOrientation: ScreenOrientation,
+    private _modalCtrl: ModalController) {
   }
 
   ngOnInit() {
@@ -70,6 +72,15 @@ export class EpisodeDetailsPage implements OnInit {
 
   trackByFn(index, item) {
     return item.file_path;
+  }
+
+  openPreview(img) {
+    this._modalCtrl.create({
+      component: ImageModalPage,
+      componentProps: {
+        img
+      },
+    }).then(modal => modal.present());
   }
 
   isDetails(details) {

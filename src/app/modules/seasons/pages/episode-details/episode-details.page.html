@@ -62,11 +62,7 @@
             class="card images-card"
             *ngFor="let image of episodeDetails.images.stills; trackBy: trackByFn">
             <image-loader
-              spinnerMarginTop="14%"
-              spinnerMarginLeft="40%"
-              spinnerWidth="40px"
-              spinnerWrapperWidth="200px"
-              spinnerWrapperHeight="113px"
+              (click)="openPreview('https://image.tmdb.org/t/p/original' + image.file_path)"
               [src]="'https://image.tmdb.org/t/p/w200' + image.file_path">
             </image-loader>
           </ion-card>

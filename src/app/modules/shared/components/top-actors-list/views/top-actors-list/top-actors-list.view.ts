@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Crew } from '../../../../interfaces/credits/crew.interface';
 import { Cast } from '../../../../interfaces/credits/cast.interface';
 import { Guest } from '../../../../interfaces/credits/guest.interface';
+import { ImageModalPage } from '../../../image-modal/page/image-modal.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'top-actors-list',
@@ -10,6 +12,8 @@ import { Guest } from '../../../../interfaces/credits/guest.interface';
 })
 export class TopActorsListView {
 
+  url = 'https://image.tmdb.org/t/p/w200';
+
   @Input() casts: Cast[];
   @Input() crews: Crew[];
   @Input() guests: Guest[];
@@ -17,8 +21,24 @@ export class TopActorsListView {
   @Output() navigateCast = new EventEmitter<Cast>();
   @Output() navigateGuest = new EventEmitter<Guest>();
 
+  constructor(private _modalCtrl: ModalController) {
+  }
+
   trackByFn(index, item) {
     return item.profile_path;
+  }
+
+  openPreview(img) {
+    this._modalCtrl.create({
+      component: ImageModalPage,
+      componentProps: {
+        img
+      },
+    }).then(modal => modal.present());
+  }
+
+  onLoad() {
+    setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
   }
 
 }

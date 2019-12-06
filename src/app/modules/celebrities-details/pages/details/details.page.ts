@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { CelebrityResponse } from '../../interfaces/celebrity-response.interface';
 import { CelebritiesDetailsService } from '../../services/celebrities-details.service';
 import { CelebrityCast } from '../../interfaces/celebrity-cast.interface';
 import { CelebrityCrew } from '../../interfaces/celebrity-crew.interface';
+import { ImageModalPage } from '../../../shared/components/image-modal/page/image-modal.page';
 
 @Component({
   templateUrl: 'details.page.html',
@@ -18,13 +19,16 @@ export class DetailsPage implements OnInit {
 
   details: CelebrityResponse;
 
+  url = 'https://image.tmdb.org/t/p/w200';
+
   constructor(
     private _route: ActivatedRoute,
     private _loadingCtrl: LoadingController,
     private _service: CelebritiesDetailsService,
     private _alertCtrl: AlertController,
     private _router: Router,
-    private _navCtrl: NavController
+    private _navCtrl: NavController,
+    private _modalCtrl: ModalController
   ) {
   }
 
@@ -72,6 +76,19 @@ export class DetailsPage implements OnInit {
       || details.place_of_birth
       || details.deathday
       || details.biography;
+  }
+
+  onLoad() {
+    setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
+  }
+
+  openPreview(img) {
+    this._modalCtrl.create({
+      component: ImageModalPage,
+      componentProps: {
+        img
+      },
+    }).then(modal => modal.present());
   }
 
   getLink(movie) {

@@ -14,7 +14,8 @@
           spinnerWidth="40px"
           spinnerWrapperHeight="84px"
           spinnerWrapperWidth="56px"
-          [src]="'https://image.tmdb.org/t/p/w200'+ actor.profile_path">
+          (load)="onLoad()"
+          [src]="url + actor.profile_path">
         </image-loader>
       </ion-thumbnail>
       <ion-label>{{ actor.name }}</ion-label>

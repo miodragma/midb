@@ -21,7 +21,7 @@ ion-card-title {
 
 .play-video-icon {
   position: absolute;
-  top: calc(50% - 48px);
+  top: calc(50% - 22px);
   left: calc(50% - 22px);
   font-size: 50px;
   color: #cccccc8f;
@@ -31,4 +31,24 @@ ion-card-title {
   background-color: var(--ion-color-secondary-tint);
   padding: 8px;
   height: 50px;
+}
+
+div.stretchy-wrapper {
+  width: 100%;
+  padding-bottom: 57%; /* 16:9 */
+  position: relative;
+  //background: blue;
+  overflow: hidden;
+}
+
+div.stretchy-wrapper > div {
+  position: absolute;
+  bottom: -21px;
+  left: 0;
+  right: 0;
+}
+
+:host ::ng-deep image-loader > img {
+  overflow: hidden;
+  width: 100%;
 }

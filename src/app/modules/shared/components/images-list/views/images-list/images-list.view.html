@@ -11,8 +11,10 @@
       spinnerWidth="40px"
       spinnerWrapperWidth="200px"
       spinnerWrapperHeight="113px"
+      (click)="openPreview(url + image.file_path)"
+      (load)="onLoad()"
       imageStyle="200px"
-      [src]="'https://image.tmdb.org/t/p/original' + image.file_path">
+      [src]="url + image.file_path">
     </image-loader>
   </ion-card>
 </div>

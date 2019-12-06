@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { SimilarListView } from './views/similar-list/similar-list.view';
 import { ImageLoaderModule } from '../image-loader/image-loader.module';
+import { ImageModalModule } from '../image-modal/image-modal.module';
 
 const pages = [];
 
@@ -13,7 +14,8 @@ const services = [];
 const modules = [
   CommonModule,
   IonicModule,
-  ImageLoaderModule
+  ImageLoaderModule,
+  ImageModalModule
 ];
 
 @NgModule({

@@ -5,16 +5,18 @@
   <ion-card
     button
     class="card"
-    *ngFor="let cast of casts; trackBy: trackByFn"
-    (click)="navigateCast.emit(cast)">
+    *ngFor="let cast of casts; trackBy: trackByFn">
     <image-loader
+      (click)="openPreview(url + cast.profile_path)"
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
       spinnerWidth="40px"
       spinnerWrapperHeight="180px"
-      [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + cast.profile_path">
+      (load)="onLoad()"
+      [src]="url + cast.profile_path">
     </image-loader>
-    <ion-card-header color="secondary" class="top-billed-cast-header">
+    <ion-card-header color="secondary" class="top-billed-cast-header"
+                     (click)="navigateCast.emit(cast)">
       <ion-card-title>
         {{ cast.name }}
       </ion-card-title>
@@ -26,16 +28,18 @@
 <div class="scrolling-wrapper" *ngIf="guests">
   <ion-card
     class="card"
-    *ngFor="let guest of guests; trackBy: trackByFn"
-    (click)="navigateGuest.emit(guest)">
+    *ngFor="let guest of guests; trackBy: trackByFn">
     <image-loader
+      (click)="openPreview(url + guest.profile_path)"
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
       spinnerWidth="40px"
       spinnerWrapperHeight="180px"
-      [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + guest.profile_path">
+      (load)="onLoad()"
+      [src]="url + guest.profile_path">
     </image-loader>
-    <ion-card-header color="secondary" class="top-billed-cast-header">
+    <ion-card-header color="secondary" class="top-billed-cast-header"
+                     (click)="navigateGuest.emit(guest)">
       <ion-card-title>
         {{ guest.name }}
       </ion-card-title>
