@@ -9,6 +9,7 @@
     "build": "ng build",
     "midb-build": "ionic cordova build android",
     "midb-build-prod": "ionic cordova build android --prod --release",
+    "midb-build-min": "ionic codrova build android --prod --aot --minifyjs --minifycss --optimizejs --release",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -91,6 +92,7 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
+      "onesignal-cordova-plugin": {},
       "cordova-plugin-speechrecognition": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
@@ -107,8 +109,7 @@
       "cordova-plugin-admobpro": {
         "ADMOB_APP_ID": "ca-app-pub-2221766326187811~2261858145",
         "PLAY_SERVICES_VERSION": "16.0.0"
-      },
-      "onesignal-cordova-plugin": {}
+      }
     },
     "platforms": [
       "android"
