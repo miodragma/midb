@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { DataListView } from './views/data-list.view';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ImageLoaderModule } from '../image-loader/image-loader.module';
+import { SkeletonModule } from '../skeleton/skeleton.module';
 
 const pages = [];
 
@@ -15,7 +16,8 @@ const modules = [
   CommonModule,
   IonicModule,
   PipesModule,
-  ImageLoaderModule
+  ImageLoaderModule,
+  SkeletonModule
 ];
 
 @NgModule({

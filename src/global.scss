@@ -66,6 +66,11 @@ h5 {
   color: $text-color;
 }
 
+ion-skeleton-text {
+  --background: white;
+  --background-rgb: 255, 255, 255;
+}
+
 .action-sheet-title.sc-ion-action-sheet-md {
   --ion-font-family: 'Oswald', sans-serif;
   border-bottom: 1px solid #ccc;
@@ -148,4 +153,9 @@ h5 {
 
 .modal-wrapper {
   background: rgba(0, 0, 0, 0.7) !important;
+}
+
+.no-movies {
+  text-align: center;
+  color: var(--ion-color-tertiary)
 }
