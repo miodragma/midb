@@ -8,6 +8,7 @@ import { FilterYear } from '../interfaces/filter-year.interface';
 import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
 import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { FilterService } from '../services/filter.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   templateUrl: 'filter.page.html',
@@ -34,7 +35,8 @@ export class FilterPage implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _genresService: GenresService,
-    private _filterService: FilterService) {
+    private _filterService: FilterService,
+    private _navCtrl: NavController) {
   }
 
   get value() {
@@ -126,7 +128,7 @@ export class FilterPage implements OnInit {
     this._filterService.resetSingleActor();
   }
 
-  navigate() {
+  applyFilter() {
     let updateFilterQuery = {};
     if (this.tab === 'tv-shows') {
       updateFilterQuery = Object.assign({ ...this.filterQueryTVShows }, {
@@ -147,6 +149,11 @@ export class FilterPage implements OnInit {
 
     isFilter && (updateFilterQuery['page'] = 1);
     this._router.navigate([ `/tabs/tab/${this.tab}` ], { queryParams: updateFilterQuery });
+  }
+
+  navigate() {
+    this.applyFilter();
+    // this._navCtrl.back();
   }
 
   isResults(tab, id, filterQueryMovie, filterQueryTVShows) {

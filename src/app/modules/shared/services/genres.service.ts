@@ -54,7 +54,7 @@ export class GenresService {
     for (let i = currYear; i >= 1890; i--) {
       years.push({ id: i, value: i, isChecked: false });
     }
-    this._filterMovieYearsList.next(years);
+    !this._filterMovieYearsList.getValue().some(year => year.isChecked) && this._filterMovieYearsList.next(years);
     if (!this._filterMoviesGenresList.getValue().length) {
       this._http.get<{ genres: Genre[] }>(`${this._url}/genre/movie/list?${this._apiKey}&language=en-US`)
         .pipe(
@@ -78,7 +78,7 @@ export class GenresService {
     for (let i = currYear; i >= 1890; i--) {
       years.push({ id: i, value: i, isChecked: false });
     }
-    this._filterTVShowsYearsList.next(years);
+    !this._filterTVShowsYearsList.getValue().some(year => year.isChecked) && this._filterTVShowsYearsList.next(years);
     if (!this._filterTVShowsGenresList.getValue().length) {
       this._http.get<{ genres: Genre[] }>(`${this._url}/genre/tv/list?${this._apiKey}&language=en-US`)
         .pipe(

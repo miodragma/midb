@@ -9,7 +9,7 @@
     "build": "ng build",
     "midb-build": "ionic cordova build android",
     "midb-build-prod": "ionic cordova build android --prod --release",
-    "midb-build-min": "ionic codrova build android --prod --aot --minifyjs --minifycss --optimizejs --release",
+    "midb-build-min": "ionic cordova build android --prod --aot --minifyjs --minifycss --optimizejs --release",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

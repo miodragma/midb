@@ -2,7 +2,7 @@
   <ion-item button (click)="onAddToWatchList()">
     Add To Watchlist
   </ion-item>
-  <ion-item button (click)="onAddNotification()">
+  <ion-item button (click)="onAddNotification()" *ngIf="type == 'watchlistMovies'">
     Set Notification
   </ion-item>
 </ion-list>
