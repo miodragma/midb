@@ -18,8 +18,7 @@ import { PopoverListView } from './modules/shared/components/popover-list/views/
   declarations: [ AppComponent, PopoverListView ],
   entryComponents: [ PopoverListView ],
   imports: [ BrowserModule, HttpClientModule, IonicModule.forRoot({
-    mode: 'md',
-    animated: false
+    mode: 'md'
   }), AppRoutingModule, BrowserAnimationsModule ],
   providers: [
     StatusBar,

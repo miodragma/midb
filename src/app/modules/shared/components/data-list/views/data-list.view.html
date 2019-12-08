@@ -1,4 +1,7 @@
 <ion-row>
+  <ion-col *ngIf="!movies">
+    <skeleton-item-list></skeleton-item-list>
+  </ion-col>
   <ion-col
     *ngIf="movies && movies?.results.length > 0"
     class="ion-text-center ion-no-padding">
