@@ -2,13 +2,13 @@
   <ion-col class="ion-no-padding">
     <ion-segment #segmentButton (ionChange)="selectSegment.emit($event)">
       <ion-segment-button
-        value="top_rated">Top Rated
+        value="top_rated" class="anton-label-font">Top Rated
       </ion-segment-button>
       <ion-segment-button
-        value="popular" checked>Popular
+        value="popular" checked class="anton-label-font">Popular
       </ion-segment-button>
       <ion-segment-button
-        [value]="segment">{{ segment === 'on_the_air' ? 'on the air' : segment }}
+        [value]="segment" class="anton-label-font">{{ segment === 'on_the_air' ? 'on the air' : segment }}
       </ion-segment-button>
     </ion-segment>
   </ion-col>

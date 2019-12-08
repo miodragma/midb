@@ -14,11 +14,13 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 import { PopoverListView } from './modules/shared/components/popover-list/views/popover-list/popover-list.view';
 
-
 @NgModule({
   declarations: [ AppComponent, PopoverListView ],
   entryComponents: [ PopoverListView ],
-  imports: [ BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule ],
+  imports: [ BrowserModule, HttpClientModule, IonicModule.forRoot({
+    mode: 'md',
+    animated: false
+  }), AppRoutingModule, BrowserAnimationsModule ],
   providers: [
     StatusBar,
     SplashScreen,
