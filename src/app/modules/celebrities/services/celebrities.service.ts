@@ -4,6 +4,7 @@ import { MovieResponse } from '../../shared/interfaces/movies/movie-response.int
 import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { map, tap } from 'rxjs/operators';
 import { BehaviorSubject, forkJoin } from 'rxjs';
+import { CacheService } from 'ionic-cache';
 
 @Injectable()
 export class CelebritiesService {
@@ -11,10 +12,13 @@ export class CelebritiesService {
   private _apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   private _url = 'https://api.themoviedb.org/3';
 
+  private _groupKey = 'actorSlides';
+  private _ttl = 60 * 60 * 2;
+
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
   private _slidesList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_results: 0, total_pages: 0 });
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _cache: CacheService) {
   }
 
   get findActorsList() {
@@ -39,11 +43,22 @@ export class CelebritiesService {
     this._actorsList.next({ page: 0, results: [], total_pages: 0, total_results: 0 });
   }
 
+  firstActorsList() {
+    const url = `${this._url}/trending/person/day?${this._apiKey}&page=1`;
+    const req = this._http.get<MovieResponse<Actor>>(url);
+    return this._cache.loadFromObservable(url, req, this._groupKey, this._ttl);
+  }
+
+  secondActorsList() {
+    const url = `${this._url}/trending/person/day?${this._apiKey}&page=2`;
+    const req = this._http.get<MovieResponse<Actor>>(url);
+    return this._cache.loadFromObservable(url, req, this._groupKey, this._ttl);
+  }
+
   findAllActorTrendings() {
-    const url = `${this._url}/trending/person/day?${this._apiKey}`;
     forkJoin([
-      this._http.get<MovieResponse<Actor>>(`${url}&page=1`),
-      this._http.get<MovieResponse<Actor>>(`${url}&page=2)`)
+      this.firstActorsList(),
+      this.secondActorsList()
     ])
       .pipe(
         map(trending => {
