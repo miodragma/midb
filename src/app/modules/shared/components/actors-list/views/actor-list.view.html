@@ -1,12 +1,13 @@
 <ion-col
   class="ion-text-center">
+  <p class="not-found-message" *ngIf="actors.page === 1 && actors.total_results === 0">No data found</p>
   <ion-list *ngIf="actors.page > 0">
 
     <ion-item
       button
       *ngFor="let actor of actors.results"
       [detail]="!singleActor"
-      (click)="checkActor.emit(actor)" button>
+      (click)="checkActor.emit(actor)">
       <ion-thumbnail slot="start">
         <image-loader
           spinnerMarginTop="21%"

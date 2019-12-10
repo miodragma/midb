@@ -19,6 +19,8 @@ export class DetailsPage implements OnInit {
 
   details: CelebrityResponse;
 
+  celebrityId = null;
+
   url = 'https://image.tmdb.org/t/p/w200';
 
   constructor(
@@ -42,6 +44,7 @@ export class DetailsPage implements OnInit {
           this._loadingCtrl.create()
             .then(loadingEl => {
               loadingEl.present();
+              this.celebrityId = +params.get('id');
               this._service.findDetailsById(+params.get('id'))
                 .subscribe(data => {
                     this.details = data;
@@ -80,6 +83,14 @@ export class DetailsPage implements OnInit {
 
   onLoad() {
     // setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
+  }
+
+  forceReload(refresher) {
+    this._service.findDetailsById(this.celebrityId, refresher)
+      .subscribe(data => {
+        this.details = data;
+        refresher.target.complete();
+      });
   }
 
   openPreview(img) {

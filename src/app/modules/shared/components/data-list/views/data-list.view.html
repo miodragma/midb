@@ -1,3 +1,4 @@
+<p class="not-found-message" *ngIf="movies?.page === 1 && movies?.total_results === 0">No data found</p>
 <ion-row>
   <ion-col *ngIf="!movies">
     <skeleton-item-list></skeleton-item-list>

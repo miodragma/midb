@@ -30,7 +30,7 @@
         </ion-slides>
       </ion-col>
     </ion-row>
-    <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
+    <search [placeholder]="'Celebrity'" (changeValue)="onSearch($event)"></search>
     <actor-list
       [actors]="actors$ | async"
       (clickedPage)="more($event)"

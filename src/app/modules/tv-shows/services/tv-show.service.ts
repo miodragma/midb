@@ -11,7 +11,7 @@ export class TvShowService {
 
   apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   url = 'https://api.themoviedb.org/3';
-  private _delayTime = 'all';
+  private _delayType = 'all';
   private _groupKey = 'tvShows';
 
   constructor(private _http: HttpClient, private _cache: CacheService) {
@@ -38,7 +38,7 @@ export class TvShowService {
   findCacheData(url, req, refresher, newTTL) {
     const ttl = newTTL ? newTTL : 60 * 60 * 24;
     if (refresher) {
-      return this._cache.loadFromDelayedObservable(url, req, this._groupKey, ttl, this._delayTime)
+      return this._cache.loadFromDelayedObservable(url, req, this._groupKey, ttl, this._delayType)
         .pipe(
           tap(data => refresher.target.complete())
         );
