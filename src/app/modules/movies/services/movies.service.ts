@@ -3,28 +3,48 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
 import { Movie } from '../../shared/interfaces/movies/movie.interface';
+import { CacheService } from 'ionic-cache';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class MoviesService {
 
   apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   url = 'https://api.themoviedb.org/3';
+  private _delayTime = 'all';
+  private _groupKey = 'movies';
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _cache: CacheService) {
   }
 
-  findAllMoviesByValue(value: string, page: number): Observable<MovieResponse<Movie>> {
-    return this._http.get<MovieResponse<Movie>>(`
-    ${this.url}/search/movie?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`);
+  findAllMoviesByValue(value: string, page: number, refresher): Observable<MovieResponse<Movie>> {
+    const url = `${this.url}/search/movie?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`;
+    const req = this._http.get<MovieResponse<Movie>>(url);
+    return this.findCacheData(url, req, refresher, 60 * 60 * 2);
   }
 
-  findAllMoviesByType(type: string, page: number): Observable<MovieResponse<Movie>> {
-    return this._http.get<MovieResponse<Movie>>(`${this.url}/movie/${type}?${this.apiKey}&region=US&language=en-US&page=${page}`);
+  findAllMoviesByType(type: string, page: number, refresher): Observable<MovieResponse<Movie>> {
+    const url = `${this.url}/movie/${type}?${this.apiKey}&region=US&language=en-US&page=${page}`;
+    const req = this._http.get<MovieResponse<Movie>>(url);
+    return this.findCacheData(url, req, refresher, null);
   }
 
-  findAllFilterMovies(filter: string, page: number = 1): Observable<MovieResponse<Movie>> {
-    return this._http.get<MovieResponse<Movie>>(`
-    ${this.url}/discover/movie?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`);
+  findAllFilterMovies(filter: string, page: number = 1, refresher): Observable<MovieResponse<Movie>> {
+    const url = `${this.url}/discover/movie?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`;
+    const req = this._http.get<MovieResponse<Movie>>(url);
+    return this.findCacheData(url, req, refresher, null);
+  }
+
+  findCacheData(url, req, refresher, newTTL) {
+    const ttl = newTTL ? newTTL : 60 * 60 * 24;
+    if (refresher) {
+      return this._cache.loadFromDelayedObservable(url, req, this._groupKey, null, this._delayTime)
+        .pipe(
+          tap(data => refresher.target.complete())
+        );
+    } else {
+      return this._cache.loadFromObservable(url, req, this._groupKey);
+    }
   }
 
 }
