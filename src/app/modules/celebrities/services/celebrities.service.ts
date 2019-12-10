@@ -12,7 +12,8 @@ export class CelebritiesService {
   private _apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   private _url = 'https://api.themoviedb.org/3';
 
-  private _groupKey = 'actorSlides';
+  private _slidesGroupKey = 'actorSlides';
+  private _actorsGroupKey = 'actorsList';
   private _ttl = 60 * 60 * 2;
 
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
@@ -30,12 +31,16 @@ export class CelebritiesService {
   }
 
   findAllActors(actor: string, page: number) {
-    this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`)
+    const url = `${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`;
+    const req = this._http.get<MovieResponse<Actor>>(url);
+    return this._cache.loadFromObservable(url, req, this._actorsGroupKey, this._ttl)
       .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 
   findMoreActorsByValue(actor: string, page: number) {
-    this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`)
+    const url = `${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`;
+    const req = this._http.get<MovieResponse<Actor>>(url);
+    return this._cache.loadFromObservable(url, req, this._actorsGroupKey, this._ttl)
       .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 
@@ -46,13 +51,13 @@ export class CelebritiesService {
   firstActorsList() {
     const url = `${this._url}/trending/person/day?${this._apiKey}&page=1`;
     const req = this._http.get<MovieResponse<Actor>>(url);
-    return this._cache.loadFromObservable(url, req, this._groupKey, this._ttl);
+    return this._cache.loadFromObservable(url, req, this._slidesGroupKey, this._ttl);
   }
 
   secondActorsList() {
     const url = `${this._url}/trending/person/day?${this._apiKey}&page=2`;
     const req = this._http.get<MovieResponse<Actor>>(url);
-    return this._cache.loadFromObservable(url, req, this._groupKey, this._ttl);
+    return this._cache.loadFromObservable(url, req, this._slidesGroupKey, this._ttl);
   }
 
   findAllActorTrendings() {
