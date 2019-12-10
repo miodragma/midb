@@ -32,18 +32,18 @@ export class MoviesService {
   findAllFilterMovies(filter: string, page: number = 1, refresher): Observable<MovieResponse<Movie>> {
     const url = `${this.url}/discover/movie?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`;
     const req = this._http.get<MovieResponse<Movie>>(url);
-    return this.findCacheData(url, req, refresher, null);
+    return this.findCacheData(url, req, refresher, 60 * 60 * 2);
   }
 
   findCacheData(url, req, refresher, newTTL) {
     const ttl = newTTL ? newTTL : 60 * 60 * 24;
     if (refresher) {
-      return this._cache.loadFromDelayedObservable(url, req, this._groupKey, null, this._delayTime)
+      return this._cache.loadFromDelayedObservable(url, req, this._groupKey, ttl, this._delayTime)
         .pipe(
           tap(data => refresher.target.complete())
         );
     } else {
-      return this._cache.loadFromObservable(url, req, this._groupKey);
+      return this._cache.loadFromObservable(url, req, this._groupKey, ttl);
     }
   }
 
