@@ -14,6 +14,7 @@ export class EpisodesListPage implements OnInit {
 
   season$: Observable<Season>;
   seasonNumber: string;
+  showId = null;
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,10 +29,15 @@ export class EpisodesListPage implements OnInit {
         filter(params => !!params.has('seasonNumber') && !!params.has('id')),
         tap(param => {
           this.seasonNumber = param.get('seasonNumber');
+          this.showId = +param.get('id');
           this.season$ = this._episodesService.findAllEpisodesList(+param.get('seasonNumber'), +param.get('id'));
         })
       )
       .subscribe();
+  }
+
+  forceReload(refresher) {
+    this.season$ = this._episodesService.findAllEpisodesList(+this.seasonNumber, this.showId, refresher);
   }
 
   navigate() {
