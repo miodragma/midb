@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher *ngIf="_value" slot="fixed" (ionRefresh)="forceReload($event)">
+  <ion-refresher *ngIf="val" slot="fixed" (ionRefresh)="forceReload($event)">
     <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
   </ion-refresher>
   <ion-grid class="ion-no-padding">

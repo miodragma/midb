@@ -28,6 +28,10 @@ export class CelebritiesPage implements OnInit {
   private _value = '';
   private _page = null;
 
+  get val() {
+    return this._value;
+  }
+
   constructor(private _service: CelebritiesService, private _router: Router) {
   }
 
