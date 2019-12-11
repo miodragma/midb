@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher *ngIf="_value" slot="fixed" (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
@@ -23,7 +26,8 @@
               <p class="profile-path-name"> {{ slide.name }} </p>
             </div>
             <div class="backdrop-path">
-              <img *ngFor="let image of slide?.known_for" [src]="'https://image.tmdb.org/t/p/w200' + image.poster_path"
+              <img *ngFor="let image of slide?.known_for"
+                   [src]="image.poster_path ? 'https://image.tmdb.org/t/p/w200' + image.poster_path : 'assets/images/na.png'"
                    [alt]="image.poster_path">
             </div>
           </ion-slide>

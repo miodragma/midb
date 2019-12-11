@@ -15,6 +15,7 @@ export class CelebritiesService {
   private _slidesGroupKey = 'actorSlides';
   private _actorsGroupKey = 'actorsList';
   private _ttl = 60 * 60 * 2;
+  private _delayType = 'all';
 
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
   private _slidesList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_results: 0, total_pages: 0 });
@@ -37,11 +38,19 @@ export class CelebritiesService {
       .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 
-  findMoreActorsByValue(actor: string, page: number) {
+  findMoreActorsByValue(actor: string, page: number, refresher?) {
     const url = `${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`;
     const req = this._http.get<MovieResponse<Actor>>(url);
-    return this._cache.loadFromObservable(url, req, this._actorsGroupKey, this._ttl)
-      .pipe(tap(data => this._actorsList.next(data))).subscribe();
+    if (refresher) {
+      return this._cache.loadFromDelayedObservable(url, req, this._actorsGroupKey, this._ttl, this._delayType)
+        .subscribe(data => {
+          this._actorsList.next(data);
+          refresher.target.complete();
+        });
+    } else {
+      return this._cache.loadFromObservable(url, req, this._actorsGroupKey, this._ttl)
+        .pipe(tap(data => this._actorsList.next(data))).subscribe();
+    }
   }
 
   removeActorsFromList() {

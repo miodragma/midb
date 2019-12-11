@@ -15,7 +15,6 @@ export class FilterService {
   private _singleActor = new BehaviorSubject<Actor>({ id: 0, name: '', profile_path: '', known_for: [] });
 
   constructor(private _http: HttpClient) {
-    console.log('filter Service');
   }
 
   get findActorsList() {

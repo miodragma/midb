@@ -9,7 +9,7 @@ export class CelebritiesDetailsService {
   private _apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   private _url = 'https://api.themoviedb.org/3';
 
-  private _celebrityDetailsGroupKey = 'actorsList';
+  private _celebrityDetailsGroupKey = 'celebrityDetails';
   private _delayType = 'all';
   private _ttl = 60 * 60 * 24;
 

@@ -14,7 +14,6 @@ export class GenresService {
   private _url = 'https://api.themoviedb.org/3';
 
   private _genresGroupKey = 'genresGroup';
-  private _delayType = 'all';
   private _ttl = 60 * 60 * 24 * 7;
 
   private _genresList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
