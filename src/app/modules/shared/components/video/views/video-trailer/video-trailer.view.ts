@@ -11,10 +11,11 @@ export class VideoTrailerView {
   @Input() videos: Video;
   @Output() playVideo = new EventEmitter<string>();
 
-  path = '/default.jpg';
+  // path = '/default.jpg';
+  path = '/hqdefault.jpg';
 
   onLoad() {
-    setTimeout(() => this.path = '/hqdefault.jpg', 1000);
+    // setTimeout(() => this.path = '/hqdefault.jpg', 1000);
   }
 
 }
