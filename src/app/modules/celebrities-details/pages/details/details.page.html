@@ -54,7 +54,7 @@
           <ion-card
             button
             class="card"
-            *ngFor="let movie of filterCastMovies(details?.combined_credits.cast); trackBy: trackByCastFn">
+            *ngFor="let movie of filterCastMovies(details?.combined_credits.cast) | slice : 0 : sliceCastMovie; trackBy: trackByCastFn">
             <image-loader
               (click)="openPreview(movie.poster_path)"
               spinnerMarginLeft="30%"
@@ -80,6 +80,11 @@
             </ion-card-header>
             <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
+          <span
+            *ngIf="sliceCastMovie !== filterCastMovies(details?.combined_credits.cast).length
+            && filterCastMovies(details?.combined_credits.cast).length > 4"
+            class="expand-slide-icon"
+            (click)="onExpandCastMovie(filterCastMovies(details?.combined_credits.cast).length)">&#187;</span>
         </div>
       </ion-col>
     </ion-row>
@@ -93,7 +98,7 @@
           <ion-card
             button
             class="card"
-            *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast); trackBy: trackByCastFn">
+            *ngFor="let movie of filterCastTVShows(details?.combined_credits.cast) | slice: 0 : sliceCastTvShows; trackBy: trackByCastFn">
             <image-loader
               (click)="openPreview(movie.poster_path)"
               spinnerMarginLeft="30%"
@@ -119,6 +124,11 @@
             </ion-card-header>
             <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
+          <span
+            *ngIf="sliceCastTvShows !== filterCastTVShows(details?.combined_credits.cast).length
+            && filterCastTVShows(details?.combined_credits.cast).length > 4"
+            class="expand-slide-icon"
+            (click)="onExpandCastTvShows(filterCastTVShows(details?.combined_credits.cast).length)">&#187;</span>
         </div>
       </ion-col>
     </ion-row>
@@ -132,7 +142,7 @@
           <ion-card
             button
             class="card"
-            *ngFor="let movie of details?.combined_credits.crew; trackBy: trackByCastFn">
+            *ngFor="let movie of details?.combined_credits.crew | slice: 0 : sliceCrew; trackBy: trackByCastFn">
             <image-loader
               (click)="openPreview(movie.poster_path)"
               spinnerMarginLeft="30%"
@@ -160,6 +170,11 @@
             </ion-card-header>
             <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
+          <span
+            *ngIf="sliceCrew !== details?.combined_credits.crew.length
+            && details?.combined_credits.crew.length > 4"
+            class="expand-slide-icon"
+            (click)="onExpandCrew(details?.combined_credits.crew.length)">&#187;</span>
         </div>
       </ion-col>
     </ion-row>
@@ -172,7 +187,7 @@
         <div class="scrolling-wrapper">
           <ion-card
             class="card"
-            *ngFor="let image of details?.images.profiles; trackBy: trackByImageFn">
+            *ngFor="let image of details?.images.profiles | slice: 0 : sliceImg; trackBy: trackByImageFn">
             <image-loader
               (click)="openPreview(image.file_path)"
               spinnerMarginLeft="30%"
@@ -187,6 +202,11 @@
               [src]="url + image.file_path">
             </image-loader>
           </ion-card>
+          <span
+            *ngIf="sliceImg !== details?.images.profiles.length
+            && details?.images.profiles.length > 4"
+            class="expand-slide-icon expand-slide-icon-image"
+            (click)="onExpandImages(details?.images.profiles.length)">&#187;</span>
         </div>
       </ion-col>
     </ion-row>

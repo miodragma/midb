@@ -10,10 +10,16 @@ export class VideosListView {
 
   path = '/mqdefault.jpg';
 
+  slice = 4;
+
   @Input() videos: Video;
   @Output() playVideo = new EventEmitter<string>();
 
   onLoad() {
     // setTimeout(() => this.path = '/mqdefault.jpg', 2000);
+  }
+
+  onExpand(length) {
+    this.slice = length;
   }
 }

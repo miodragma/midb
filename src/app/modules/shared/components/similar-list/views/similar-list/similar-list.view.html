@@ -4,7 +4,7 @@
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let movie of similar | orderSimilar; let i = index; trackBy: trackByFn">
+    *ngFor="let movie of similar | orderSimilar | slice: 0: slice; let i = index; trackBy: trackByFn">
     <ion-icon
       [style.pointerEvents]="isColor(movie.id) === 'primary' ? 'none' : 'auto'"
       (click)="addToWatchlist(movie.id, i)"
@@ -22,6 +22,7 @@
       spinnerMarginTop="50%"
       spinnerMarginLeft="35%"
       spinnerWidth="40px"
+      spinnerWrapperWidth="120px"
       spinnerWrapperHeight="180px"
       imageMaxHeightStyle="180px"
       imageMinHeightStyle="180px"
@@ -41,4 +42,7 @@
       <ion-ripple-effect></ion-ripple-effect>
     </ion-card-header>
   </ion-card>
+  <span *ngIf="slice !== similar.length && similar.length > 4"
+        class="expand-slide-icon"
+        (click)="onExpand(similar.length)">&#187;</span>
 </div>

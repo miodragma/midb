@@ -24,6 +24,8 @@ export class SimilarListView implements OnInit {
   bookmarkIndex = -1;
   url = 'https://image.tmdb.org/t/p/w200';
 
+  slice = 4;
+
   constructor(
     private _nativeStorage: NativeStorage,
     private _toastCtrl: ToastController,
@@ -38,6 +40,11 @@ export class SimilarListView implements OnInit {
 
   trackByFn(index, item) {
     return item.poster_path;
+  }
+
+  onExpand(length) {
+    console.log(length);
+    this.slice = length;
   }
 
   isColor(movieId: number) {

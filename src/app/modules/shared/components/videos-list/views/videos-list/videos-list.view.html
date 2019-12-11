@@ -4,7 +4,7 @@
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let video of videos?.results">
+    *ngFor="let video of videos?.results | slice: 0 : slice">
     <div class="stretchy-wrapper" (click)="playVideo.emit(video.key)">
       <div>
         <image-loader
@@ -28,4 +28,6 @@
       </ion-card-title>
     </ion-card-header>
   </ion-card>
+  <span *ngIf="slice !== videos?.results.length && videos?.results.length > 4" class="expand-slide-icon"
+        (click)="onExpand(videos?.results.length)">&#187;</span>
 </div>

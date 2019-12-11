@@ -14,6 +14,10 @@ export class TopActorsListView {
 
   url = 'https://image.tmdb.org/t/p/w200';
 
+  slice = 4;
+
+  sliceGuest = 4;
+
   @Input() casts: Cast[];
   @Input() crews: Crew[];
   @Input() guests: Guest[];
@@ -26,6 +30,14 @@ export class TopActorsListView {
 
   trackByFn(index, item) {
     return item.profile_path;
+  }
+
+  onExpand(length) {
+    this.slice = length;
+  }
+
+  onExpandGuests(length) {
+    this.sliceGuest = length;
   }
 
   openPreview(img) {
