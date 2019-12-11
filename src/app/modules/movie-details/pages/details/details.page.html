@@ -46,7 +46,7 @@
     <ion-row *ngIf="(details?.images.backdrops).length > 0 || (details?.images.posters).length > 0">
       <ion-col
         class="billed-cast-col ion-no-padding">
-        <images-list [images]="details?.images"></images-list>
+        <images-list *ngIf="details?.images?.backdrops" [images]="details?.images"></images-list>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="details?.omdbDetails.Response !== 'False' && details?.omdbDetails.Awards !== 'N/A'">

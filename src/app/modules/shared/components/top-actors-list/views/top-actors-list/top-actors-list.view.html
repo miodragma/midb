@@ -5,7 +5,7 @@
   <ion-card
     button
     class="card"
-    *ngFor="let cast of casts; trackBy: trackByFn">
+    *ngFor="let cast of casts | slice : 0 : slice; trackBy: trackByFn">
     <image-loader
       (click)="openPreview(cast.profile_path)"
       spinnerMarginTop="50%"
@@ -27,11 +27,12 @@
     </ion-card-header>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
+  <span *ngIf="slice !== casts.length && casts.length > 4" class="expand-slide-icon" (click)="onExpand(casts.length)">&#187;</span>
 </div>
 <div class="scrolling-wrapper" *ngIf="guests">
   <ion-card
     class="card"
-    *ngFor="let guest of guests; trackBy: trackByFn">
+    *ngFor="let guest of guests | slice: 0 : sliceGuest; trackBy: trackByFn">
     <image-loader
       (click)="openPreview(guest.profile_path)"
       spinnerMarginTop="50%"
@@ -52,6 +53,8 @@
       <p *ngIf="guest.character" class="acting-as">as ( {{ guest.character | overview: 17 }} )</p>
     </ion-card-header>
   </ion-card>
+  <span *ngIf="sliceGuest !== guests.length && guests.length > 4" class="expand-slide-icon"
+        (click)="onExpandGuests(guests.length)">&#187;</span>
 </div>
 <div *ngIf="crews">
   <div class="info-wrapper" *ngIf="(crews | director)">

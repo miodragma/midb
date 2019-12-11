@@ -37,4 +37,6 @@ import { CacheModule } from 'ionic-cache';
   ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule {}
+export class AppModule {
+
+}

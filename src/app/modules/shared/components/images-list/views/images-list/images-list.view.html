@@ -4,19 +4,25 @@
 <div class="scrolling-wrapper">
   <ion-card
     class="card"
-    *ngFor="let image of images.backdrops.length ? images.backdrops : images.posters; trackBy: trackByFn">
+    *ngFor="let image of images.backdrops.length ? (images.backdrops| slice: 0: slice) : (images.posters | slice: 0: slice); trackBy: trackByFn">
     <image-loader
-      spinnerMarginTop="14%"
-      spinnerMarginLeft="40%"
+      [spinnerMarginTop]="images.backdrops.length ? '14%' : '50%'"
+      [spinnerMarginLeft]="images.backdrops.length ? '40%' : '35%'"
       spinnerWidth="40px"
-      spinnerWrapperWidth="200px"
-      spinnerWrapperHeight="113px"
-      imageMaxHeightStyle="113px"
-      imageMinHeightStyle="113px"
+      [spinnerWrapperWidth]="images.backdrops.length ? '200px' : '120px'"
+      [spinnerWrapperHeight]="images.backdrops.length ? '113px' : '180px'"
+      [imageMaxHeightStyle]="images.backdrops.length ? '113px' : '180px'"
+      [imageMinHeightStyle]="images.backdrops.length ? '113px' : '180px'"
+      [imageWidthStyle]="images.backdrops.length ? '200px' : '120px'"
       (click)="openPreview(image.file_path)"
       (load)="onLoad()"
       imageWidthStyle="200px"
       [src]="url + image.file_path">
     </image-loader>
   </ion-card>
+  <span
+    *ngIf="slice !== (images.backdrops.length ? images.backdrops.length : images.posters.length)
+    && (images.backdrops.length ? images.backdrops.length : images.posters.length) > 4"
+    class="expand-slide-icon"
+    (click)="onExpand(images.backdrops.length ? images.backdrops.length : images.posters.length)">&#187;</span>
 </div>

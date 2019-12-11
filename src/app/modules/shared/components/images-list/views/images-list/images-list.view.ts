@@ -13,12 +13,17 @@ export class ImagesListView {
   @Input() images: Image;
   url = 'https://image.tmdb.org/t/p/w200';
 
+  slice = 4;
 
   constructor(private _modalCtrl: ModalController) {
   }
 
   trackByFn(index, item) {
     return item.file_path;
+  }
+
+  onExpand(length) {
+    this.slice = length;
   }
 
   onLoad() {

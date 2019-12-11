@@ -167,3 +167,25 @@ ion-skeleton-text {
   text-align: center;
   color: var(--ion-color-tertiary)
 }
+
+@keyframes expandColor {
+  0% {
+    color: var(--ion-color-primary)
+  }
+  50% {
+    color: var(--ion-color-tertiary)
+  }
+  100% {
+    color: var(--ion-color-primary)
+  }
+}
+
+.expand-slide-icon {
+  position: relative;
+  bottom: 141px;
+  right: 5px;
+  font-size: 30px;
+  animation-name: expandColor;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}

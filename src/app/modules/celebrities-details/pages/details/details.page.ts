@@ -23,6 +23,11 @@ export class DetailsPage implements OnInit {
 
   url = 'https://image.tmdb.org/t/p/w200';
 
+  sliceCastMovie = 4;
+  sliceCastTvShows = 4;
+  sliceCrew = 4;
+  sliceImg = 4;
+
   constructor(
     private _route: ActivatedRoute,
     private _loadingCtrl: LoadingController,
@@ -70,6 +75,22 @@ export class DetailsPage implements OnInit {
 
   onLoad() {
     // setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
+  }
+
+  onExpandCastMovie(length) {
+    this.sliceCastMovie = length;
+  }
+
+  onExpandCastTvShows(length) {
+    this.sliceCastTvShows = length;
+  }
+
+  onExpandCrew(length) {
+    this.sliceCrew = length;
+  }
+
+  onExpandImages(length) {
+    this.sliceImg = length;
   }
 
   forceReload(refresher) {
