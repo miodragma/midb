@@ -13,7 +13,9 @@ export class ImageLoaderView {
   @Input() spinnerMarginTop = '';
   @Input() spinnerMarginLeft = '';
   @Input() spinnerWidth = '';
-  @Input() imageStyle = '';
+  @Input() imageWidthStyle = '';
+  @Input() imageMaxHeightStyle = '';
+  @Input() imageMinHeightStyle = '';
 
   oneLoader = true;
 

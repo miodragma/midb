@@ -1,3 +1,4 @@
+<p class="not-found-message" *ngIf="movies?.page === 1 && movies?.total_results === 0">No data found</p>
 <ion-row>
   <ion-col *ngIf="!movies">
     <skeleton-item-list></skeleton-item-list>
@@ -15,6 +16,9 @@
             spinnerWidth="27px"
             spinnerWrapperHeight="84px"
             spinnerWrapperWidth="56px"
+            imageMaxHeightStyle="84px"
+            imageMinHeightStyle="84px"
+            imageWidthStyle="56px"
             [src]="'https://image.tmdb.org/t/p/w200'+ movie.poster_path"></image-loader>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">

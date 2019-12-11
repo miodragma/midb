@@ -105,7 +105,6 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
       .then(toastEl => toastEl.present());
   }
 
-
   onClickMovie(id: number) {
     this.router.navigate([ `details/movie/${id}` ]);
   }

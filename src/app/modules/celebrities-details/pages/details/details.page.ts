@@ -19,6 +19,8 @@ export class DetailsPage implements OnInit {
 
   details: CelebrityResponse;
 
+  celebrityId = null;
+
   url = 'https://image.tmdb.org/t/p/w200';
 
   constructor(
@@ -42,6 +44,7 @@ export class DetailsPage implements OnInit {
           this._loadingCtrl.create()
             .then(loadingEl => {
               loadingEl.present();
+              this.celebrityId = +params.get('id');
               this._service.findDetailsById(+params.get('id'))
                 .subscribe(data => {
                     this.details = data;
@@ -50,20 +53,7 @@ export class DetailsPage implements OnInit {
                   },
                   error => {
                     loadingEl.dismiss();
-                    this._alertCtrl
-                      .create({
-                        header: 'An error occurred!',
-                        message: 'Could not load details.',
-                        buttons: [
-                          {
-                            text: 'Ok',
-                            handler: () => {
-                              this._router.navigate([ '/tabs/tab/celebrities' ]);
-                            }
-                          }
-                        ]
-                      })
-                      .then(alertEl => alertEl.present());
+                    this.createAlert();
                   });
             });
         })
@@ -80,6 +70,32 @@ export class DetailsPage implements OnInit {
 
   onLoad() {
     // setTimeout(() => this.url = 'https://image.tmdb.org/t/p/original', 2000);
+  }
+
+  forceReload(refresher) {
+    this._service.findDetailsById(this.celebrityId, refresher)
+      .subscribe(data => {
+          this.details = data;
+          refresher.target.complete();
+        },
+        error => this.createAlert());
+  }
+
+  createAlert() {
+    this._alertCtrl
+      .create({
+        header: 'An error occurred!',
+        message: 'Could not load details.',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this._router.navigate([ '/tabs/tab/celebrities' ]);
+            }
+          }
+        ]
+      })
+      .then(alertEl => alertEl.present());
   }
 
   openPreview(img) {

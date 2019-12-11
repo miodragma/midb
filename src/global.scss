@@ -29,6 +29,14 @@
 :root,
 :root[mode="md"] {
   --ion-font-family: 'Oswald';
+
+  ion-spinner {
+    color: var(--ion-color-primary);
+  }
+
+  ion-refresher {
+    top: 5px;
+  }
 }
 
 .anton-label-font {
@@ -155,7 +163,7 @@ ion-skeleton-text {
   background: rgba(0, 0, 0, 0.7) !important;
 }
 
-.no-movies {
+.not-found-message {
   text-align: center;
   color: var(--ion-color-tertiary)
 }

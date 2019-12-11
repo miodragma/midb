@@ -9,6 +9,7 @@ import { GenresService } from './modules/shared/services/genres.service';
 import { Router } from '@angular/router';
 import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 import { Subscription } from 'rxjs';
+import { CacheService } from 'ionic-cache';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private _cache: CacheService,
     private _alertCtrl: AlertController,
     private _router: Router,
     private _adMob: AdMobPro,
@@ -35,6 +37,9 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this._cache.clearExpired();
+      this._cache.setDefaultTTL(60 * 60 * 24);
+      this._cache.setOfflineInvalidate(false);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this._genresService.findAllMovieGenres();

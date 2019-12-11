@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MovieDetails } from '../../shared/interfaces/movies/details/movie-details.interface';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, take } from 'rxjs/operators';
 import { OmdbDetails } from '../../shared/interfaces/omdb/omdb-details.interface';
+import { CacheService } from 'ionic-cache';
 
 @Injectable({ providedIn: 'root' })
 export class DetailsService {
@@ -11,7 +12,11 @@ export class DetailsService {
   apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   url = 'https://api.themoviedb.org/3';
 
-  constructor(private _http: HttpClient) {
+  private _movieDetailsGroupKey = 'movieDetails';
+  private _delayType = 'all';
+  private _ttl = 60 * 60 * 24;
+
+  constructor(private _http: HttpClient, private _cache: CacheService) {
   }
 
   findAllTvDetails(id: number): Observable<MovieDetails> {
@@ -30,17 +35,37 @@ export class DetailsService {
       );
   }
 
-  findDetailsById(id: number): Observable<MovieDetails> {
-    const detailsUrl = `${this.url}/movie/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=videos,images,recommendations,credits`;
-    return this._http.get<MovieDetails>(detailsUrl)
+  findDetailsById(id: number, refresher?): Observable<MovieDetails> {
+    return this.sourceDetailsTMDB(id, refresher)
       .pipe(
+        take(1),
         mergeMap(details => {
-          return this._http.get<OmdbDetails>(`https://www.omdbapi.com/?apikey=8ed6e6d5&i=${details.imdb_id}`)
+          return this.sourceDetailsOmdb(details, refresher)
             .pipe(
               map(omdb => ({ ...details, omdbDetails: omdb }))
             );
         })
       );
+  }
+
+  sourceDetailsTMDB(id: number, refresher) {
+    const url = `${this.url}/movie/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=videos,images,recommendations,credits`;
+    const req = this._http.get<MovieDetails>(url);
+    if (refresher) {
+      return this._cache.loadFromDelayedObservable(url, req, this._movieDetailsGroupKey, this._ttl, this._delayType);
+    } else {
+      return this._cache.loadFromObservable(url, req, this._movieDetailsGroupKey, this._ttl);
+    }
+  }
+
+  sourceDetailsOmdb(details, refresher) {
+    const url = `https://www.omdbapi.com/?apikey=8ed6e6d5&i=${details.imdb_id}`;
+    const req = this._http.get<OmdbDetails>(url);
+    if (refresher) {
+      return this._cache.loadFromDelayedObservable(url, req, this._movieDetailsGroupKey, this._ttl, this._delayType);
+    } else {
+      return this._cache.loadFromObservable(url, req, this._movieDetailsGroupKey, this._ttl);
+    }
   }
 
 }

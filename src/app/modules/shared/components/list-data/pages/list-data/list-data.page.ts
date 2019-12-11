@@ -15,6 +15,7 @@ export class ListDataPage<T, S extends MovieData<T>> {
   private _type = 'popular';
   private _page = 1;
   private _isFilter = false;
+  private params = {};
 
   set value(value: string) {
     of(value)
@@ -46,30 +47,36 @@ export class ListDataPage<T, S extends MovieData<T>> {
 
   subscription: Subscription;
 
-  initialization() {
+  initialization(refresher?) {
     this.subscription = this.route.queryParamMap
       .subscribe((params: Params) => {
-        const { value, page, type, primary_release_year, with_genres, with_cast, first_air_date_year } = params.params;
-
-        this._isFilter = !!with_genres || !!with_cast || !!primary_release_year || !!first_air_date_year;
-
-        let isParam = false;
-        Object.getOwnPropertyNames(params.params).forEach(key => {
-          key && (isParam = true);
-        });
-
-        let filterQuery = '';
-        with_genres && (filterQuery += '&with_genres=' + with_genres);
-        with_cast && (filterQuery += '&with_cast=' + with_cast);
-        primary_release_year && (filterQuery += '&primary_release_year=' + +primary_release_year);
-        first_air_date_year && (filterQuery += '&first_air_date_year=' + +first_air_date_year);
-
-        type && (this._type = type);
-        !isParam && this.navigateToDefault();
-        type && (this.movies$ = this.service.findAllMoviesByType(type, +page));
-        value && (this.movies$ = this.service.findAllMoviesByValue(value, +page));
-        this._isFilter && (this.movies$ = this.service.findAllFilterMovies(filterQuery, +page));
+        this.findAllData(params.params);
       });
+  }
+
+  findAllData(params: Params, refresher?) {
+    const { value, page, type, primary_release_year, with_genres, with_cast, first_air_date_year } = params;
+    this.params = params;
+
+    this._isFilter = !!with_genres || !!with_cast || !!primary_release_year || !!first_air_date_year;
+
+    let isParam = false;
+    Object.getOwnPropertyNames(params).forEach(key => {
+      key && (isParam = true);
+    });
+
+    let filterQuery = '';
+    with_genres && (filterQuery += '&with_genres=' + with_genres);
+    with_cast && (filterQuery += '&with_cast=' + with_cast);
+    primary_release_year && (filterQuery += '&primary_release_year=' + +primary_release_year);
+    first_air_date_year && (filterQuery += '&first_air_date_year=' + +first_air_date_year);
+
+    type && (this._type = type);
+    !isParam && this.navigateToDefault();
+
+    type && (this.movies$ = this.service.findAllMoviesByType(type, +page, refresher));
+    value && (this.movies$ = this.service.findAllMoviesByValue(value, +page, refresher));
+    this._isFilter && (this.movies$ = this.service.findAllFilterMovies(filterQuery, +page, refresher));
   }
 
   onSearch(value: string) {
@@ -114,6 +121,10 @@ export class ListDataPage<T, S extends MovieData<T>> {
       queryParamsHandling: 'merge'
     });
     this.content.scrollToTop(0);
+  }
+
+  forceReload(refresher) {
+    this.findAllData(this.params, refresher);
   }
 
   ionViewWillLeave() {

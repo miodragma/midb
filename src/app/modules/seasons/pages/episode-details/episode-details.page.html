@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content *ngIf="isLoading | async">
+  <ion-refresher slot="fixed" (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="load-grid ion-no-padding">
 
     <ion-row>
@@ -21,7 +24,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="episodeDetails?.credits.cast.length > 0 || episodeDetails?.credits.crew.length > 0">
+    <ion-row *ngIf="episodeDetails?.credits?.cast?.length > 0 || episodeDetails?.credits?.crew?.length > 0">
       <ion-col
         class="billed-cast-col ion-no-padding">
         <top-actors-list
@@ -33,25 +36,25 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="episodeDetails?.credits.guest_stars.length > 0">
+    <ion-row *ngIf="episodeDetails?.credits?.guest_stars?.length > 0">
       <ion-col
         class="billed-cast-col ion-no-padding">
         <top-actors-list
           (navigateGuest)="navigateGuest($event)"
-          [guests]="episodeDetails?.credits.guest_stars | guestOrder"
+          [guests]="episodeDetails?.credits?.guest_stars | guestOrder"
           [title]="'Top Guest Stars'">
         </top-actors-list>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="episodeDetails?.videos.results.length > 0">
+    <ion-row *ngIf="episodeDetails?.videos?.results?.length > 0">
       <ion-col
         class="billed-cast-col ion-no-padding">
         <videos-list [videos]="episodeDetails?.videos" (playVideo)="playVideo($event)"></videos-list>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="episodeDetails?.images.stills.length > 0">
+    <ion-row *ngIf="episodeDetails?.images?.stills?.length > 0">
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
@@ -77,20 +80,20 @@
           <h5>Awards</h5>
         </div>
         <div class="info-wrapper">
-          <p class="info-label">{{ episodeDetails.omdbDetails.Awards.split('.')[0] }}</p>
-          <p class="info-title">{{ episodeDetails.omdbDetails.Awards.split('.')[1] }}</p>
+          <p class="info-label">{{ episodeDetails?.omdbDetails.Awards.split('.')[0] }}</p>
+          <p class="info-title">{{ episodeDetails?.omdbDetails.Awards.split('.')[1] }}</p>
         </div>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="episodeDetails?.overview">
+    <ion-row *ngIf="episodeDetails?.omdbDetails.Response !== 'False' && episodeDetails?.overview">
       <ion-col
         class="billed-cast-col ion-no-padding">
-        <storyline [storyline]="{overview: episodeDetails.overview, tagline: ''}"></storyline>
+        <storyline [storyline]="{overview: episodeDetails?.overview, tagline: ''}"></storyline>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="isDetails(episodeDetails)">
+    <ion-row *ngIf=" episodeDetails?.omdbDetails.Response !== 'False' && isDetails(episodeDetails)">
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
@@ -98,15 +101,15 @@
         </div>
         <div class="info-wrapper">
           <p
-            *ngIf="episodeDetails.air_date"
+            *ngIf="episodeDetails?.air_date"
             class="info-label">Release Date
           </p>
-          <p class="info-title">{{ episodeDetails.air_date| date }}</p>
+          <p class="info-title">{{ episodeDetails?.air_date| date }}</p>
           <p
-            *ngIf="episodeDetails.omdbDetails.Language"
+            *ngIf="episodeDetails?.omdbDetails.Language"
             class="info-label">Language Spoken
           </p>
-          <p class="info-title">{{ episodeDetails.omdbDetails.Language }}</p>
+          <p class="info-title">{{ episodeDetails?.omdbDetails.Language }}</p>
         </div>
       </ion-col>
     </ion-row>

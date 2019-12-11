@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content *ngIf="isLoading | async">
+  <ion-refresher slot="fixed" (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
@@ -59,6 +62,9 @@
               spinnerWidth="40px"
               spinnerWrapperHeight="148px"
               spinnerWrapperWidth="98px"
+              imageMaxHeightStyle="180px"
+              imageMinHeightStyle="180px"
+              imageWidthStyle="120px"
               (load)="onLoad()"
               [src]="url + movie.poster_path">
             </image-loader>
@@ -95,6 +101,9 @@
               spinnerWidth="40px"
               spinnerWrapperHeight="148px"
               spinnerWrapperWidth="98px"
+              imageMaxHeightStyle="180px"
+              imageMinHeightStyle="180px"
+              imageWidthStyle="120px"
               (load)="onLoad()"
               [src]="url + movie.poster_path">
             </image-loader>
@@ -131,6 +140,9 @@
               spinnerWidth="40px"
               spinnerWrapperHeight="148px"
               spinnerWrapperWidth="98px"
+              imageMaxHeightStyle="180px"
+              imageMinHeightStyle="180px"
+              imageWidthStyle="120px"
               (load)="onLoad()"
               [src]="url + movie.poster_path">
             </image-loader>
@@ -168,6 +180,9 @@
               spinnerWidth="40px"
               spinnerWrapperHeight="148px"
               spinnerWrapperWidth="98px"
+              imageMaxHeightStyle="180px"
+              imageMinHeightStyle="180px"
+              imageWidthStyle="120px"
               (load)="onLoad()"
               [src]="url + image.file_path">
             </image-loader>

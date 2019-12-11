@@ -26,6 +26,11 @@ export class CelebritiesPage implements OnInit {
   slides$: Observable<MovieResponse<Actor>>;
 
   private _value = '';
+  private _page = null;
+
+  get val() {
+    return this._value;
+  }
 
   constructor(private _service: CelebritiesService, private _router: Router) {
   }
@@ -40,6 +45,10 @@ export class CelebritiesPage implements OnInit {
     slides.startAutoplay();
   }
 
+  forceReload(refresher) {
+    this._value && this._service.findMoreActorsByValue(this._value, this._page, refresher);
+  }
+
   onSearch(value) {
     this._value = value;
     value && this._service.findAllActors(value, 1);
@@ -48,6 +57,7 @@ export class CelebritiesPage implements OnInit {
 
   more(page: number) {
     const newPage = page + 1;
+    this._page = newPage;
     this._service.findMoreActorsByValue(this._value, newPage);
   }
 

@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="ion-no-padding">
     <episodes-list
       [season]="season$ | async">

@@ -19,6 +19,8 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
 
   details: T;
 
+  private _detailsId = null;
+
   private _subscription: Subscription;
 
   initialization() {
@@ -29,33 +31,46 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
           this.loadingCtrl.create()
             .then(loadingEl => {
               loadingEl.present();
+              this._detailsId = +params.get('id');
               this.service.findDetailsById(+params.get('id'))
                 .subscribe(data => {
-                  this.details = data;
-                  loadingEl.dismiss();
-                  this.isLoading = Promise.resolve(true);
+                    this.details = data;
+                    loadingEl.dismiss();
+                    this.isLoading = Promise.resolve(true);
                   },
                   error => {
                     loadingEl.dismiss();
-                    this.alertCtrl
-                      .create({
-                        header: 'An error occurred!',
-                        message: 'Could not load details.',
-                        buttons: [
-                          {
-                            text: 'Ok',
-                            handler: () => {
-                              this.router.navigate([ '/tabs/tab/movies' ]);
-                            }
-                          }
-                        ]
-                      })
-                      .then(alertEl => alertEl.present());
+                    this.createAlert();
                   });
             });
         })
       )
       .subscribe();
+  }
+
+  forceReload(refresher) {
+    this.service.findDetailsById(this._detailsId, refresher)
+      .subscribe(data => {
+        this.details = data;
+        refresher.target.complete();
+      }, error => this.createAlert());
+  }
+
+  createAlert() {
+    this.alertCtrl
+      .create({
+        header: 'An error occurred!',
+        message: 'Could not load details.',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this.router.navigate([ '/tabs/tab/movies' ]);
+            }
+          }
+        ]
+      })
+      .then(alertEl => alertEl.present());
   }
 
   isDetails(details) {

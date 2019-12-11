@@ -11,9 +11,11 @@
       spinnerWidth="40px"
       spinnerWrapperWidth="200px"
       spinnerWrapperHeight="113px"
+      imageMaxHeightStyle="113px"
+      imageMinHeightStyle="113px"
       (click)="openPreview(image.file_path)"
       (load)="onLoad()"
-      imageStyle="200px"
+      imageWidthStyle="200px"
       [src]="url + image.file_path">
     </image-loader>
   </ion-card>

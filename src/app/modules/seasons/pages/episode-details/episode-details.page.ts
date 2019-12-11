@@ -20,6 +20,10 @@ export class EpisodeDetailsPage implements OnInit {
 
   isLoading: Promise<boolean>;
 
+  private _showId = null;
+  private _seasonNumber = null;
+  private _episodeNumber = null;
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -41,6 +45,9 @@ export class EpisodeDetailsPage implements OnInit {
           this._loadingCtrl.create()
             .then(loadingEl => {
               loadingEl.present();
+              this._showId = +param.get('showId');
+              this._seasonNumber = +param.get('seasonNumber');
+              this._episodeNumber = +param.get('episodeNumber');
               this._episodesService.findEpisodeDetailsById(+param.get('showId'), +param.get('seasonNumber'), +param.get('episodeNumber'))
                 .subscribe(data => {
                     this.episodeDetails = data;
@@ -49,20 +56,7 @@ export class EpisodeDetailsPage implements OnInit {
                   },
                   error => {
                     loadingEl.dismiss();
-                    this._alertCtrl
-                      .create({
-                        header: 'An error occurred!',
-                        message: 'Could not load details.',
-                        buttons: [
-                          {
-                            text: 'Ok',
-                            handler: () => {
-                              this._navCtrl.back();
-                            }
-                          }
-                        ]
-                      })
-                      .then(alertEl => alertEl.present());
+                    this.createAlert();
                   });
             });
         })
@@ -72,6 +66,32 @@ export class EpisodeDetailsPage implements OnInit {
 
   trackByFn(index, item) {
     return item.file_path;
+  }
+
+  forceReload(refresher) {
+    this._episodesService.findEpisodeDetailsById(this._showId, this._seasonNumber, this._episodeNumber, refresher)
+      .subscribe(data => {
+          this.episodeDetails = data;
+          refresher.target.complete();
+        },
+        error => this.createAlert());
+  }
+
+  createAlert() {
+    this._alertCtrl
+      .create({
+        header: 'An error occurred!',
+        message: 'Could not load details.',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this._navCtrl.back();
+            }
+          }
+        ]
+      })
+      .then(alertEl => alertEl.present());
   }
 
   openPreview(img) {

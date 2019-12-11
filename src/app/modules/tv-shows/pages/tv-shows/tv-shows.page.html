@@ -13,6 +13,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="forceReload($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="ion-no-padding">
     <slides type="tvShow"></slides>
     <search [currValue]="value" *ngIf="!is_filter" [placeholder]="'TV Show'" (changeValue)="onSearch($event)"></search>

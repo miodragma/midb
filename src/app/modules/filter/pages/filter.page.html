@@ -63,7 +63,7 @@
           </ion-card-header>
 
           <ion-card-content class="ion-no-padding">
-            <search [placeholder]="'Actor'" (changeValue)="onSearch($event)"></search>
+            <search [placeholder]="'Celebrity'" (changeValue)="onSearch($event)"></search>
             <ion-button *ngIf="value !== ''" (click)="openActors()" expand="full" color="secondary">
               <span>Actors</span>
               <ion-icon *ngIf="!isActors" slot="end" name="arrow-dropdown"></ion-icon>

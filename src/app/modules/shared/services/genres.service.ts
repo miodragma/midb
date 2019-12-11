@@ -5,12 +5,16 @@ import { tap } from 'rxjs/operators';
 import { Genre } from '../interfaces/genres/genre.interface';
 import { FilterGenre } from '../../filter/interfaces/filter-genre.interface';
 import { FilterYear } from '../../filter/interfaces/filter-year.interface';
+import { CacheService } from 'ionic-cache';
 
 @Injectable({ providedIn: 'root' })
 export class GenresService {
 
   private _apiKey = 'api_key=e78954865ca9c1de70cf8701f4a24d26';
   private _url = 'https://api.themoviedb.org/3';
+
+  private _genresGroupKey = 'genresGroup';
+  private _ttl = 60 * 60 * 24 * 7;
 
   private _genresList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
   private _genresTvList = new BehaviorSubject<{ genres: Genre[] }>({ genres: [] });
@@ -21,7 +25,7 @@ export class GenresService {
   private _filterMovieYearsList = new BehaviorSubject<FilterYear[]>([]);
   private _filterTVShowsYearsList = new BehaviorSubject<FilterYear[]>([]);
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _cache: CacheService) {
   }
 
   get genresList() {
@@ -56,7 +60,9 @@ export class GenresService {
     }
     !this._filterMovieYearsList.getValue().some(year => year.isChecked) && this._filterMovieYearsList.next(years);
     if (!this._filterMoviesGenresList.getValue().length) {
-      this._http.get<{ genres: Genre[] }>(`${this._url}/genre/movie/list?${this._apiKey}&language=en-US`)
+      const url = `${this._url}/genre/movie/list?${this._apiKey}&language=en-US`;
+      const req = this._http.get<{ genres: Genre[] }>(url);
+      this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
         .pipe(
           tap(genres => {
             this._genresList.next(genres);
@@ -80,7 +86,9 @@ export class GenresService {
     }
     !this._filterTVShowsYearsList.getValue().some(year => year.isChecked) && this._filterTVShowsYearsList.next(years);
     if (!this._filterTVShowsGenresList.getValue().length) {
-      this._http.get<{ genres: Genre[] }>(`${this._url}/genre/tv/list?${this._apiKey}&language=en-US`)
+      const url = `${this._url}/genre/tv/list?${this._apiKey}&language=en-US`;
+      const req = this._http.get<{ genres: Genre[] }>(url);
+      this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
         .pipe(
           tap(genres => {
             this._genresTvList.next(genres);
