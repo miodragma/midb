@@ -65,7 +65,6 @@ export class EpisodesService {
     } else {
       return this._cache.loadFromObservable(url, req, this._episodeDetailsGroupKey, this._ttl);
     }
-
   }
 
 }
