@@ -53,20 +53,7 @@ export class DetailsPage implements OnInit {
                   },
                   error => {
                     loadingEl.dismiss();
-                    this._alertCtrl
-                      .create({
-                        header: 'An error occurred!',
-                        message: 'Could not load details.',
-                        buttons: [
-                          {
-                            text: 'Ok',
-                            handler: () => {
-                              this._router.navigate([ '/tabs/tab/celebrities' ]);
-                            }
-                          }
-                        ]
-                      })
-                      .then(alertEl => alertEl.present());
+                    this.createAlert();
                   });
             });
         })
@@ -88,9 +75,27 @@ export class DetailsPage implements OnInit {
   forceReload(refresher) {
     this._service.findDetailsById(this.celebrityId, refresher)
       .subscribe(data => {
-        this.details = data;
-        refresher.target.complete();
-      });
+          this.details = data;
+          refresher.target.complete();
+        },
+        error => this.createAlert());
+  }
+
+  createAlert() {
+    this._alertCtrl
+      .create({
+        header: 'An error occurred!',
+        message: 'Could not load details.',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this._router.navigate([ '/tabs/tab/celebrities' ]);
+            }
+          }
+        ]
+      })
+      .then(alertEl => alertEl.present());
   }
 
   openPreview(img) {

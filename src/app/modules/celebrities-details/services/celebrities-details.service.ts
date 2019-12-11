@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CelebrityResponse } from '../interfaces/celebrity-response.interface';
 import { CacheService } from 'ionic-cache';
-import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class CelebritiesDetailsService {
@@ -21,10 +20,7 @@ export class CelebritiesDetailsService {
     const url = `${this._url}/person/${id}?${this._apiKey}&language=en-US&include_image_language=en,null&append_to_response=images,combined_credits`;
     const req = this._http.get<CelebrityResponse>(url);
     if (refresher) {
-      return this._cache.loadFromDelayedObservable(url, req, this._celebrityDetailsGroupKey, this._ttl, this._delayType)
-        .pipe(
-          tap(data => refresher.target.complete())
-        );
+      return this._cache.loadFromDelayedObservable(url, req, this._celebrityDetailsGroupKey, this._ttl, this._delayType);
     } else {
       return this._cache.loadFromObservable(url, req, this._celebrityDetailsGroupKey, this._ttl);
     }
