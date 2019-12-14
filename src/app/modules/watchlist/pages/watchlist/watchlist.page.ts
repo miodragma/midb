@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController, IonItemSliding, ToastController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
@@ -6,7 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
   templateUrl: 'watchlist.page.html',
   styleUrls: [ 'watchlist.page.scss' ]
 })
-export class WatchlistPage implements OnInit {
+export class WatchlistPage {
 
   watchlist = { watchlistMovies: [], watchlistTvShows: [] };
   currMovies = { watchlistMovies: [], watchlistTvShows: [] };
@@ -17,12 +17,13 @@ export class WatchlistPage implements OnInit {
     private _toastCtrl: ToastController) {
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     // this.watchlist = {watchlistMovies: [
-    //   {id: 420817, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'aladin', type: 'watchlistMovies'},
-    //   {id: 2331, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'friends', type: 'watchlistMovies'},
-    //   {id: 994327, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'titanic', type: 'watchlistMovies'}
-    // ], watchlistTvShows: []};
+    //     {id: 420817, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'aladin', type: 'watchlistMovies'},
+    //     {id: 2331, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'friends', type: 'watchlistMovies'},
+    //     {id: 994327, poster: 'poster', releaseDate: 'date', genre: 'genre', title: 'titanic', type: 'watchlistMovies'}
+    //   ], watchlistTvShows: []};
+
     this._nativeStorage.getItem('movies')
       .then(res => {
         this.watchlist = res;
