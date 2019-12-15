@@ -54,6 +54,20 @@
     "personal_details": "Personal Details",
     "born": "Born",
     "deathday": "Deathday",
-    "biography": "Biography"
+    "biography": "Biography",
+    "there_are_no_movies_in_the_watchlist": "There are no movies in the watchlist.",
+    "there_are_no_tv_shows_in_the_watchlist": "There are no tv shows in the watchlist.",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "successfully_deleted": "Successfully deleted!",
+    "are_you_sure_that_you_want_to_delete?": "Are you sure that you want to delete?",
+    "an_error_occurred!": "An error occurred!",
+    "could_not_load_details.": "Could not load details.",
+    "ok": "Ok",
+    "is_already_in_watchlist!": "is already in Watchlist!",
+    "has_been_added_to_watchlist!": "has been added to Watchlist!",
+    "English": "English",
+    "German": "German"
   }
 }

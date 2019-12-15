@@ -4,6 +4,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Watchlist } from '../../../../../watchlist/models/watchlist.model';
 import { NotificationModel } from '../../../../models/notification.model';
 import { CreateNotificationView } from '../../../notification/create-notification.view';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'popover-list.view.html',
@@ -15,12 +16,16 @@ export class PopoverListView implements OnInit {
   movie: Watchlist;
   type: string;
 
+  isAlreadyInWatchlist = '';
+  hasBeenAddedToWatchlist = '';
+
   constructor(
     private _navParams: NavParams,
     private _nativeStorage: NativeStorage,
     private _toastCtrl: ToastController,
     private _actionSheetCtrl: ActionSheetController,
-    private _modalCtrl: ModalController) {
+    private _modalCtrl: ModalController,
+    private _translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -29,6 +34,9 @@ export class PopoverListView implements OnInit {
     const type = this._navParams.data.type;
     this.type = type;
     this.movie = new Watchlist(id, title, name, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors, type);
+
+    this._translate.get('labels.is_already_in_watchlist!').subscribe(text => this.isAlreadyInWatchlist = text);
+    this._translate.get('labels.has_been_added_to_watchlist!').subscribe(text => this.hasBeenAddedToWatchlist = text);
   }
 
   onAddToWatchList() {
@@ -40,12 +48,12 @@ export class PopoverListView implements OnInit {
           .then(res => {
             currWatchlist = res;
             if (currWatchlist[this.type].some(item => item.id === this.movie.id)) {
-              this.onShowToast(`${title} is already in Watchlist!`);
+              this.onShowToast(`${title} ${this.isAlreadyInWatchlist}`);
             } else {
               currWatchlist[this.type].push(this.movie);
               this._nativeStorage.setItem('movies', currWatchlist)
                 .then(ress => {
-                  this.onShowToast(`${title} has been added to Watchlist!`);
+                  this.onShowToast(`${title} ${this.hasBeenAddedToWatchlist}`);
                 });
             }
           });
@@ -54,7 +62,7 @@ export class PopoverListView implements OnInit {
           { watchlistMovies: [ this.movie ], watchlistTvShows: [] } :
           { watchlistMovies: [], watchlistTvShows: [ this.movie ] };
         this._nativeStorage.setItem('movies', value).then(res => {
-          this.onShowToast(`${title} has been added to Watchlist!`);
+          this.onShowToast(`${title} ${this.hasBeenAddedToWatchlist}`);
         });
       }
     })

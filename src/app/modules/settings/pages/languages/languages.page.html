@@ -23,7 +23,7 @@
                   [alt]="language.value">
               </ion-thumbnail>
               <ion-label>
-                {{ language.text }}
+                {{ 'labels.' + language.text | translate }}
               </ion-label>
               <ion-radio slot="end" [checked]="(currLanguage | async) === language.value"></ion-radio>
             </ion-item>

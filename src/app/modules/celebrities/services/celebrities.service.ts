@@ -5,6 +5,7 @@ import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { map, tap } from 'rxjs/operators';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { CacheService } from 'ionic-cache';
+import { LanguageService } from '../../shared/services/language.service';
 
 @Injectable()
 export class CelebritiesService {
@@ -20,7 +21,13 @@ export class CelebritiesService {
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
   private _slidesList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_results: 0, total_pages: 0 });
 
-  constructor(private _http: HttpClient, private _cache: CacheService) {
+  constructor(
+    private _http: HttpClient,
+    private _cache: CacheService, private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   get findActorsList() {
@@ -32,14 +39,14 @@ export class CelebritiesService {
   }
 
   findAllActors(actor: string, page: number) {
-    const url = `${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`;
+    const url = `${this._url}/search/person?${this._apiKey}&language=${this.getLng()}&query=${actor}&page=${page}&include_adult=false`;
     const req = this._http.get<MovieResponse<Actor>>(url);
     return this._cache.loadFromObservable(url, req, this._actorsGroupKey, this._ttl)
       .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 
   findMoreActorsByValue(actor: string, page: number, refresher?) {
-    const url = `${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`;
+    const url = `${this._url}/search/person?${this._apiKey}&language=${this.getLng()}&query=${actor}&page=${page}&include_adult=false`;
     const req = this._http.get<MovieResponse<Actor>>(url);
     if (refresher) {
       return this._cache.loadFromDelayedObservable(url, req, this._actorsGroupKey, this._ttl, this._delayType)

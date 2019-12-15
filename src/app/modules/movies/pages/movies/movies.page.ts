@@ -16,6 +16,7 @@ import { Genre } from '../../../shared/interfaces/genres/genre.interface';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { DetailsService } from '../../../movie-details/services/details.service';
 import { Watchlist } from '../../../watchlist/models/watchlist.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'movies.page.html',
@@ -24,6 +25,9 @@ import { Watchlist } from '../../../watchlist/models/watchlist.model';
 export class MoviesPage extends ListDataPage<Movie, MoviesService> implements OnInit {
 
   movieGenres$: Observable<{ genres: Genre[] }>;
+
+  isAlreadyInWatchlist = '';
+  hasBeenAddedToWatchlist = '';
 
   constructor(
     service: MoviesService,
@@ -37,7 +41,8 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     private _nativeStorage: NativeStorage,
     private _movieDetailsService: DetailsService,
     private _toastCtrl: ToastController,
-    private _router: Router) {
+    private _router: Router,
+    private _translate: TranslateService) {
     super(service, route, loaderService, router);
   }
 
@@ -57,6 +62,9 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
     });
 
     this._oneSignal.endInit();
+
+    this._translate.get('labels.is_already_in_watchlist!').subscribe(text => this.isAlreadyInWatchlist = text);
+    this._translate.get('labels.has_been_added_to_watchlist!').subscribe(text => this.hasBeenAddedToWatchlist! = text);
   }
 
   ionViewWillEnter() {
@@ -77,17 +85,17 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
               .then(res => {
                 currWatchlist = res;
                 if (currWatchlist.watchlistMovies.some(item => item.id === movie.id)) {
-                  this.onShowToast(`${movie.title} is already in Watchlist!`);
+                  this.onShowToast(`${movie.title} ${this.isAlreadyInWatchlist}`);
                 } else {
                   currWatchlist.watchlistMovies.push(movie);
                   this._nativeStorage.setItem('movies', currWatchlist).then(ress => {
-                    this.onShowToast(`${movie.title} has been added to Watchlist!`);
+                    this.onShowToast(`${movie.title} ${this.hasBeenAddedToWatchlist}`);
                   });
                 }
               });
           } else {
             this._nativeStorage.setItem('movies', { watchlistMovies: [ movie ], watchlistTvShows: [] }).then(res => {
-              this.onShowToast(`${movie.title} has been added to Watchlist!`);
+              this.onShowToast(`${movie.title} ${this.hasBeenAddedToWatchlist}`);
             });
           }
         })

@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { MovieResponse } from '../../shared/interfaces/movies/movie-response.interface';
 import { Actor } from '../../shared/interfaces/actors/actor.interface';
 import { tap } from 'rxjs/operators';
+import { LanguageService } from '../../shared/services/language.service';
 
 @Injectable()
 export class FilterService {
@@ -14,7 +15,12 @@ export class FilterService {
   private _actorsList = new BehaviorSubject<MovieResponse<Actor>>({ page: 0, results: [], total_pages: 0, total_results: 0 });
   private _singleActor = new BehaviorSubject<Actor>({ id: 0, name: '', profile_path: '', known_for: [] });
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   get findActorsList() {
@@ -26,7 +32,7 @@ export class FilterService {
   }
 
   findAllActors(actor: string, page: number) {
-    this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`)
+    this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=${this.getLng()}&query=${actor}&page=${page}&include_adult=false`)
       .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 
@@ -35,7 +41,7 @@ export class FilterService {
   }
 
   findMoreActorsByValue(actor: string, page: number) {
-    this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=en-US&query=${actor}&page=${page}&include_adult=false`)
+    this._http.get<MovieResponse<Actor>>(`${this._url}/search/person?${this._apiKey}&language=${this.getLng()}&query=${actor}&page=${page}&include_adult=false`)
       .pipe(tap(data => this._actorsList.next(data))).subscribe();
   }
 

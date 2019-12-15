@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { filter, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 export class DetailsDataPage<T, S extends DetailsData<T>> {
 
@@ -11,13 +12,18 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
     protected route: ActivatedRoute,
     protected loadingCtrl: LoadingController,
     protected alertCtrl: AlertController,
-    protected router: Router
+    protected router: Router,
+    protected translate: TranslateService
   ) {
   }
 
   isLoading: Promise<boolean>;
 
   details: T;
+
+  anErrorOccurred = '';
+  couldNotLoadDetails = '';
+  ok = '';
 
   private _detailsId = null;
 
@@ -46,6 +52,9 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
         })
       )
       .subscribe();
+    this.translate.get('labels.an_error_occurred!').subscribe(text => this.anErrorOccurred = text);
+    this.translate.get('labels.could_not_load_details.').subscribe(text => this.couldNotLoadDetails = text);
+    this.translate.get('labels.ok').subscribe(text => this.ok = text);
   }
 
   forceReload(refresher) {
@@ -59,11 +68,11 @@ export class DetailsDataPage<T, S extends DetailsData<T>> {
   createAlert() {
     this.alertCtrl
       .create({
-        header: 'An error occurred!',
-        message: 'Could not load details.',
+        header: this.anErrorOccurred,
+        message: this.couldNotLoadDetails,
         buttons: [
           {
-            text: 'Ok',
+            text: this.ok,
             handler: () => {
               this.router.navigate([ '/tabs/tab/movies' ]);
             }

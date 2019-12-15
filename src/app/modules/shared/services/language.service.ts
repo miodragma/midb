@@ -11,11 +11,18 @@ export class LanguageService {
 
   private _selected = new BehaviorSubject<string>('');
 
-  constructor(private _translate: TranslateService, private _nativeStorage: NativeStorage, private _alertCtrl: AlertController) {
+  constructor(
+    private _translate: TranslateService,
+    private _nativeStorage: NativeStorage,
+    private _alertCtrl: AlertController) {
   }
 
   get selected() {
     return this._selected.asObservable();
+  }
+
+  get selectedLocale() {
+    return this._selected.getValue();
   }
 
   setInitialAppLanguage() {

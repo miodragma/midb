@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TvShow } from '../interfaces/tv-show.interface';
 import { tap } from 'rxjs/operators';
 import { CacheService } from 'ionic-cache';
+import { LanguageService } from '../../shared/services/language.service';
 
 @Injectable()
 export class TvShowService {
@@ -14,23 +15,30 @@ export class TvShowService {
   private _delayType = 'all';
   private _groupKey = 'tvShows';
 
-  constructor(private _http: HttpClient, private _cache: CacheService) {
+  constructor(
+    private _http: HttpClient,
+    private _cache: CacheService,
+    private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   findAllMoviesByValue(value: string, page: number, refresher): Observable<MovieResponse<TvShow>> {
-    const url = `${this.url}/search/tv?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`;
+    const url = `${this.url}/search/tv?${this.apiKey}&language=${this.getLng()}&query=${value}&page=${page}&include_adult=false`;
     const req = this._http.get<MovieResponse<TvShow>>(url);
     return this.findCacheData(url, req, refresher, 60 * 60 * 2);
   }
 
   findAllMoviesByType(type: string, page: number, refresher): Observable<MovieResponse<TvShow>> {
-    const url = `${this.url}/tv/${type}?${this.apiKey}&region=US&language=en-US&page=${page}`;
+    const url = `${this.url}/tv/${type}?${this.apiKey}&region=US&language=${this.getLng()}&page=${page}`;
     const req = this._http.get<MovieResponse<TvShow>>(url);
     return this.findCacheData(url, req, refresher, null);
   }
 
   findAllFilterMovies(filter: string, page: number, refresher): Observable<MovieResponse<TvShow>> {
-    const url = `${this.url}/discover/tv?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`;
+    const url = `${this.url}/discover/tv?${this.apiKey}&language=${this.getLng()}&page=${page}&include_adult=false${filter}`;
     const req = this._http.get<MovieResponse<TvShow>>(url);
     return this.findCacheData(url, req, refresher, 60 * 60 * 2);
   }

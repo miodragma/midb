@@ -5,6 +5,7 @@ import { MovieResponse } from '../../shared/interfaces/movies/movie-response.int
 import { Movie } from '../../shared/interfaces/movies/movie.interface';
 import { CacheService } from 'ionic-cache';
 import { tap } from 'rxjs/operators';
+import { LanguageService } from '../../shared/services/language.service';
 
 @Injectable()
 export class MoviesService {
@@ -14,23 +15,30 @@ export class MoviesService {
   private _delayType = 'all';
   private _groupKey = 'movies';
 
-  constructor(private _http: HttpClient, private _cache: CacheService) {
+  constructor(
+    private _http: HttpClient,
+    private _cache: CacheService,
+    private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   findAllMoviesByValue(value: string, page: number, refresher): Observable<MovieResponse<Movie>> {
-    const url = `${this.url}/search/movie?${this.apiKey}&language=en-US&query=${value}&page=${page}&include_adult=false`;
+    const url = `${this.url}/search/movie?${this.apiKey}&language=${this.getLng()}&query=${value}&page=${page}&include_adult=false`;
     const req = this._http.get<MovieResponse<Movie>>(url);
     return this.findCacheData(url, req, refresher, 60 * 60 * 2);
   }
 
   findAllMoviesByType(type: string, page: number, refresher): Observable<MovieResponse<Movie>> {
-    const url = `${this.url}/movie/${type}?${this.apiKey}&region=US&language=en-US&page=${page}`;
+    const url = `${this.url}/movie/${type}?${this.apiKey}&region=US&language=${this.getLng()}&page=${page}`;
     const req = this._http.get<MovieResponse<Movie>>(url);
     return this.findCacheData(url, req, refresher, null);
   }
 
   findAllFilterMovies(filter: string, page: number = 1, refresher): Observable<MovieResponse<Movie>> {
-    const url = `${this.url}/discover/movie?${this.apiKey}&language=en-US&page=${page}&include_adult=false${filter}`;
+    const url = `${this.url}/discover/movie?${this.apiKey}&language=${this.getLng()}&page=${page}&include_adult=false${filter}`;
     const req = this._http.get<MovieResponse<Movie>>(url);
     return this.findCacheData(url, req, refresher, 60 * 60 * 2);
   }

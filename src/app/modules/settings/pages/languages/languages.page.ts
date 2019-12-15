@@ -3,6 +3,7 @@ import { LanguageService } from '../../../shared/services/language.service';
 import { NavController } from '@ionic/angular';
 import { Language } from '../../interfaces/language.interface';
 import { Observable } from 'rxjs';
+import { GenresService } from '../../../shared/services/genres.service';
 
 @Component({
   selector: 'languages',
@@ -16,7 +17,8 @@ export class LanguagesPage {
 
   constructor(
     private _languageService: LanguageService,
-    private _navCtrl: NavController) {
+    private _navCtrl: NavController,
+    private _genresService: GenresService) {
   }
 
   ionViewWillEnter() {
@@ -26,6 +28,8 @@ export class LanguagesPage {
 
   selectLanguage(language: string) {
     this._languageService.setLanguage(language);
+    this._genresService.findAllMovieGenres(true);
+    this._genresService.findAllTVGenres(true);
   }
 
   navigate() {
