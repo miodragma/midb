@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="navigate()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'labels.languages' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-radio-group>
+            <ion-item *ngFor="let language of languages"
+                      (click)="selectLanguage(language.value)">
+              <ion-thumbnail slot="start">
+                <img
+                  [src]="language.flag"
+                  [alt]="language.value">
+              </ion-thumbnail>
+              <ion-label>
+                {{ language.text }}
+              </ion-label>
+              <ion-radio slot="end" [checked]="(currLanguage | async) === language.value"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

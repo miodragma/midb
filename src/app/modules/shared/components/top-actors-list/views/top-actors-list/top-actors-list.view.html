@@ -58,11 +58,11 @@
 </div>
 <div *ngIf="crews">
   <div class="info-wrapper" *ngIf="(crews | director)">
-    <p class="info-label">Director</p>
+    <p class="info-label">{{ 'labels.director' | translate }}</p>
     <p class="info-title">{{ crews | director }}</p>
   </div>
   <div class="info-wrapper" *ngIf="(crews | writers) !== ', and others'">
-    <p class="info-label">Writers</p>
+    <p class="info-label">{{ 'labels.writers' | translate }}</p>
     <p class="info-title">{{ crews | writers }}</p>
   </div>
 </div>

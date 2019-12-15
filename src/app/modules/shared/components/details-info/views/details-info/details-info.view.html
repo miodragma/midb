@@ -1,26 +1,26 @@
 <div class="card-shadow ion-padding">
-  <h5>Details</h5>
+  <h5>{{ 'labels.details' | translate }}</h5>
 </div>
 <div class="info-wrapper">
   <p
     *ngIf="detailsInfo.release_date || detailsInfo.first_air_date"
-    class="info-label">Release Date
+    class="info-label">{{ 'labels.release_date' | translate }}
   </p>
   <p class="info-title">{{ (detailsInfo.release_date | date) || (detailsInfo.first_air_date| date) }}</p>
   <p
     *ngIf="detailsInfo.production_countries || detailsInfo.origin_country"
-    class="info-label">Country of Origin
+    class="info-label">{{ 'labels.country_of_origin' | translate }}
   </p>
   <p
     class="info-title">{{ detailsInfo.production_countries ? (detailsInfo.production_countries | countries) : detailsInfo.origin_country }}</p>
   <p
     *ngIf="detailsInfo.omdbDetails.Language"
-    class="info-label">Language Spoken
+    class="info-label">{{ 'labels.language_spoken' | translate }}
   </p>
   <p class="info-title">{{ detailsInfo.omdbDetails.Language }}</p>
   <p
     *ngIf="detailsInfo.budget"
-    class="info-label">Budget
+    class="info-label">{{ 'labels.budget' | translate }}
   </p>
   <p
     *ngIf="detailsInfo.budget"
@@ -28,7 +28,7 @@
   </p>
   <p
     *ngIf="detailsInfo.revenue"
-    class="info-label">Revenue
+    class="info-label">{{ 'labels.revenue' | translate }}
   </p>
   <p
     *ngIf="detailsInfo.revenue"
@@ -36,7 +36,7 @@
   </p>
   <p
     *ngIf="detailsInfo.omdbDetails.Production !== 'N/A' || detailsInfo.production_companies.length > 0"
-    class="info-label">Production
+    class="info-label">{{ 'labels.production' | translate }}
   </p>
   <p
     *ngIf="detailsInfo.omdbDetails.Production !== 'N/A'"

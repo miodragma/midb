@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { TabsRoutingModule } from './tabs-routing.module';
 import { TabsPage } from './pages/tabs/tabs.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ TabsPage ];
 
@@ -13,7 +14,8 @@ const services = [];
 const modules = [
   CommonModule,
   IonicModule,
-  TabsRoutingModule
+  TabsRoutingModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

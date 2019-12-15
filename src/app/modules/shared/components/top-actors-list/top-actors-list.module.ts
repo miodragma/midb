@@ -5,6 +5,7 @@ import { TopActorsListView } from './views/top-actors-list/top-actors-list.view'
 import { PipesModule } from '../../pipes/pipes.module';
 import { ImageLoaderModule } from '../image-loader/image-loader.module';
 import { ImageModalModule } from '../image-modal/image-modal.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [];
 
@@ -17,7 +18,8 @@ const modules = [
   IonicModule,
   PipesModule,
   ImageLoaderModule,
-  ImageModalModule
+  ImageModalModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

@@ -80,7 +80,7 @@ export class SimilarListView implements OnInit {
         );
         let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
         this._nativeStorage.keys().then(resKeys => {
-          if (resKeys[0] === 'movies') {
+          if (resKeys.includes('movies')) {
             this._nativeStorage.getItem('movies')
               .then(res => {
                 currWatchlist = res;

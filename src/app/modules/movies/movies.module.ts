@@ -14,6 +14,7 @@ import { MoviesService } from './services/movies.service';
 import { DetailsService } from '../movie-details/services/details.service';
 
 import { MoviesPage } from './pages/movies/movies.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ MoviesPage ];
 
@@ -28,7 +29,8 @@ const modules = [
   SearchModule,
   DataListModule,
   TypeModule,
-  SlidesModule
+  SlidesModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

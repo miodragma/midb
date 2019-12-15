@@ -6,6 +6,7 @@ import { CelebritiesPage } from './pages/celebrities/celebrities.page';
 import { SearchModule } from '../shared/components/search/search.module';
 import { ActorListModule } from '../shared/components/actors-list/actor-list.module';
 import { CelebritiesService } from './services/celebrities.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ CelebritiesPage ];
 
@@ -18,7 +19,8 @@ const modules = [
   IonicModule,
   CelebritiesRoutingModule,
   SearchModule,
-  ActorListModule
+  ActorListModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

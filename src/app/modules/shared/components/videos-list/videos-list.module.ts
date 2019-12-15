@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../../pipes/pipes.module';
 import { VideosListView } from './views/videos-list/videos-list.view';
 import { ImageLoaderModule } from '../image-loader/image-loader.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [];
 
@@ -15,7 +16,8 @@ const modules = [
   CommonModule,
   IonicModule,
   PipesModule,
-  ImageLoaderModule
+  ImageLoaderModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({
