@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { StorylineView } from './views/storyline/storyline.view';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [];
 
@@ -11,7 +12,8 @@ const services = [];
 
 const modules = [
   CommonModule,
-  IonicModule
+  IonicModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

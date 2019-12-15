@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="anton-label-font">Celebrities</ion-title>
+    <ion-title class="anton-label-font">{{ 'labels.celebrities' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +34,7 @@
         </ion-slides>
       </ion-col>
     </ion-row>
-    <search [placeholder]="'Celebrity'" (changeValue)="onSearch($event)"></search>
+    <search [placeholder]="'labels.celebrity' | translate" (changeValue)="onSearch($event)"></search>
     <actor-list
       [actors]="actors$ | async"
       (clickedPage)="more($event)"

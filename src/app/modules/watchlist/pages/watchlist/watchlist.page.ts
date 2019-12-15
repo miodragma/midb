@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonItemSliding, ToastController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'watchlist.page.html',
@@ -11,10 +12,17 @@ export class WatchlistPage {
   watchlist = { watchlistMovies: [], watchlistTvShows: [] };
   currMovies = { watchlistMovies: [], watchlistTvShows: [] };
 
+  confirm = '';
+  areYouSureThatYouWantToDelete = '';
+  cancel = '';
+  delete = '';
+  successfullyDeleted = '';
+
   constructor(
     private _nativeStorage: NativeStorage,
     private _alertCtrl: AlertController,
-    private _toastCtrl: ToastController) {
+    private _toastCtrl: ToastController,
+    private _translate: TranslateService) {
   }
 
   ionViewWillEnter() {
@@ -29,17 +37,23 @@ export class WatchlistPage {
         this.watchlist = res;
         this.currMovies = res;
       });
+
+    this._translate.get('labels.confirm').subscribe(text => this.confirm = text);
+    this._translate.get('labels.are_you_sure_that_you_want_to_delete?').subscribe(text => this.areYouSureThatYouWantToDelete = text);
+    this._translate.get('labels.cancel').subscribe(text => this.cancel = text);
+    this._translate.get('labels.delete').subscribe(text => this.delete = text);
+    this._translate.get('labels.successfully_deleted').subscribe(text => this.successfullyDeleted = text);
   }
 
   onRemoveMovie(type: string, id, slidingEl: IonItemSliding) {
     const currMovie = this.watchlist[type].find(movie => movie.id === id);
     this._alertCtrl.create({
-      header: 'Confirm!',
+      header: this.confirm,
       subHeader: `${currMovie.title}`,
-      message: `Are you sure that you want to delete?`,
+      message: this.areYouSureThatYouWantToDelete,
       buttons: [
         {
-          text: 'Cancel',
+          text: this.cancel,
           role: 'cancel',
           cssClass: 'cancelButton',
           handler: () => {
@@ -47,7 +61,7 @@ export class WatchlistPage {
           }
         },
         {
-          text: 'Delete',
+          text: this.delete,
           cssClass: 'deleteButton',
           handler: () => {
             slidingEl.close();
@@ -58,7 +72,7 @@ export class WatchlistPage {
                 this.watchlist[type] = { ...this.watchlist }[type].filter(movie => movie.id !== id);
                 this.currMovies = updatedMovies;
                 this._toastCtrl.create({
-                  message: 'Successfully deleted!',
+                  message: this.successfullyDeleted,
                   duration: 2000
                 })
                   .then(toastEl => {

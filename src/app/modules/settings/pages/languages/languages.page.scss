@@ -1,0 +1,14 @@
+@import "./colors";
+
+ion-thumbnail {
+  width: 50px;
+  height: 100%;
+}
+
+ion-item {
+  --border-color: rgba(247, 38, 100, .4);
+}
+
+ion-label {
+  color: $text-color !important;
+}

@@ -9,6 +9,7 @@ import { MovieDetails } from '../../../shared/interfaces/movies/details/movie-de
 import { Cast } from '../../../shared/interfaces/credits/cast.interface';
 import { SimilarResults } from '../../../shared/interfaces/similar/similar-results.interface';
 import { PopoverListView } from '../../../shared/components/popover-list/views/popover-list/popover-list.view';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'details.page.html',
@@ -22,11 +23,12 @@ export class DetailsPage extends DetailsDataPage<MovieDetails, DetailsService> i
     loadingCtrl: LoadingController,
     alertCtrl: AlertController,
     router: Router,
+    translate: TranslateService,
     private _screenOrientation: ScreenOrientation,
     private _youtube: YoutubeVideoPlayer,
     private _popoverCtrl: PopoverController,
     private _navCtrl: NavController) {
-    super(service, route, loadingCtrl, alertCtrl, router);
+    super(service, route, loadingCtrl, alertCtrl, router, translate);
   }
 
   ngOnInit() {

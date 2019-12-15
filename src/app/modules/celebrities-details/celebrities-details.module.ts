@@ -8,6 +8,7 @@ import { PipesModule } from '../shared/pipes/pipes.module';
 import { TopActorsListModule } from '../shared/components/top-actors-list/top-actors-list.module';
 import { ImageLoaderModule } from '../shared/components/image-loader/image-loader.module';
 import { ImageModalModule } from '../shared/components/image-modal/image-modal.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ DetailsPage ];
 
@@ -22,7 +23,8 @@ const modules = [
   PipesModule,
   TopActorsListModule,
   ImageLoaderModule,
-  ImageModalModule
+  ImageModalModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

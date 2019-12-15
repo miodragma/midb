@@ -31,7 +31,7 @@
           (navigateCast)="navigateCast($event)"
           [casts]="episodeDetails?.credits.cast | orderCastCrew"
           [crews]="episodeDetails?.credits.crew"
-          [title]="'Top Billed Cast'">
+          [title]="'labels.cast' | translate">
         </top-actors-list>
       </ion-col>
     </ion-row>
@@ -42,7 +42,7 @@
         <top-actors-list
           (navigateGuest)="navigateGuest($event)"
           [guests]="episodeDetails?.credits?.guest_stars | guestOrder"
-          [title]="'Top Guest Stars'">
+          [title]="'labels.guest_stars' | translate">
         </top-actors-list>
       </ion-col>
     </ion-row>
@@ -58,7 +58,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Images</h5>
+          <h5>{{ 'labels.images' | translate }}</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
@@ -85,7 +85,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Awards</h5>
+          <h5>{{ 'labels.awards' | translate }}</h5>
         </div>
         <div class="info-wrapper">
           <p class="info-label">{{ episodeDetails?.omdbDetails.Awards.split('.')[0] }}</p>
@@ -105,17 +105,17 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Details</h5>
+          <h5>{{ 'labels.details' | translate }}</h5>
         </div>
         <div class="info-wrapper">
           <p
             *ngIf="episodeDetails?.air_date"
-            class="info-label">Release Date
+            class="info-label">{{ 'labels.release_date' | translate }}
           </p>
           <p class="info-title">{{ episodeDetails?.air_date| date }}</p>
           <p
             *ngIf="episodeDetails?.omdbDetails.Language"
-            class="info-label">Language Spoken
+            class="info-label">{{ 'labels.language_spoken' | translate }}
           </p>
           <p class="info-title">{{ episodeDetails?.omdbDetails.Language }}</p>
         </div>

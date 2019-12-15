@@ -6,6 +6,7 @@ import { Genre } from '../interfaces/genres/genre.interface';
 import { FilterGenre } from '../../filter/interfaces/filter-genre.interface';
 import { FilterYear } from '../../filter/interfaces/filter-year.interface';
 import { CacheService } from 'ionic-cache';
+import { LanguageService } from './language.service';
 
 @Injectable({ providedIn: 'root' })
 export class GenresService {
@@ -25,7 +26,14 @@ export class GenresService {
   private _filterMovieYearsList = new BehaviorSubject<FilterYear[]>([]);
   private _filterTVShowsYearsList = new BehaviorSubject<FilterYear[]>([]);
 
-  constructor(private _http: HttpClient, private _cache: CacheService) {
+  constructor(
+    private _http: HttpClient,
+    private _cache: CacheService,
+    private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   get genresList() {
@@ -52,7 +60,7 @@ export class GenresService {
     return this._filterTVShowsYearsList.asObservable();
   }
 
-  findAllMovieGenres() {
+  findAllMovieGenres(lng?) {
     const years = [];
     const currYear = new Date().getFullYear();
     for (let i = currYear; i >= 1890; i--) {
@@ -60,25 +68,49 @@ export class GenresService {
     }
     !this._filterMovieYearsList.getValue().some(year => year.isChecked) && this._filterMovieYearsList.next(years);
     if (!this._filterMoviesGenresList.getValue().length) {
-      const url = `${this._url}/genre/movie/list?${this._apiKey}&language=en-US`;
-      const req = this._http.get<{ genres: Genre[] }>(url);
-      this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
-        .pipe(
-          tap(genres => {
-            this._genresList.next(genres);
-            const filterGenres = genres.genres.map(genre => (
-              {
-                ...genre,
-                isChecked: false
-              }
-            ));
-            this._filterMoviesGenresList.next(filterGenres);
-          })
-        ).subscribe();
+      this.sourceMovieGenres();
+    } else if (lng) {
+      this.sourceMovieGenres();
     }
   }
 
-  findAllTVGenres() {
+  sourceMovieGenres() {
+    const url = `${this._url}/genre/movie/list?${this._apiKey}&language=${this.getLng()}`;
+    const req = this._http.get<{ genres: Genre[] }>(url);
+    this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
+      .pipe(
+        tap(genres => {
+          this._genresList.next(genres);
+          const filterGenres = genres.genres.map(genre => (
+            {
+              ...genre,
+              isChecked: false
+            }
+          ));
+          this._filterMoviesGenresList.next(filterGenres);
+        })
+      ).subscribe();
+  }
+
+  sourceTvGenres() {
+    const url = `${this._url}/genre/tv/list?${this._apiKey}&language=${this.getLng()}`;
+    const req = this._http.get<{ genres: Genre[] }>(url);
+    this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
+      .pipe(
+        tap(genres => {
+          this._genresTvList.next(genres);
+          const filterGenres = genres.genres.map(genre => (
+            {
+              ...genre,
+              isChecked: false
+            }
+          ));
+          this._filterTVShowsGenresList.next(filterGenres);
+        })
+      ).subscribe();
+  }
+
+  findAllTVGenres(lng?) {
     const years = [];
     const currYear = new Date().getFullYear();
     for (let i = currYear; i >= 1890; i--) {
@@ -86,21 +118,9 @@ export class GenresService {
     }
     !this._filterTVShowsYearsList.getValue().some(year => year.isChecked) && this._filterTVShowsYearsList.next(years);
     if (!this._filterTVShowsGenresList.getValue().length) {
-      const url = `${this._url}/genre/tv/list?${this._apiKey}&language=en-US`;
-      const req = this._http.get<{ genres: Genre[] }>(url);
-      this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
-        .pipe(
-          tap(genres => {
-            this._genresTvList.next(genres);
-            const filterGenres = genres.genres.map(genre => (
-              {
-                ...genre,
-                isChecked: false
-              }
-            ));
-            this._filterTVShowsGenresList.next(filterGenres);
-          })
-        ).subscribe();
+      this.sourceTvGenres();
+    } else if (lng) {
+      this.sourceTvGenres();
     }
   }
 

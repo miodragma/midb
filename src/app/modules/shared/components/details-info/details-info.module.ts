@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { DetailsInfoView } from './views/details-info/details-info.view';
 import { PipesModule } from '../../pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [];
 
@@ -13,7 +14,8 @@ const services = [];
 const modules = [
   CommonModule,
   IonicModule,
-  PipesModule
+  PipesModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

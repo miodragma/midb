@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'labels.settings' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item [routerLink]="['/', 'settings', 'languages']">
+            <ion-icon color="primary" name="globe"></ion-icon>
+            <ion-label>
+              {{ 'labels.languages' | translate }}
+            </ion-label>
+            <p>{{ language }}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

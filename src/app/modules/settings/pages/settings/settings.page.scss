@@ -1,0 +1,15 @@
+@import "./colors";
+
+ion-item {
+  --border-color: rgba(247, 38, 100, .4);
+}
+
+ion-label {
+  color: $text-color !important;
+  margin-left: 6px;
+}
+
+p {
+  color: $silver-color;
+  font-size: smaller;
+}

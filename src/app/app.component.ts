@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AdMobPro } from '@ionic-native/admob-pro/ngx';
 import { Subscription } from 'rxjs';
 import { CacheService } from 'ionic-cache';
+import { LanguageService } from './modules/shared/services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -30,13 +31,15 @@ export class AppComponent {
     private _adMob: AdMobPro,
     private _navCtrl: NavController,
     private _loaderService: LoaderService,
-    private _genresService: GenresService
+    private _genresService: GenresService,
+    private _languageService: LanguageService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this._languageService.setInitialAppLanguage();
       this._cache.clearExpired();
       this._cache.setDefaultTTL(60 * 60 * 24);
       this._cache.setOfflineInvalidate(false);

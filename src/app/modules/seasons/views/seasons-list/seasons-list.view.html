@@ -20,7 +20,7 @@
         <ion-slide *ngFor="let season of seasonList">
           <ion-card color="secondary">
             <ion-card-header>
-              <ion-card-title>{{ season.name }}</ion-card-title>
+              <ion-card-title>{{ 'labels.season' | translate }} {{ season.season_number }}</ion-card-title>
               <ion-card-subtitle>
                 {{ season.air_date | date }}
               </ion-card-subtitle>
@@ -46,7 +46,7 @@
                 [routerLink]="['/seasons', 'episode-list', tvShowId, season.season_number]"
                 fill="clear"
                 color="primary">
-                More
+                {{ 'labels.more' | translate }}
               </ion-button>
             </div>
           </ion-card>

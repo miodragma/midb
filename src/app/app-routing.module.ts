@@ -12,7 +12,8 @@ const routes: Routes = [
     path: 'details/celebrities',
     loadChildren: () => import('./modules/celebrities-details/celebrities-details.module').then(cd => cd.CelebritiesDetailsModule)
   },
-  { path: 'watchlist', loadChildren: () => import('./modules/watchlist/watchlist.module').then(wm => wm.WatchlistModule) }
+  { path: 'watchlist', loadChildren: () => import('./modules/watchlist/watchlist.module').then(wm => wm.WatchlistModule) },
+  { path: 'settings', loadChildren: () => import('./modules/settings/settings.module').then(sm => sm.SettingsModule) }
 ];
 
 @NgModule({

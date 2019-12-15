@@ -6,6 +6,7 @@ import { map, mergeMap, take } from 'rxjs/operators';
 import { OmdbDetails } from '../../shared/interfaces/omdb/omdb-details.interface';
 import { SeasonsService } from '../../shared/services/seasons.service';
 import { CacheService } from 'ionic-cache';
+import { LanguageService } from '../../shared/services/language.service';
 
 @Injectable({ providedIn: 'root' })
 export class DetailsService {
@@ -20,7 +21,12 @@ export class DetailsService {
   constructor(
     private _http: HttpClient,
     private _seasonsService: SeasonsService,
-    private _cache: CacheService) {
+    private _cache: CacheService,
+    private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   findDetailsById(id: number, refresher?): Observable<MovieDetails> {
@@ -41,7 +47,7 @@ export class DetailsService {
   }
 
   sourceDetailsTMDB(id: number, refresher) {
-    const url = `${this.url}/tv/${id}?${this.apiKey}&language=en-US&include_image_language=en,null&append_to_response=videos,images,recommendations,credits,external_ids`;
+    const url = `${this.url}/tv/${id}?${this.apiKey}&language=${this.getLng()}&include_image_language=${this.getLng()},null&append_to_response=videos,images,recommendations,credits,external_ids`;
     const req = this._http.get<MovieDetails>(url);
     if (refresher) {
       return this._cache.loadFromDelayedObservable(url, req, this._tvShowDetailsGroupKey, this._ttl, this._delayType);

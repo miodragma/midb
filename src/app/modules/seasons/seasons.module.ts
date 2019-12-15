@@ -17,6 +17,7 @@ import { TopActorsListModule } from '../shared/components/top-actors-list/top-ac
 import { VideosListModule } from '../shared/components/videos-list/videos-list.module';
 import { StorylineModule } from '../shared/components/storyline/storyline.module';
 import { ImageModalModule } from '../shared/components/image-modal/image-modal.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [
   SeasonsListPage,
@@ -45,7 +46,8 @@ const modules = [
   TopActorsListModule,
   VideosListModule,
   StorylineModule,
-  ImageModalModule
+  ImageModalModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

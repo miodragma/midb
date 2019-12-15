@@ -9,6 +9,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Cast } from '../../../shared/interfaces/credits/cast.interface';
 import { Guest } from '../../../shared/interfaces/credits/guest.interface';
 import { ImageModalPage } from '../../../shared/components/image-modal/page/image-modal.page';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'episode-details.page.html',
@@ -19,6 +20,10 @@ export class EpisodeDetailsPage implements OnInit {
   episodeDetails: Episode;
 
   isLoading: Promise<boolean>;
+
+  anErrorOccurred = '';
+  couldNotLoadDetails = '';
+  ok = '';
 
   private _showId = null;
   private _seasonNumber = null;
@@ -33,7 +38,8 @@ export class EpisodeDetailsPage implements OnInit {
     private _alertCtrl: AlertController,
     private _youtube: YoutubeVideoPlayer,
     private _screenOrientation: ScreenOrientation,
-    private _modalCtrl: ModalController) {
+    private _modalCtrl: ModalController,
+    private _translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -62,6 +68,9 @@ export class EpisodeDetailsPage implements OnInit {
         })
       )
       .subscribe();
+    this._translate.get('labels.an_error_occurred!').subscribe(text => this.anErrorOccurred = text);
+    this._translate.get('labels.could_not_load_details.').subscribe(text => this.couldNotLoadDetails = text);
+    this._translate.get('labels.ok').subscribe(text => this.ok = text);
   }
 
   trackByFn(index, item) {
@@ -80,11 +89,11 @@ export class EpisodeDetailsPage implements OnInit {
   createAlert() {
     this._alertCtrl
       .create({
-        header: 'An error occurred!',
-        message: 'Could not load details.',
+        header: this.anErrorOccurred,
+        message: this.couldNotLoadDetails,
         buttons: [
           {
-            text: 'Ok',
+            text: this.ok,
             handler: () => {
               this._navCtrl.back();
             }

@@ -5,6 +5,7 @@ import { Watchlist } from '../../../../../watchlist/models/watchlist.model';
 import { DetailsService } from '../../../../../movie-details/services/details.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ImageModalPage } from '../../../image-modal/page/image-modal.page';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'similar-list',
@@ -26,16 +27,21 @@ export class SimilarListView implements OnInit {
 
   slice = 4;
 
+  hasBeenAddedToWatchlist = '';
+
   constructor(
     private _nativeStorage: NativeStorage,
     private _toastCtrl: ToastController,
     private _movieDetailsService: DetailsService,
-    private _modalCtrl: ModalController) {
+    private _modalCtrl: ModalController,
+    private _translate: TranslateService) {
   }
 
   ngOnInit() {
     this._nativeStorage.getItem('movies')
       .then(res => this.currWatchlistMovies = res);
+
+    this._translate.get('labels.has_been_added_to_watchlist!').subscribe(text => this.hasBeenAddedToWatchlist = text);
   }
 
   trackByFn(index, item) {
@@ -80,7 +86,7 @@ export class SimilarListView implements OnInit {
         );
         let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
         this._nativeStorage.keys().then(resKeys => {
-          if (resKeys[0] === 'movies') {
+          if (resKeys.includes('movies')) {
             this._nativeStorage.getItem('movies')
               .then(res => {
                 currWatchlist = res;
@@ -116,7 +122,7 @@ export class SimilarListView implements OnInit {
   hasBeenAdded(movie: Watchlist, index: number) {
     this.bookmark.find((b, i) => i === index).color = 'primary';
     const title = this.watchlistType === 'watchlistMovies' ? movie.title : movie.name;
-    this.onShowToast(`${title} has been added to Watchlist!`);
+    this.onShowToast(`${title} ${this.hasBeenAddedToWatchlist}`);
     this.bookmarkIndex = -1;
   }
 

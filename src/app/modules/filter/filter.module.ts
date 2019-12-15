@@ -7,6 +7,7 @@ import { FilterPage } from './pages/filter.page';
 import { FilterService } from './services/filter.service';
 import { ActorListModule } from '../shared/components/actors-list/actor-list.module';
 import { SearchModule } from '../shared/components/search/search.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ FilterPage ];
 
@@ -20,7 +21,8 @@ const modules = [
   FormsModule,
   FilterRoutingModule,
   ActorListModule,
-  SearchModule
+  SearchModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

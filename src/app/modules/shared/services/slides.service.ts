@@ -4,6 +4,7 @@ import { MovieResponse } from '../interfaces/movies/movie-response.interface';
 import { Movie } from '../interfaces/movies/movie.interface';
 import { TvShow } from '../../tv-shows/interfaces/tv-show.interface';
 import { CacheService } from 'ionic-cache';
+import { LanguageService } from './language.service';
 
 @Injectable({ providedIn: 'root' })
 export class SlidesService {
@@ -14,17 +15,24 @@ export class SlidesService {
   private _groupKey = 'movieAndTvShowsSlides';
   private _ttl = 60 * 60 * 2;
 
-  constructor(private _http: HttpClient, private _cache: CacheService) {
+  constructor(
+    private _http: HttpClient,
+    private _cache: CacheService,
+    private _languageService: LanguageService) {
+  }
+
+  getLng() {
+    return this._languageService.selectedLocale;
   }
 
   findAllMovieTrendings() {
-    const url = `${this._url}/trending/movie/day?${this._apiKey}&region=US&language=en-US&page=1`;
+    const url = `${this._url}/trending/movie/day?${this._apiKey}&region=US&language=${this.getLng()}&page=1`;
     const req = this._http.get<MovieResponse<Movie>>(url);
     return this._cache.loadFromObservable(url, req, this._groupKey, this._ttl);
   }
 
   findAllTvShowTrendings() {
-    const url = `${this._url}/trending/tv/day?${this._apiKey}&region=US&language=en-US&page=1`;
+    const url = `${this._url}/trending/tv/day?${this._apiKey}&region=US&language=${this.getLng()}&page=1`;
     const req = this._http.get<MovieResponse<TvShow>>(url);
     return this._cache.loadFromObservable(url, req, this._groupKey, this._ttl);
   }

@@ -8,6 +8,7 @@ import { CelebritiesDetailsService } from '../../services/celebrities-details.se
 import { CelebrityCast } from '../../interfaces/celebrity-cast.interface';
 import { CelebrityCrew } from '../../interfaces/celebrity-crew.interface';
 import { ImageModalPage } from '../../../shared/components/image-modal/page/image-modal.page';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'details.page.html',
@@ -28,6 +29,10 @@ export class DetailsPage implements OnInit {
   sliceCrew = 4;
   sliceImg = 4;
 
+  anErrorOccurred = '';
+  couldNotLoadDetails = '';
+  ok = '';
+
   constructor(
     private _route: ActivatedRoute,
     private _loadingCtrl: LoadingController,
@@ -35,7 +40,8 @@ export class DetailsPage implements OnInit {
     private _alertCtrl: AlertController,
     private _router: Router,
     private _navCtrl: NavController,
-    private _modalCtrl: ModalController
+    private _modalCtrl: ModalController,
+    private _translate: TranslateService
   ) {
   }
 
@@ -64,6 +70,10 @@ export class DetailsPage implements OnInit {
         })
       )
       .subscribe();
+
+    this._translate.get('labels.an_error_occurred!').subscribe(text => this.anErrorOccurred = text);
+    this._translate.get('labels.could_not_load_details.').subscribe(text => this.couldNotLoadDetails = text);
+    this._translate.get('labels.ok').subscribe(text => this.ok = text);
   }
 
   isDetails(details: CelebrityResponse) {
@@ -105,11 +115,11 @@ export class DetailsPage implements OnInit {
   createAlert() {
     this._alertCtrl
       .create({
-        header: 'An error occurred!',
-        message: 'Could not load details.',
+        header: this.anErrorOccurred,
+        message: this.couldNotLoadDetails,
         buttons: [
           {
-            text: 'Ok',
+            text: this.ok,
             handler: () => {
               this._router.navigate([ '/tabs/tab/celebrities' ]);
             }

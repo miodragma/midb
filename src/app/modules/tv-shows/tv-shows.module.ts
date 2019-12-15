@@ -8,6 +8,7 @@ import { TypeModule } from '../shared/components/type/type.module';
 import { DataListModule } from '../shared/components/data-list/data-list.module';
 import { TvShowService } from './services/tv-show.service';
 import { SlidesModule } from '../shared/components/slides/slides.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ TvShowsPage ];
 
@@ -22,7 +23,8 @@ const modules = [
   SearchModule,
   TypeModule,
   DataListModule,
-  SlidesModule
+  SlidesModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({

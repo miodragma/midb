@@ -48,7 +48,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Movies Cast In</h5>
+          <h5>{{ 'labels.movies_cast_in' | translate }}</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
@@ -76,7 +76,8 @@
               <ion-card-title class="ion-card-title">
                 {{ movie.title | overview: 50 }}
               </ion-card-title>
-              <p *ngIf="movie.character" class="acting-as">as ( {{ movie.character | overview: 17 }} )</p>
+              <p *ngIf="movie.character" class="acting-as">{{ 'labels.as' | translate }}
+                ( {{ movie.character | overview: 17 }} )</p>
             </ion-card-header>
             <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
@@ -92,7 +93,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>TV Shows Cast In</h5>
+          <h5>{{ 'labels.tv_shows_cast_in' | translate }}</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
@@ -120,7 +121,8 @@
               <ion-card-title class="ion-card-title">
                 {{ movie.name | overview: 50 }}
               </ion-card-title>
-              <p *ngIf="movie.character" class="acting-as">as ( {{ movie.character | overview: 17 }} )</p>
+              <p *ngIf="movie.character" class="acting-as">{{ 'labels.as' | translate }}
+                ( {{ movie.character | overview: 17 }} )</p>
             </ion-card-header>
             <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
@@ -136,7 +138,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Crew In</h5>
+          <h5>{{ 'labels.crew_in' | translate }}</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
@@ -182,7 +184,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Images</h5>
+          <h5>{{ 'labels.images' | translate }}</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
@@ -214,23 +216,23 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Personal Details</h5>
+          <h5>{{ 'labels.personal_details' | translate }}</h5>
         </div>
         <div class="info-wrapper">
           <p
             *ngIf="details.birthday"
-            class="info-label">Born
+            class="info-label">{{ 'labels.born' | translate }}
           </p>
           <p class="info-title">{{ details.birthday | date }}</p>
           <p class="info-title">{{ details.place_of_birth }}</p>
           <p
             *ngIf="details.deathday"
-            class="info-label">Deathday
+            class="info-label">{{ 'labels.deathday' | translate }}
           </p>
           <p class="info-title">{{ details.deathday }}</p>
           <p
             *ngIf="details.biography"
-            class="info-label">Biography
+            class="info-label">{{ 'labels.biography' | translate }}
           </p>
           <p class="info-title">{{ details.biography }}</p>
         </div>
