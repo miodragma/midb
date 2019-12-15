@@ -33,7 +33,7 @@
           (navigateCast)="navigateCast($event)"
           [casts]="details?.credits.cast | orderCastCrew"
           [crews]="details?.credits.crew"
-          [title]="'Top Series Cast'">
+          [title]="'labels.cast' | translate">
         </top-actors-list>
       </ion-col>
     </ion-row>
@@ -53,7 +53,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>Awards</h5>
+          <h5>{{ 'labels.awards' | translate }}</h5>
         </div>
         <div class="info-wrapper">
           <p class="info-label">{{ details.omdbDetails.Awards.split('.')[0] }}</p>
@@ -67,7 +67,7 @@
         <similar-list
           watchlistType="watchlistTvShows"
           (navigateMovie)="navigateMovie($event)"
-          [title]="'More Like This'"
+          [title]="'labels.related' | translate"
           [similar]="details?.recommendations.results">
         </similar-list>
       </ion-col>

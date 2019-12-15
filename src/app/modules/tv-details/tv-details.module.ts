@@ -15,6 +15,7 @@ import { SimilarModule } from '../shared/components/similar-list/similar.module'
 import { StorylineModule } from '../shared/components/storyline/storyline.module';
 import { DetailsInfoModule } from '../shared/components/details-info/details-info.module';
 import { InfoModule } from '../shared/components/info/info.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [ DetailsPage ];
 
@@ -33,7 +34,8 @@ const modules = [
   ImagesListModule,
   SimilarModule,
   StorylineModule,
-  DetailsInfoModule
+  DetailsInfoModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({
