@@ -40,6 +40,20 @@
     "production": "Produktion",
     "director": "Direktor",
     "writers": "Schriftsteller",
-    "add_to_watchlist": "Auf die Beobachtungsliste"
+    "add_to_watchlist": "Auf die Beobachtungsliste",
+    "next_episode": "Nächste Folge",
+    "episode": "Folge",
+    "all_episodes": "Alle Folgen",
+    "season": "Staffel",
+    "more": "Mehr",
+    "guest_stars": "Gaststars",
+    "movies_cast_in": "Filme Darsteller",
+    "as": "wie",
+    "tv_shows_cast_in": "Fernsehsendungen Cast in",
+    "crew_in": "Crew In",
+    "personal_details": "Persönliche Details",
+    "born": "Geboren",
+    "deathday": "Todestag",
+    "biography": "Biografie"
   }
 }

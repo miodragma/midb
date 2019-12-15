@@ -40,6 +40,20 @@
     "production": "Production",
     "director": "Director",
     "writers": "Writers",
-    "add_to_watchlist": "Add To Watchlist"
+    "add_to_watchlist": "Add To Watchlist",
+    "next_episode": "Next Episode",
+    "episode": "Episode",
+    "all_episodes": "All Episodes",
+    "season": "Season",
+    "more": "More",
+    "guest_stars": "Guest Stars",
+    "movies_cast_in": "Movies Cast In",
+    "as": "as",
+    "tv_shows_cast_in": "TV Shows Cast In",
+    "crew_in": "Crew In",
+    "personal_details": "Personal Details",
+    "born": "Born",
+    "deathday": "Deathday",
+    "biography": "Biography"
   }
 }

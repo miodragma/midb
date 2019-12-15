@@ -16,7 +16,7 @@
     class="ion-no-padding">
     <ion-label class="ion-padding-bottom">
       <h2 *ngIf="details.in_production && details.next_episode_to_air !== null">
-        Next Episode: Episode
+        {{ 'labels.next_episode' | translate }}: {{ 'labels.episode' |translate }}
         #{{ details.next_episode_to_air.season_number }}.{{ details.next_episode_to_air.episode_number }}
       </h2>
       <p
@@ -29,7 +29,7 @@
       (click)="allEpisodes.emit(details?.id)"
       fill="outline"
       slot="{{ details.in_production && details.next_episode_to_air !== null ? 'end' : 'start'}}">
-      All Episodes
+      {{ 'labels.all_episodes' | translate }}
     </ion-button>
   </ion-item>
   <ion-item class="ion-no-padding">
