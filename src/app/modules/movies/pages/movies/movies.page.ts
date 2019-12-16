@@ -70,6 +70,8 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   ionViewWillEnter() {
     this.initialization();
     this.movieGenres$ = this._genresService.genresList;
+    this._genresService.findAllMovieGenres();
+    this._genresService.findAllTVGenres();
   }
 
   onAddToWatchList(movieId) {

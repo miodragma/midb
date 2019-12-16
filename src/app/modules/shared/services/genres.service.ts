@@ -26,6 +26,8 @@ export class GenresService {
   private _filterMovieYearsList = new BehaviorSubject<FilterYear[]>([]);
   private _filterTVShowsYearsList = new BehaviorSubject<FilterYear[]>([]);
 
+  private _currLng = '';
+
   constructor(
     private _http: HttpClient,
     private _cache: CacheService,
@@ -60,7 +62,7 @@ export class GenresService {
     return this._filterTVShowsYearsList.asObservable();
   }
 
-  findAllMovieGenres(lng?) {
+  findAllMovieGenres() {
     const years = [];
     const currYear = new Date().getFullYear();
     for (let i = currYear; i >= 1890; i--) {
@@ -69,12 +71,13 @@ export class GenresService {
     !this._filterMovieYearsList.getValue().some(year => year.isChecked) && this._filterMovieYearsList.next(years);
     if (!this._filterMoviesGenresList.getValue().length) {
       this.sourceMovieGenres();
-    } else if (lng) {
+    } else if (this._currLng !== this.getLng()) {
       this.sourceMovieGenres();
     }
   }
 
   sourceMovieGenres() {
+    this._currLng = this.getLng();
     const url = `${this._url}/genre/movie/list?${this._apiKey}&language=${this.getLng()}`;
     const req = this._http.get<{ genres: Genre[] }>(url);
     this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
@@ -93,6 +96,7 @@ export class GenresService {
   }
 
   sourceTvGenres() {
+    this._currLng = this.getLng();
     const url = `${this._url}/genre/tv/list?${this._apiKey}&language=${this.getLng()}`;
     const req = this._http.get<{ genres: Genre[] }>(url);
     this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
@@ -110,7 +114,7 @@ export class GenresService {
       ).subscribe();
   }
 
-  findAllTVGenres(lng?) {
+  findAllTVGenres() {
     const years = [];
     const currYear = new Date().getFullYear();
     for (let i = currYear; i >= 1890; i--) {
@@ -119,7 +123,7 @@ export class GenresService {
     !this._filterTVShowsYearsList.getValue().some(year => year.isChecked) && this._filterTVShowsYearsList.next(years);
     if (!this._filterTVShowsGenresList.getValue().length) {
       this.sourceTvGenres();
-    } else if (lng) {
+    } else if (this._currLng !== this.getLng()) {
       this.sourceTvGenres();
     }
   }

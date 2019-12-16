@@ -28,8 +28,8 @@ export class LanguagesPage {
 
   selectLanguage(language: string) {
     this._languageService.setLanguage(language);
-    this._genresService.findAllMovieGenres(true);
-    this._genresService.findAllTVGenres(true);
+    this._genresService.findAllMovieGenres();
+    this._genresService.findAllTVGenres();
   }
 
   navigate() {
