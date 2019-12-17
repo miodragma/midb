@@ -23,7 +23,8 @@
       <ion-card-title>
         {{ cast.name }}
       </ion-card-title>
-      <p *ngIf="cast.character" class="acting-as">as ( {{ cast.character | overview: 17 }} )</p>
+      <p *ngIf="cast.character" class="acting-as">{{ 'labels.as' | translate }} ( {{ cast.character | overview: 17 }}
+        )</p>
     </ion-card-header>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
@@ -50,7 +51,8 @@
       <ion-card-title>
         {{ guest.name }}
       </ion-card-title>
-      <p *ngIf="guest.character" class="acting-as">as ( {{ guest.character | overview: 17 }} )</p>
+      <p *ngIf="guest.character" class="acting-as">{{ 'labels.as' | translate }} ( {{ guest.character | overview: 17 }}
+        )</p>
     </ion-card-header>
   </ion-card>
   <span *ngIf="sliceGuest !== guests.length && guests.length > 4" class="expand-slide-icon"

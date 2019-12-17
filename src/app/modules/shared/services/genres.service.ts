@@ -77,7 +77,6 @@ export class GenresService {
   }
 
   sourceMovieGenres() {
-    this._currLng = this.getLng();
     const url = `${this._url}/genre/movie/list?${this._apiKey}&language=${this.getLng()}`;
     const req = this._http.get<{ genres: Genre[] }>(url);
     this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
@@ -96,7 +95,6 @@ export class GenresService {
   }
 
   sourceTvGenres() {
-    this._currLng = this.getLng();
     const url = `${this._url}/genre/tv/list?${this._apiKey}&language=${this.getLng()}`;
     const req = this._http.get<{ genres: Genre[] }>(url);
     this._cache.loadFromObservable(url, req, this._genresGroupKey, this._ttl)
@@ -125,6 +123,7 @@ export class GenresService {
       this.sourceTvGenres();
     } else if (this._currLng !== this.getLng()) {
       this.sourceTvGenres();
+      this._currLng = this.getLng();
     }
   }
 

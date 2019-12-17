@@ -5,6 +5,7 @@ import { Watchlist } from '../../../../../watchlist/models/watchlist.model';
 import { NotificationModel } from '../../../../models/notification.model';
 import { CreateNotificationView } from '../../../notification/create-notification.view';
 import { TranslateService } from '@ngx-translate/core';
+import { GenresService } from '../../../../services/genres.service';
 
 @Component({
   templateUrl: 'popover-list.view.html',
@@ -25,15 +26,30 @@ export class PopoverListView implements OnInit {
     private _toastCtrl: ToastController,
     private _actionSheetCtrl: ActionSheetController,
     private _modalCtrl: ModalController,
-    private _translate: TranslateService) {
+    private _translate: TranslateService,
+    private _genresService: GenresService) {
   }
 
   ngOnInit() {
     this.pop = this._navParams.get('popoverController');
-    const { id, title, name, poster_path, omdbDetails } = this._navParams.data.movie;
+    const { id, title, name, poster_path, omdbDetails, genres } = this._navParams.data.movie;
     const type = this._navParams.data.type;
     this.type = type;
-    this.movie = new Watchlist(id, title, name, poster_path, omdbDetails.Genre, omdbDetails.Released, omdbDetails.Actors, type);
+
+    let allGenres = '';
+    if (type === 'watchlistMovies') {
+      this._genresService.genresList
+        .subscribe(serviceGenres => {
+          allGenres = serviceGenres.genres.filter(genre => genres.some(genreId => genreId.id === genre.id)).map(g => g.name).join(' | ');
+        });
+    } else {
+      this._genresService.genresTvList
+        .subscribe(serviceGenres => {
+          allGenres = serviceGenres.genres.filter(genre => genres.some(genreId => genreId.id === genre.id)).map(g => g.name).join(' | ');
+        });
+    }
+
+    this.movie = new Watchlist(id, title, name, poster_path, allGenres, omdbDetails.Released, omdbDetails.Actors, type);
 
     this._translate.get('labels.is_already_in_watchlist!').subscribe(text => this.isAlreadyInWatchlist = text);
     this._translate.get('labels.has_been_added_to_watchlist!').subscribe(text => this.hasBeenAddedToWatchlist = text);

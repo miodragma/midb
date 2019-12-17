@@ -77,8 +77,16 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   onAddToWatchList(movieId) {
     this._movieDetailsService.findDetailsById(movieId)
       .subscribe(data => {
+
+        let allGenres = '';
+
+        this._genresService.genresList
+          .subscribe(serviceGenres => {
+            allGenres = serviceGenres.genres.filter(genre => data.genres.some(genreId => genreId.id === genre.id)).map(g => g.name).join(' | ');
+          });
+
         const movie = new Watchlist(
-          data.id, data.title, data.name, data.poster_path, data.omdbDetails.Genre, data.omdbDetails.Released, data.omdbDetails.Actors, 'watchlistMovies'
+          data.id, data.title, data.name, data.poster_path, allGenres, data.omdbDetails.Released, data.omdbDetails.Actors, 'watchlistMovies'
         );
         let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
         this._nativeStorage.keys().then(resKeys => {

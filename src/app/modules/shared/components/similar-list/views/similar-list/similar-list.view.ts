@@ -6,6 +6,7 @@ import { DetailsService } from '../../../../../movie-details/services/details.se
 import { ModalController, ToastController } from '@ionic/angular';
 import { ImageModalPage } from '../../../image-modal/page/image-modal.page';
 import { TranslateService } from '@ngx-translate/core';
+import { GenresService } from '../../../../services/genres.service';
 
 @Component({
   selector: 'similar-list',
@@ -34,7 +35,8 @@ export class SimilarListView implements OnInit {
     private _toastCtrl: ToastController,
     private _movieDetailsService: DetailsService,
     private _modalCtrl: ModalController,
-    private _translate: TranslateService) {
+    private _translate: TranslateService,
+    private _genresService: GenresService) {
   }
 
   ngOnInit() {
@@ -79,17 +81,29 @@ export class SimilarListView implements OnInit {
     const type = this.watchlistType === 'watchlistMovies' ?
       this._movieDetailsService.findDetailsById(movieId) :
       this._movieDetailsService.findAllTvDetails(movieId);
-    type
-      .subscribe(data => {
-        const movie = new Watchlist(
-          data.id, data.title, data.name, data.poster_path, data.omdbDetails.Genre, data.omdbDetails.Released, data.omdbDetails.Actors, this.watchlistType
-        );
-        let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
-        this._nativeStorage.keys().then(resKeys => {
-          if (resKeys.includes('movies')) {
-            this._nativeStorage.getItem('movies')
-              .then(res => {
-                currWatchlist = res;
+    type.subscribe(data => {
+      let allGenres = '';
+      if (this.watchlistType === 'watchlistMovies') {
+        this._genresService.genresList
+          .subscribe(serviceGenres => {
+            allGenres = serviceGenres.genres.filter(genre => data.genres.some(genreId => genreId.id === genre.id)).map(g => g.name).join(' | ');
+          });
+      } else {
+        this._genresService.genresTvList
+          .subscribe(serviceGenres => {
+            allGenres = serviceGenres.genres.filter(genre => data.genres.some(genreId => genreId.id === genre.id)).map(g => g.name).join(' | ');
+          });
+      }
+
+      const movie = new Watchlist(
+        data.id, data.title, data.name, data.poster_path, allGenres, data.omdbDetails.Released, data.omdbDetails.Actors, this.watchlistType
+      );
+      let currWatchlist = { watchlistMovies: [], watchlistTvShows: [] };
+      this._nativeStorage.keys().then(resKeys => {
+        if (resKeys.includes('movies')) {
+          this._nativeStorage.getItem('movies')
+            .then(res => {
+              currWatchlist = res;
                 if (currWatchlist[this.watchlistType].some(item => item.id === movie.id)) {
                   this.bookmark.find((b, i) => i === index).color = 'primary';
                   this.bookmarkIndex = -1;

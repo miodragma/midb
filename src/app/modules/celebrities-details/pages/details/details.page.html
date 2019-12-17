@@ -168,7 +168,8 @@
               <ion-card-title class="ion-card-title">
                 {{ movie.title || movie.name }}
               </ion-card-title>
-              <p *ngIf="movie.job" class="acting-as">as ( {{ movie.job | overview: 17 }} )</p>
+              <p *ngIf="movie.job" class="acting-as">{{ 'labels.as' | translate }} ( {{ movie.job | overview: 17 }}
+                )</p>
             </ion-card-header>
             <ion-ripple-effect></ion-ripple-effect>
           </ion-card>
@@ -184,7 +185,7 @@
       <ion-col
         class="billed-cast-col ion-no-padding">
         <div class="card-shadow ion-padding">
-          <h5>{{ 'labels.images' | translate }}</h5>
+          <h5>{{ 'labels.photos' | translate }}</h5>
         </div>
         <div class="scrolling-wrapper">
           <ion-card
