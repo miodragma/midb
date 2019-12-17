@@ -136,7 +136,7 @@ export class SimilarListView implements OnInit {
   hasBeenAdded(movie: Watchlist, index: number) {
     this.bookmark.find((b, i) => i === index).color = 'primary';
     const title = this.watchlistType === 'watchlistMovies' ? movie.title : movie.name;
-    this.onShowToast(`${title} ${this.hasBeenAddedToWatchlist}`);
+    this.onShowToast(`"${title}" ${this.hasBeenAddedToWatchlist}`);
     this.bookmarkIndex = -1;
   }
 

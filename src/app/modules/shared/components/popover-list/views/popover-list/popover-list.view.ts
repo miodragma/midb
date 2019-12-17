@@ -64,12 +64,12 @@ export class PopoverListView implements OnInit {
           .then(res => {
             currWatchlist = res;
             if (currWatchlist[this.type].some(item => item.id === this.movie.id)) {
-              this.onShowToast(`${title} ${this.isAlreadyInWatchlist}`);
+              this.onShowToast(`"${title}" ${this.isAlreadyInWatchlist}`);
             } else {
               currWatchlist[this.type].push(this.movie);
               this._nativeStorage.setItem('movies', currWatchlist)
                 .then(ress => {
-                  this.onShowToast(`${title} ${this.hasBeenAddedToWatchlist}`);
+                  this.onShowToast(`"${title}" ${this.hasBeenAddedToWatchlist}`);
                 });
             }
           });
@@ -78,7 +78,7 @@ export class PopoverListView implements OnInit {
           { watchlistMovies: [ this.movie ], watchlistTvShows: [] } :
           { watchlistMovies: [], watchlistTvShows: [ this.movie ] };
         this._nativeStorage.setItem('movies', value).then(res => {
-          this.onShowToast(`${title} ${this.hasBeenAddedToWatchlist}`);
+          this.onShowToast(`"${title}" ${this.hasBeenAddedToWatchlist}`);
         });
       }
     })

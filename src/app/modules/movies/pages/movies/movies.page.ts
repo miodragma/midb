@@ -95,17 +95,17 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
               .then(res => {
                 currWatchlist = res;
                 if (currWatchlist.watchlistMovies.some(item => item.id === movie.id)) {
-                  this.onShowToast(`${movie.title} ${this.isAlreadyInWatchlist}`);
+                  this.onShowToast(`"${movie.title}" ${this.isAlreadyInWatchlist}`);
                 } else {
                   currWatchlist.watchlistMovies.push(movie);
                   this._nativeStorage.setItem('movies', currWatchlist).then(ress => {
-                    this.onShowToast(`${movie.title} ${this.hasBeenAddedToWatchlist}`);
+                    this.onShowToast(`"${movie.title}" ${this.hasBeenAddedToWatchlist}`);
                   });
                 }
               });
           } else {
             this._nativeStorage.setItem('movies', { watchlistMovies: [ movie ], watchlistTvShows: [] }).then(res => {
-              this.onShowToast(`${movie.title} ${this.hasBeenAddedToWatchlist}`);
+              this.onShowToast(`"${movie.title}" ${this.hasBeenAddedToWatchlist}`);
             });
           }
         })
