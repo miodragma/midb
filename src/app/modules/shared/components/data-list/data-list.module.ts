@@ -5,6 +5,7 @@ import { DataListView } from './views/data-list.view';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ImageLoaderModule } from '../image-loader/image-loader.module';
 import { SkeletonModule } from '../skeleton/skeleton.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const pages = [];
 
@@ -17,7 +18,8 @@ const modules = [
   IonicModule,
   PipesModule,
   ImageLoaderModule,
-  SkeletonModule
+  SkeletonModule,
+  TranslateModule.forChild()
 ];
 
 @NgModule({
