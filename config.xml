@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.midb.marikj" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
-    <name>MIDB</name>
+<widget id="com.olle.mdb" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+    <name>MovieDB</name>
     <description>Movie Information DB App.</description>
     <author email="miodrag.marikj@gmail.com">Miodrag Marikj</author>
     <content src="index.html"/>

@@ -50,7 +50,7 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   ngOnInit() {
     this._translate.get('labels.is_already_in_watchlist!').subscribe(text => this.isAlreadyInWatchlist = text);
     this._translate.get('labels.has_been_added_to_watchlist!').subscribe(text => this.hasBeenAddedToWatchlist = text);
-    this._oneSignal.startInit('bce27de4-a26d-4b6e-99e8-f886fef33422', '347399723166');
+    this._oneSignal.startInit('ba2a041f-873c-4c75-9549-8256bdd97d1f', '832714447768');
     this._oneSignal.inFocusDisplaying(this._oneSignal.OSInFocusDisplayOption.Notification);
 
     this._oneSignal.handleNotificationOpened().subscribe(data => {
