@@ -104,33 +104,33 @@ export class SimilarListView implements OnInit {
           this._nativeStorage.getItem('movies')
             .then(res => {
               currWatchlist = res;
-                if (currWatchlist[this.watchlistType].some(item => item.id === movie.id)) {
-                  this.bookmark.find((b, i) => i === index).color = 'primary';
-                  this.bookmarkIndex = -1;
+              if (currWatchlist[this.watchlistType].some(item => item.id === movie.id)) {
+                this.bookmark.find((b, i) => i === index).color = 'primary';
+                this.bookmarkIndex = -1;
+                return;
+              } else {
+                currWatchlist[this.watchlistType].push(movie);
+                this._nativeStorage.setItem('movies', currWatchlist).then(ress => {
+                  this.hasBeenAdded(movie, index);
                   return;
-                } else {
-                  currWatchlist[this.watchlistType].push(movie);
-                  this._nativeStorage.setItem('movies', currWatchlist).then(ress => {
-                    this.hasBeenAdded(movie, index);
-                    return;
-                  });
-                }
-              });
-          } else {
-            const value = this.watchlistType === 'watchlistMovies' ?
-              { watchlistMovies: [ movie ], watchlistTvShows: [] } :
-              { watchlistMovies: [], watchlistTvShows: [ movie ] };
-            this._nativeStorage.setItem('movies', value).then(res => {
-              this.hasBeenAdded(movie, index);
-              return;
+                });
+              }
             });
-          }
-        })
-          .catch(error => {
-            this.onShowToast(`Error ${error}!`);
-            this.bookmarkIndex = -1;
+        } else {
+          const value = this.watchlistType === 'watchlistMovies' ?
+            { watchlistMovies: [ movie ], watchlistTvShows: [] } :
+            { watchlistMovies: [], watchlistTvShows: [ movie ] };
+          this._nativeStorage.setItem('movies', value).then(res => {
+            this.hasBeenAdded(movie, index);
+            return;
           });
-      });
+        }
+      })
+        .catch(error => {
+          this.onShowToast(`Error ${error}!`);
+          this.bookmarkIndex = -1;
+        });
+    });
   }
 
   hasBeenAdded(movie: Watchlist, index: number) {
