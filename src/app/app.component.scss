@@ -3,3 +3,32 @@
 ion-label {
   color: $text-color !important;
 }
+
+.tmdb-source {
+  display: flex;
+  margin: 16px;
+
+  & > a > img {
+    width: 40px;
+    height: 100%;
+  }
+
+  & > p {
+    max-width: 65px;
+    font-size: 12px;
+    margin: 0 15px 0 2px;
+  }
+
+}
+
+.copyright {
+  width: 100%;
+  text-align: center;
+  color: $silver-color;
+  position: absolute;
+  bottom: 10px;
+}
+
+ion-list {
+  border-bottom: 1px solid rgba(247, 38, 100, .4);
+}

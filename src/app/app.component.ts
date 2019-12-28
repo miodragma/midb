@@ -21,6 +21,8 @@ export class AppComponent {
 
   private _subscription: Subscription;
 
+  year = new Date().getFullYear();
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -48,18 +50,18 @@ export class AppComponent {
       this._genresService.findAllMovieGenres();
       this._genresService.findAllTVGenres();
       const adMboIds = {
-        banner: 'ca-app-pub-2221766326187811~2261858145',
+        banner: 'ca-app-pub-2221766326187811/3022946486',
         interstitial: 'ca-app-pub-2221766326187811/5542627609'
       };
       this._adMob.createBanner({
-        // adId: adMboIds.banner,
-        isTesting: true,
+        adId: adMboIds.banner,
+        isTesting: false,
         autoShow: true,
         position: this._adMob.AD_POSITION.BOTTOM_CENTER
       });
       this._adMob.prepareInterstitial({
-        // adId: adMboIds.interstitial,
-        isTesting: true,
+        adId: adMboIds.interstitial,
+        isTesting: false,
         autoShow: false
       });
       this._subscription = this.platform.backButton.subscribe(() => {
