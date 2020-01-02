@@ -18,6 +18,7 @@ import { VideosListModule } from '../shared/components/videos-list/videos-list.m
 import { StorylineModule } from '../shared/components/storyline/storyline.module';
 import { ImageModalModule } from '../shared/components/image-modal/image-modal.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ExternalLinksModule } from '../shared/components/external-links/external-links.module';
 
 const pages = [
   SeasonsListPage,
@@ -47,6 +48,7 @@ const modules = [
   VideosListModule,
   StorylineModule,
   ImageModalModule,
+  ExternalLinksModule,
   TranslateModule.forChild()
 ];
 

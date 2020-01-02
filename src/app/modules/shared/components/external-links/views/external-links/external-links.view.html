@@ -1,0 +1,29 @@
+<ion-fab *ngIf="isExternalIds" horizontal="end" [vertical]="type === 'celebrity' ? 'top' : 'bottom'" slot="fixed">
+  <ion-fab-button color="primary" size="small">
+    <ion-icon [name]="type === 'celebrity' ? 'arrow-dropdown' : 'arrow-dropup'"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list [side]="type === 'celebrity' ? 'bottom' : 'top'">
+    <ion-fab-button *ngIf="homepage as homepage" [href]="homepage"
+                    color="secondary">
+      <ion-icon color="primary" style="font-size: 35px" name="globe"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button *ngIf="externalIds.imdb_id as imdbId" [href]="goToImdb(imdbId)" color="secondary">
+      <img class="fab-icon" src="./assets/images/imdb.png" alt="">
+    </ion-fab-button>
+    <ion-fab-button *ngIf="id as tmdbId" [href]="goToTmdb(tmdbId)" color="secondary">
+      <img class="fab-icon" src="./assets/images/tmdb.png" alt="">
+    </ion-fab-button>
+    <ion-fab-button *ngIf="externalIds.facebook_id as facebookId" [href]="'https://www.facebook.com/' + facebookId"
+                    color="secondary">
+      <ion-icon style="color: #4267b2; font-size: 35px" name="logo-facebook"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button *ngIf="externalIds.twitter_id as twitterId" [href]="'https://twitter.com/' + twitterId"
+                    color="secondary">
+      <ion-icon style="color: #5da9dd; font-size: 35px" name="logo-twitter"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button *ngIf="externalIds.instagram_id as instagramId" [href]="'https://www.instagram.com/' + instagramId"
+                    color="secondary">
+      <img class="instagram" src="./assets/images/instagram_icon.png" alt="">
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

@@ -1,6 +1,7 @@
 import { CelebrityCast } from './celebrity-cast.interface';
 import { CelebrityCrew } from './celebrity-crew.interface';
 import { BackdropAndPosters } from '../../shared/interfaces/images/backdrop-and-posters.interface';
+import { ExternalIds } from '../../shared/interfaces/external-ids/external-ids.interface';
 
 export interface CelebrityResponse {
   adult: boolean;
@@ -19,4 +20,5 @@ export interface CelebrityResponse {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
+  external_ids: ExternalIds;
 }

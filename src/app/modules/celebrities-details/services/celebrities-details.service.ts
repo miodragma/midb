@@ -25,7 +25,7 @@ export class CelebritiesDetailsService {
   }
 
   findDetailsById(id: number, refresher?) {
-    const url = `${this._url}/person/${id}?${this._apiKey}&language=${this.getLng()}&include_image_language=${this.getLng()},null&append_to_response=images,combined_credits`;
+    const url = `${this._url}/person/${id}?${this._apiKey}&language=${this.getLng()}&include_image_language=${this.getLng()},null&append_to_response=images,combined_credits,external_ids`;
     const req = this._http.get<CelebrityResponse>(url);
     if (refresher) {
       return this._cache.loadFromDelayedObservable(url, req, this._celebrityDetailsGroupKey, this._ttl, this._delayType);

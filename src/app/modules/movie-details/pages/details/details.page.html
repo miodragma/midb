@@ -84,5 +84,13 @@
         <details-info [detailsInfo]="details"></details-info>
       </ion-col>
     </ion-row>
+    <ion-footer>
+      <external-links
+        [homepage]="details.homepage"
+        [id]="details.id"
+        [externalIds]="details.external_ids"
+        [type]="'movies'">
+      </external-links>
+    </ion-footer>
   </ion-grid>
 </ion-content>
