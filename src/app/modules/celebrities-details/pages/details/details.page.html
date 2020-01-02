@@ -13,6 +13,13 @@
     <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
   </ion-refresher>
   <ion-grid class="ion-no-padding">
+    <ion-header>
+      <external-links
+        [id]="details.id"
+        [externalIds]="details.external_ids"
+        [type]="'celebrity'">
+      </external-links>
+    </ion-header>
     <ion-row>
       <ion-col class="ion-no-padding">
         <ion-card class="ion-no-margin" color="secondary">

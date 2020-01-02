@@ -16,6 +16,7 @@ import { StorylineModule } from '../shared/components/storyline/storyline.module
 import { DetailsInfoModule } from '../shared/components/details-info/details-info.module';
 import { InfoModule } from '../shared/components/info/info.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ExternalLinksModule } from '../shared/components/external-links/external-links.module';
 
 const pages = [ DetailsPage ];
 
@@ -35,6 +36,7 @@ const modules = [
   SimilarModule,
   StorylineModule,
   DetailsInfoModule,
+  ExternalLinksModule,
   TranslateModule.forChild()
 ];
 

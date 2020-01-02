@@ -9,6 +9,7 @@ import { TopActorsListModule } from '../shared/components/top-actors-list/top-ac
 import { ImageLoaderModule } from '../shared/components/image-loader/image-loader.module';
 import { ImageModalModule } from '../shared/components/image-modal/image-modal.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ExternalLinksModule } from '../shared/components/external-links/external-links.module';
 
 const pages = [ DetailsPage ];
 
@@ -24,6 +25,7 @@ const modules = [
   TopActorsListModule,
   ImageLoaderModule,
   ImageModalModule,
+  ExternalLinksModule,
   TranslateModule.forChild()
 ];
 

@@ -57,7 +57,7 @@ export class DetailsService {
   }
 
   sourceDetailsTMDB(id: number, refresher) {
-    const url = `${this.url}/movie/${id}?${this.apiKey}&language=${this.getLng()}&include_image_language=${this.getLng()},null&append_to_response=videos,images,recommendations,credits`;
+    const url = `${this.url}/movie/${id}?${this.apiKey}&language=${this.getLng()}&include_image_language=${this.getLng()},null&append_to_response=videos,images,recommendations,credits,external_ids`;
     const req = this._http.get<MovieDetails>(url);
     if (refresher) {
       return this._cache.loadFromDelayedObservable(url, req, this._movieDetailsGroupKey, this._ttl, this._delayType);

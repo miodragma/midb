@@ -17,6 +17,7 @@ import { DetailsInfoModule } from '../shared/components/details-info/details-inf
 import { InfoModule } from '../shared/components/info/info.module';
 import { CreateNotificationView } from '../shared/components/notification/create-notification.view';
 import { TranslateModule } from '@ngx-translate/core';
+import { ExternalLinksModule } from '../shared/components/external-links/external-links.module';
 
 const pages = [ DetailsPage ];
 
@@ -36,6 +37,7 @@ const modules = [
   SimilarModule,
   StorylineModule,
   DetailsInfoModule,
+  ExternalLinksModule,
   TranslateModule.forChild()
 ];
 
