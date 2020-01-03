@@ -5,7 +5,7 @@
   <ion-card-subtitle>
     {{ (details?.release_date | date: 'y') || (details?.first_air_date | date: 'y') }}&nbsp;&nbsp;
     {{ details?.omdbDetails.Rated }}&nbsp;&nbsp;
-    {{ details?.runtime ? (details?.runtime | runtime) : details?.runtime !== null ? (details?.episode_run_time[0] | runtime) : '' }}&nbsp;&nbsp;
+    {{ details?.runtime ? (details?.runtime | runtime) : details?.name ? (details?.episode_run_time[0] | runtime) : '' }}&nbsp;&nbsp;
     {{ details?.genres | allGenres }}
   </ion-card-subtitle>
 </ion-card-header>
