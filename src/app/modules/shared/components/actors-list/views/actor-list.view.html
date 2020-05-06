@@ -1,12 +1,12 @@
 <ion-col
   class="ion-text-center">
   <p class="not-found-message"
-     *ngIf="actors.page === 1 && actors.total_results === 0">{{ 'labels.no_data_found' | translate }}</p>
-  <ion-list *ngIf="actors.page > 0">
+     *ngIf="actors?.page === 1 && actors?.total_results === 0">{{ 'labels.no_data_found' | translate }}</p>
+  <ion-list *ngIf="actors?.page > 0">
 
     <ion-item
       button
-      *ngFor="let actor of actors.results"
+      *ngFor="let actor of actors?.results"
       [detail]="!singleActor"
       (click)="checkActor.emit(actor)">
       <ion-thumbnail slot="start">
@@ -17,12 +17,12 @@
           spinnerWrapperHeight="84px"
           spinnerWrapperWidth="56px"
           (load)="onLoad()"
-          [src]="url + actor.profile_path">
+          [src]="url + actor?.profile_path">
         </image-loader>
       </ion-thumbnail>
-      <ion-label>{{ actor.name }}</ion-label>
+      <ion-label>{{ actor?.name }}</ion-label>
       <ion-radio *ngIf="singleActor"
-                 [checked]="actor.id === singleActor.id"
+                 [checked]="actor?.id === singleActor.id"
                  slot="end">
       </ion-radio>
       <ion-ripple-effect></ion-ripple-effect>

@@ -1,6 +1,6 @@
 {
   "name": "midb",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Miodrag Marikj",
   "homepage": "",
   "scripts": {
@@ -48,6 +48,7 @@
     "cordova-plugin-screen-orientation": "^3.0.2",
     "cordova-plugin-youtube-video-player": "^2.3.0",
     "core-js": "^3.2.1",
+    "device": "0.3.11",
     "emulator": "0.1.0",
     "es6-promise-plugin": "^4.2.2",
     "goog-webfont-dl": "^1.0.3",

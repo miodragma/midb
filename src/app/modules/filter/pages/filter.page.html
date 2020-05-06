@@ -10,76 +10,83 @@
 </ion-header>
 
 <ion-content>
+
   <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-col
-        class="ion-no-padding">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>{{ 'labels.filter_by_genre_and_year' | translate }}</ion-card-title>
-          </ion-card-header>
+    <form [formGroup]="form">
+      <ion-row>
+        <ion-col
+          class="ion-no-padding">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'labels.filter_by_genre_and_year' | translate }}</ion-card-title>
+            </ion-card-header>
 
-          <ion-card-content>
-            <ion-button (click)="openGenres()" expand="full" color="secondary">
-              <span>{{ 'labels.filter_by_genre' | translate }}</span>
-              <ion-icon *ngIf="!isGenres" slot="end" name="arrow-dropdown"></ion-icon>
-              <ion-icon *ngIf="isGenres" slot="end" name="arrow-dropup"></ion-icon>
-            </ion-button>
-            <ion-list *ngIf="isGenres">
-              <ion-item *ngFor="let genre of genres$ | async">
-                <ion-label>{{genre.name}}</ion-label>
-                <ion-checkbox
-                  (ionChange)="checkGenre(genre)"
-                  [value]="genre.isChecked" slot="end"
-                  [(ngModel)]="genre.isChecked">
-                </ion-checkbox>
-              </ion-item>
-            </ion-list>
+            <ion-card-content>
+              <ion-button (click)="openGenres()" expand="full" color="secondary">
+                <span>{{ 'labels.filter_by_genre' | translate }}</span>
+                <ion-icon *ngIf="!isGenres" slot="end" name="arrow-dropdown"></ion-icon>
+                <ion-icon *ngIf="isGenres" slot="end" name="arrow-dropup"></ion-icon>
+              </ion-button>
 
-            <ion-button (click)="openYears()" expand="full" color="secondary">
-              <span>{{ 'labels.filter_by_year' | translate }}</span>
-              <ion-icon *ngIf="!isYears" slot="end" name="arrow-dropdown"></ion-icon>
-              <ion-icon *ngIf="isYears" slot="end" name="arrow-dropup"></ion-icon>
-            </ion-button>
-            <ion-list *ngIf="isYears">
-              <ion-radio-group>
-                <ion-item *ngFor="let year of years$ | async; trackBy: trackByFn">
-                  <ion-label>{{ year.value }}</ion-label>
-                  <ion-radio [checked]="year.isChecked" (ionSelect)="checkYear(year)" slot="end"></ion-radio>
+              <ion-list *ngIf="isGenres">
+                <ion-item *ngFor="let genre of (genres$ | async)?.genres; let i = index;">
+                  <ion-label>{{genre.name}}</ion-label>
+                  <ion-checkbox
+                    (ionChange)="checkGenre(genre)"
+                    [checked]="formGenres.value?.includes(genre.id)"
+                    [value]="genre.name" slot="end">
+                  </ion-checkbox>
                 </ion-item>
-              </ion-radio-group>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+              </ion-list>
 
-    <ion-row *ngIf="tab !== 'tv-shows'">
-      <ion-col
-        class="ion-no-padding">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>{{ 'labels.filter_by_celebrity' | translate }}</ion-card-title>
-          </ion-card-header>
+              <ion-button (click)="openYears()" expand="full" color="secondary">
+                <span>{{ 'labels.filter_by_year' | translate }}</span>
+                <ion-icon *ngIf="!isYears" slot="end" name="arrow-dropdown"></ion-icon>
+                <ion-icon *ngIf="isYears" slot="end" name="arrow-dropup"></ion-icon>
+              </ion-button>
 
-          <ion-card-content class="ion-no-padding">
-            <search [placeholder]="'labels.celebrity' | translate" (changeValue)="onSearch($event)"></search>
-            <ion-button *ngIf="value !== ''" (click)="openActors()" expand="full" color="secondary">
-              <span>{{ 'labels.celebrities' | translate }}</span>
-              <ion-icon *ngIf="!isActors" slot="end" name="arrow-dropdown"></ion-icon>
-              <ion-icon *ngIf="isActors" slot="end" name="arrow-dropup"></ion-icon>
-            </ion-button>
-            <actor-list
-              *ngIf="value !== '' && isActors"
-              [actors]="actors$ | async"
-              [singleActor]="actor$ | async"
-              (clickedPage)="more($event)"
-              (checkActor)="checkActor($event)">
-            </actor-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+              <ion-list *ngIf="isYears">
+                <ion-radio-group formControlName="year">
+                  <ion-item *ngFor="let year of years; trackBy: trackByFn">
+                    <ion-label>{{ year }}</ion-label>
+                    <ion-radio [value]="year" slot="end"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="tab !== 'tv-shows'">
+        <ion-col
+          class="ion-no-padding">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'labels.filter_by_celebrity' | translate }}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content class="ion-no-padding">
+              <search [placeholder]="'labels.celebrity' | translate" [currValue]="val"
+                      (changeValue)="onSearch($event)"></search>
+              <ion-button *ngIf="val !== ''" (click)="openActors()" expand="full" color="secondary">
+                <span>{{ 'labels.celebrities' | translate }}</span>
+                <ion-icon *ngIf="!isActors" slot="end" name="arrow-dropdown"></ion-icon>
+                <ion-icon *ngIf="isActors" slot="end" name="arrow-dropup"></ion-icon>
+              </ion-button>
+
+              <actor-list
+                *ngIf="val !== '' && isActors"
+                [actors]="actors$ | async"
+                [singleActor]="actor$ | async"
+                (clickedPage)="more($event)"
+                (checkActor)="checkActor($event)">
+              </actor-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </form>
 
     <ion-row>
       <ion-col
@@ -89,47 +96,47 @@
             <ion-card-title>{{ 'labels.selected_filters' | translate }}</ion-card-title>
           </ion-card-header>
 
-          <ion-card-content *ngIf="isResults(tab, (actor$ | async)?.id,  filterQueryMovie, filterQueryTVShows)">
+          <ion-card-content>
             <ion-col
-              *ngIf="tab !== 'tv-shows' && (actor$ | async).id !== 0"
+              *ngIf="tab !== 'tv-shows' && (actor$ | async)?.id !== 0"
               class="ion-padding-start">
-              <p class="filter-info-title">{{ 'labels.celebrity' | translate }}</p>
+              <div class="filtered-title-reset">
+                <p class="filter-info-title">{{ 'labels.celebrity' | translate }}</p>
+                <ion-icon name="close" (click)="onResetWithCast()"></ion-icon>
+              </div>
               <span class="filter-info-description">{{ (actor$ | async).name }}</span>
             </ion-col>
+
             <ion-col
-              *ngIf="tab === 'movies' && filterQueryMovie.with_genres.length > 0"
+              *ngIf="(currFormGenres | async)?.length > 0"
               class="ion-padding-start">
-              <p class="filter-info-title">{{ 'labels.genres' | translate }}</p>
-              <ng-container *ngFor="let genre of genres$ | async">
-                <span class="filter-info-description" *ngIf="genre.isChecked">{{ genre.name }} | </span>
+              <div class="filtered-title-reset">
+                <p class="filter-info-title">{{ 'labels.genres' | translate }}</p>
+                <ion-icon name="close" (click)="onResetWithGenres()"></ion-icon>
+              </div>
+              <ng-container *ngFor="let genre of currFormGenres | async">
+                <span class="filter-info-description">{{ genre?.name }} | </span>
               </ng-container>
             </ion-col>
+
             <ion-col
-              *ngIf="tab === 'tv-shows' && filterQueryTVShows.with_genres.length > 0"
+              *ngIf="formYear.value"
               class="ion-padding-start">
-              <p class="filter-info-title">{{ 'labels.genres' | translate }}</p>
-              <ng-container *ngFor="let genre of genres$ | async">
-                <span class="filter-info-description" *ngIf="genre.isChecked">{{ genre.name }} | </span>
-              </ng-container>
+              <div class="filtered-title-reset">
+                <p class="filter-info-title">{{ 'labels.year' | translate }}</p>
+                <ion-icon name="close" (click)="onResetYear()"></ion-icon>
+              </div>
+              <span class="filter-info-description">{{ formYear.value }}</span>
             </ion-col>
-            <ion-col
-              *ngIf="tab === 'movies' && filterQueryMovie.primary_release_year"
-              class="ion-padding-start">
-              <p class="filter-info-title">{{ 'labels.year' | translate }}</p>
-              <span class="filter-info-description">{{ filterQueryMovie.primary_release_year }}</span>
-            </ion-col>
-            <ion-col
-              *ngIf="tab === 'tv-shows' && filterQueryTVShows.first_air_date_year"
-              class="ion-padding-start">
-              <p class="filter-info-title">{{ 'labels.year' | translate }}</p>
-              <span class="filter-info-description">{{ filterQueryTVShows.first_air_date_year }}</span>
-            </ion-col>
+
             <ion-row>
               <div class="action-filter-buttons">
-                <ion-button color="light" fill="outline"
-                            (click)="resetFilter()">{{ 'labels.reset' | translate }}</ion-button>
-                <ion-button color="primary" fill="solid"
-                            (click)="applyFilter()">{{ 'labels.apply' | translate }}</ion-button>
+                <ion-button
+                  [disabled]="!formGenres.value?.length && !formWithCast.value && !formYear.value"
+                  color="primary"
+                  fill="solid"
+                  (click)="applyFilter()">{{ 'labels.apply' | translate }}
+                </ion-button>
               </div>
             </ion-row>
           </ion-card-content>

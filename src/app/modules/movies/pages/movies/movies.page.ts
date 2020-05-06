@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Platform, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
@@ -18,6 +18,8 @@ import { Movie } from '../../../shared/interfaces/movies/movie.interface';
 import { Genre } from '../../../shared/interfaces/genres/genre.interface';
 import { DetailsService } from '../../../movie-details/services/details.service';
 import { Watchlist } from '../../../watchlist/models/watchlist.model';
+import { Filter } from '../../../filter/interfaces/filter-params.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: 'movies.page.html',
@@ -29,6 +31,8 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
 
   isAlreadyInWatchlist = '';
   hasBeenAddedToWatchlist = '';
+
+  queryParams: Observable<Filter>;
 
   constructor(
     service: MoviesService,
@@ -48,6 +52,11 @@ export class MoviesPage extends ListDataPage<Movie, MoviesService> implements On
   }
 
   ngOnInit() {
+
+    this.queryParams = this.route.queryParamMap
+      .pipe(
+        map((params: Params) => Object.assign({}, params.params, { tab: 'movies' }))
+      );
     this._translate.get('labels.is_already_in_watchlist!').subscribe(text => this.isAlreadyInWatchlist = text);
     this._translate.get('labels.has_been_added_to_watchlist!').subscribe(text => this.hasBeenAddedToWatchlist = text);
     this._oneSignal.startInit('ba2a041f-873c-4c75-9549-8256bdd97d1f', '832714447768');

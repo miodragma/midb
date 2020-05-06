@@ -55,13 +55,13 @@ export class AppComponent {
       };
       this._adMob.createBanner({
         adId: adMboIds.banner,
-        isTesting: false,
+        isTesting: true,
         autoShow: true,
         position: this._adMob.AD_POSITION.BOTTOM_CENTER
       });
       this._adMob.prepareInterstitial({
         adId: adMboIds.interstitial,
-        isTesting: false,
+        isTesting: true,
         autoShow: false
       });
       this._subscription = this.platform.backButton.subscribe(() => {

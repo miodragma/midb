@@ -1,4 +1,4 @@
-@import "./colors";
+@import "../../../../theme/colors";
 
 span {
   width: 100%;
@@ -64,4 +64,15 @@ ion-card-title {
   display: flex;
   justify-content: flex-end;
   margin-top: 16px;
+}
+
+.filtered-title-reset {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > ion-icon {
+    font-size: 18px;
+    color: $text-color;
+  }
 }
